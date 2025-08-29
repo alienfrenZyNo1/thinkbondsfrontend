@@ -47,19 +47,22 @@ export default function BrokersPage() {
   ];
 
   // Define actions for each row
-  const actions = (_row: unknown) => (
-    <div className="flex space-x-2">
-      <Button variant="outline" size="sm">
-        View
-      </Button>
-      {groups.includes(UserRole.ADMIN) ||
-      groups.includes(UserRole.WHOLESALE) ? (
+  const actions = (_row: unknown) => {
+    void _row;
+    return (
+      <div className="flex space-x-2">
         <Button variant="outline" size="sm">
-          Edit
+          View
         </Button>
-      ) : null}
-    </div>
-  );
+        {groups.includes(UserRole.ADMIN) ||
+        groups.includes(UserRole.WHOLESALE) ? (
+          <Button variant="outline" size="sm">
+            Edit
+          </Button>
+        ) : null}
+      </div>
+    );
+  };
 
   if (!canViewBrokers) {
     return (

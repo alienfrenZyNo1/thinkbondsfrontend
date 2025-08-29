@@ -1,43 +1,48 @@
-"use client";
+'use client';
 
-import { useState, useMemo } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { useState, useMemo } from 'react';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
-interface Column {
-  key: string;
+type Primitive = string | number | boolean | null | undefined | Date;
+
+export type Column<T extends Record<string, unknown>> = {
+  key: keyof T & string;
   title: string;
-  render?: (value: any, row: any) => React.ReactNode;
-}
+  render?: (value: T[keyof T] | Primitive, row: T) => React.ReactNode;
+};
 
-interface DataTableProps {
-  data: any[];
-  columns: Column[];
+export interface DataTableProps<T extends Record<string, unknown>> {
+  data: T[];
+  columns: Array<Column<T>>;
   searchable?: boolean;
   pagination?: boolean;
   itemsPerPage?: number;
-  actions?: (row: any) => React.ReactNode;
+  actions?: (row: T) => React.ReactNode;
 }
 
-export default function DataTable({
+export default function DataTable<T extends Record<string, unknown>>({
   data,
   columns,
   searchable = false,
   pagination = false,
   itemsPerPage = 10,
   actions,
-}: DataTableProps) {
- const [searchTerm, setSearchTerm] = useState("");
+}: DataTableProps<T>) {
+  const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
   // Filter data based on search term
   const filteredData = useMemo(() => {
     if (!searchTerm) return data;
-    
+
     return data.filter(item =>
       columns.some(column => {
-        const value = item[column.key];
-        return value && value.toString().toLowerCase().includes(searchTerm.toLowerCase());
+        const value = item[column.key as keyof T] as unknown as Primitive;
+        return (
+          value &&
+          value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        );
       })
     );
   }, [data, searchTerm, columns]);
@@ -45,7 +50,7 @@ export default function DataTable({
   // Paginate data
   const paginatedData = useMemo(() => {
     if (!pagination) return filteredData;
-    
+
     const startIndex = (currentPage - 1) * itemsPerPage;
     return filteredData.slice(startIndex, startIndex + itemsPerPage);
   }, [filteredData, currentPage, pagination, itemsPerPage]);
@@ -69,44 +74,55 @@ export default function DataTable({
           <Input
             placeholder="Search..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={e => setSearchTerm(e.target.value)}
             className="max-w-sm"
           />
         </div>
       )}
-      
+
       {/* Table */}
       <div className="rounded-md border">
         <table className="w-full">
           <thead>
             <tr className="bg-gray-50">
-              {columns.map((column) => (
-                <th key={column.key} className="border-b p-4 text-left font-medium text-gray-700">
+              {columns.map(column => (
+                <th
+                  key={column.key}
+                  className="border-b p-4 text-left font-medium text-gray-700"
+                >
                   {column.title}
                 </th>
               ))}
-              {actions && <th className="border-b p-4 text-left font-medium text-gray-700">Actions</th>}
+              {actions && (
+                <th className="border-b p-4 text-left font-medium text-gray-700">
+                  Actions
+                </th>
+              )}
             </tr>
           </thead>
           <tbody>
             {paginatedData.length > 0 ? (
               paginatedData.map((row, rowIndex) => (
                 <tr key={row.id || rowIndex} className="hover:bg-gray-50">
-                  {columns.map((column) => (
+                  {columns.map(column => (
                     <td key={column.key} className="p-4 border-b">
-                      {column.render ? column.render(row[column.key], row) : row[column.key]}
+                      {column.render
+                        ? column.render(
+                            row[column.key as keyof T] as T[keyof T],
+                            row
+                          )
+                        : (row[column.key as keyof T] as React.ReactNode)}
                     </td>
                   ))}
-                  {actions && (
-                    <td className="p-4 border-b">
-                      {actions(row)}
-                    </td>
-                  )}
+                  {actions && <td className="p-4 border-b">{actions(row)}</td>}
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={columns.length + (actions ? 1 : 0)} className="p-4 text-center text-gray-500">
+                <td
+                  colSpan={columns.length + (actions ? 1 : 0)}
+                  className="p-4 text-center text-gray-500"
+                >
                   No data found
                 </td>
               </tr>
@@ -114,12 +130,18 @@ export default function DataTable({
           </tbody>
         </table>
       </div>
-      
+
       {/* Pagination */}
       {pagination && totalPages > 1 && (
         <div className="flex justify-between items-center">
           <div className="text-sm text-gray-500">
-            Showing {Math.min((currentPage - 1) * itemsPerPage + 1, filteredData.length)} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length} entries
+            Showing{' '}
+            {Math.min(
+              (currentPage - 1) * itemsPerPage + 1,
+              filteredData.length
+            )}{' '}
+            to {Math.min(currentPage * itemsPerPage, filteredData.length)} of{' '}
+            {filteredData.length} entries
           </div>
           <div className="flex space-x-2">
             <Button
@@ -136,7 +158,9 @@ export default function DataTable({
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              onClick={() =>
+                setCurrentPage(prev => Math.min(prev + 1, totalPages))
+              }
               disabled={currentPage === totalPages}
             >
               Next

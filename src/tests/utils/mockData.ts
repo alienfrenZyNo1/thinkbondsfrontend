@@ -5,20 +5,20 @@ export const mockUsers = [
     id: '1',
     name: 'Admin User',
     email: 'admin@example.com',
-    role: 'admin'
+    role: 'admin',
   },
   {
     id: '2',
     name: 'Broker User',
     email: 'broker@example.com',
-    role: 'broker'
+    role: 'broker',
   },
   {
     id: '3',
     name: 'Policyholder User',
     email: 'policyholder@example.com',
-    role: 'policyholder'
-  }
+    role: 'policyholder',
+  },
 ];
 
 export const mockBrokers = [
@@ -29,7 +29,7 @@ export const mockBrokers = [
     email: 'john@broker.com',
     phone: '+1234567890',
     status: 'approved',
-    editHistory: []
+    editHistory: [],
   },
   {
     id: '2',
@@ -38,32 +38,32 @@ export const mockBrokers = [
     email: 'jane@broker.com',
     phone: '+1234567891',
     status: 'pending',
-    editHistory: []
-  }
+    editHistory: [],
+  },
 ];
 
 export const mockPolicyholders = [
- {
+  {
     id: '1',
     companyName: 'Test Company Inc.',
     contactName: 'John Policyholder',
     email: 'john@company.com',
     phone: '+1234567892',
     status: 'approved',
-    editHistory: []
-  }
+    editHistory: [],
+  },
 ];
 
 export const mockProposals = [
- {
+  {
     id: '1',
     title: 'Test Proposal',
     description: 'A test proposal for bonding',
     brokerId: '1',
     policyholderId: '1',
     status: 'approved',
-    editHistory: []
-  }
+    editHistory: [],
+  },
 ];
 
 export const mockOffers = [
@@ -76,12 +76,12 @@ export const mockOffers = [
     expiryDate: '2024-01-01',
     proposalId: '1',
     status: 'pending',
-    editHistory: []
-  }
+    editHistory: [],
+  },
 ];
 
 export const mockBonds = [
- {
+  {
     id: '1',
     bondAmount: '1000.00',
     premium: '50.00',
@@ -91,8 +91,8 @@ export const mockBonds = [
     policyholderId: '1',
     beneficiaryId: '1',
     status: 'active',
-    editHistory: []
-  }
+    editHistory: [],
+  },
 ];
 
 export const mockBeneficiaries = [
@@ -103,8 +103,8 @@ export const mockBeneficiaries = [
     email: 'john@beneficiary.com',
     phone: '+1234567893',
     status: 'approved',
-    editHistory: []
-  }
+    editHistory: [],
+  },
 ];
 
 export const mockCreditsafeCompanies = [
@@ -115,8 +115,8 @@ export const mockCreditsafeCompanies = [
     country: 'GB',
     address: '123 Test Street',
     city: 'Test City',
-    postcode: 'TE1 1ST'
-  }
+    postcode: 'TE1 1ST',
+  },
 ];
 
 export const mockCreditsafeReports = [
@@ -136,14 +136,14 @@ export const mockCreditsafeReports = [
       revenue: 1000000,
       profit: 100000,
       equity: 500000,
-      employees: 50
+      employees: 50,
     },
     creditScore: {
       score: 80,
       rating: 'A',
-      limit: 1000000
-    }
-  }
+      limit: 1000000,
+    },
+  },
 ];
 
 export const mockEditHistory = [
@@ -153,7 +153,7 @@ export const mockEditHistory = [
     userId: '1',
     userName: 'Admin User',
     action: 'Created',
-    changes: {}
+    changes: {},
   },
   {
     id: '2',
@@ -162,35 +162,52 @@ export const mockEditHistory = [
     userName: 'Admin User',
     action: 'Updated',
     changes: {
-      status: 'approved'
-    }
-  }
+      status: 'approved',
+    },
+  },
 ];
 
 // Function to generate mock edit history entries
-export function generateMockEditHistory(userId: string, userName: string, action: string, changes: any = {}) {
+export function generateMockEditHistory(
+  userId: string,
+  userName: string,
+  action: string,
+  changes: Record<string, unknown> = {}
+) {
   return {
     id: Date.now().toString(),
     timestamp: new Date().toISOString(),
     userId,
     userName,
     action,
-    changes
+    changes,
   };
 }
 
 // Function to generate mock user
-export function generateMockUser(id: string, name: string, email: string, role: string) {
+export function generateMockUser(
+  id: string,
+  name: string,
+  email: string,
+  role: string
+) {
   return {
     id,
     name,
     email,
-    role
+    role,
   };
 }
 
 // Function to generate mock broker
-export function generateMockBroker(id: string, companyName: string, contactName: string, email: string, phone: string, status: string = 'pending') {
+export function generateMockBroker(
+  id: string,
+  companyName: string,
+  contactName: string,
+  email: string,
+  phone: string,
+  status: string = 'pending'
+) {
   return {
     id,
     companyName,
@@ -198,12 +215,19 @@ export function generateMockBroker(id: string, companyName: string, contactName:
     email,
     phone,
     status,
-    editHistory: []
+    editHistory: [],
   };
 }
 
 // Function to generate mock policyholder
-export function generateMockPolicyholder(id: string, companyName: string, contactName: string, email: string, phone: string, status: string = 'pending') {
+export function generateMockPolicyholder(
+  id: string,
+  companyName: string,
+  contactName: string,
+  email: string,
+  phone: string,
+  status: string = 'pending'
+) {
   return {
     id,
     companyName,
@@ -211,12 +235,19 @@ export function generateMockPolicyholder(id: string, companyName: string, contac
     email,
     phone,
     status,
-    editHistory: []
+    editHistory: [],
   };
 }
 
 // Function to generate mock proposal
-export function generateMockProposal(id: string, title: string, description: string, brokerId: string, policyholderId: string, status: string = 'pending') {
+export function generateMockProposal(
+  id: string,
+  title: string,
+  description: string,
+  brokerId: string,
+  policyholderId: string,
+  status: string = 'pending'
+) {
   return {
     id,
     title,
@@ -224,6 +255,6 @@ export function generateMockProposal(id: string, title: string, description: str
     brokerId,
     policyholderId,
     status,
-    editHistory: []
+    editHistory: [],
   };
 }

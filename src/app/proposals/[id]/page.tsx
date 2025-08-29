@@ -98,7 +98,8 @@ async function fetchEditHistory(id: string): Promise<EditHistoryEntry[]> {
 }
 
 // Mock function to fetch offer for this proposal
-async function fetchOffer(proposalId: string): Promise<Offer | null> {
+async function fetchOffer(_proposalId: string): Promise<Offer | null> {
+  void _proposalId;
   // In a real implementation, this would call an API
   await new Promise(resolve => setTimeout(resolve, 500));
 

@@ -6,20 +6,23 @@ export class ApiClient {
     this.useMock = useMock;
   }
 
-  async get(url: string) {
+  async get<T = unknown>(url: string): Promise<T> {
     if (this.useMock) {
       // Return mock data
-      return this.getMockData(url);
+      return this.getMockData<T>(url);
     }
     // Make real API call
     const response = await fetch(url);
-    return response.json();
+    return response.json() as Promise<T>;
   }
 
-  async post(url: string, data: any) {
+  async post<TResponse = unknown, TBody = unknown>(
+    url: string,
+    data: TBody
+  ): Promise<TResponse> {
     if (this.useMock) {
       // Return mock data
-      return this.getMockData(url);
+      return this.getMockData<TResponse>(url);
     }
     // Make real API call
     const response = await fetch(url, {
@@ -29,11 +32,11 @@ export class ApiClient {
       },
       body: JSON.stringify(data),
     });
-    return response.json();
+    return response.json() as Promise<TResponse>;
   }
 
-  private getMockData(url: string) {
+  private getMockData<T = unknown>(url: string): Promise<T> {
     // Return mock data based on URL
-    return Promise.resolve({ message: `Mock data for ${url}` });
+    return Promise.resolve({ message: `Mock data for ${url}` } as unknown as T);
   }
 }

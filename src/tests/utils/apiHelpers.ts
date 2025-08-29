@@ -2,29 +2,40 @@
 
 import { vi } from 'vitest';
 
+type MockResponse<T = unknown> = {
+  ok: boolean;
+  status: number;
+  json: () => Promise<T>;
+  text: () => Promise<string>;
+};
+
 // Mock fetch implementation
-export function mockFetch(data: any, ok: boolean = true, status: number = 200) {
+export function mockFetch<T = unknown>(
+  data: T,
+  ok: boolean = true,
+  status: number = 200
+) {
   return vi.fn().mockResolvedValue({
     ok,
     status,
     json: () => Promise.resolve(data),
-    text: () => Promise.resolve(JSON.stringify(data))
-  });
+    text: () => Promise.resolve(JSON.stringify(data)),
+  } as MockResponse<T>);
 }
 
 // Mock successful API response
-export function mockSuccessResponse(data: any) {
-  return mockFetch(data, true, 200);
+export function mockSuccessResponse<T = unknown>(data: T) {
+  return mockFetch<T>(data, true, 200);
 }
 
 // Mock error API response
-export function mockErrorResponse(error: any, status: number = 500) {
+export function mockErrorResponse<T = unknown>(error: T, status: number = 500) {
   return vi.fn().mockResolvedValue({
     ok: false,
     status,
     json: () => Promise.reject(error),
-    text: () => Promise.reject(JSON.stringify(error))
-  });
+    text: () => Promise.reject(JSON.stringify(error)),
+  } as MockResponse<T>);
 }
 
 // Mock network error
@@ -45,7 +56,7 @@ export function mockRateLimitError() {
 // Create a mock API client
 export class MockApiClient {
   private baseUrl: string;
- private mocks: Map<string, any>;
+  private mocks: Map<string, MockResponse>;
 
   constructor(baseUrl: string = '') {
     this.baseUrl = baseUrl;
@@ -53,7 +64,7 @@ export class MockApiClient {
   }
 
   // Set a mock response for a specific endpoint
-  setMock(endpoint: string, response: any, method: string = 'GET') {
+  setMock(endpoint: string, response: MockResponse, method: string = 'GET') {
     const key = `${method}:${endpoint}`;
     this.mocks.set(key, response);
   }
@@ -64,21 +75,21 @@ export class MockApiClient {
   }
 
   // Mock fetch implementation that uses our mocks
-  async fetch(url: string, options: any = {}) {
+  async fetch(url: string, options: RequestInit = {}) {
     const method = options.method || 'GET';
     const key = `${method}:${url}`;
-    
+
     if (this.mocks.has(key)) {
       return this.mocks.get(key);
     }
-    
+
     // Default mock response
     return {
       ok: true,
       status: 200,
       json: () => Promise.resolve({ message: 'Mock response' }),
-      text: () => Promise.resolve(JSON.stringify({ message: 'Mock response' }))
-    };
+      text: () => Promise.resolve(JSON.stringify({ message: 'Mock response' })),
+    } as MockResponse<{ message: string }>;
   }
 
   // GET request
@@ -87,12 +98,12 @@ export class MockApiClient {
   }
 
   // POST request
-  async post(url: string, data: any) {
+  async post<T = unknown>(url: string, data: T) {
     return this.fetch(url, { method: 'POST', body: JSON.stringify(data) });
- }
+  }
 
   // PUT request
-  async put(url: string, data: any) {
+  async put<T = unknown>(url: string, data: T) {
     return this.fetch(url, { method: 'PUT', body: JSON.stringify(data) });
   }
 
@@ -106,15 +117,21 @@ export class MockApiClient {
 export const globalMockApiClient = new MockApiClient();
 
 // Helper to mock global fetch
-export function mockGlobalFetch(data: any, ok: boolean = true, status: number = 200) {
-  // @ts-ignore
-  global.fetch = mockFetch(data, ok, status);
+export function mockGlobalFetch<T = unknown>(
+  data: T,
+  ok: boolean = true,
+  status: number = 200
+) {
+  (globalThis as unknown as { fetch: unknown }).fetch = mockFetch<T>(
+    data,
+    ok,
+    status
+  ) as unknown;
 }
 
 // Helper to restore global fetch
 export function restoreGlobalFetch() {
-  // @ts-ignore
-  global.fetch = undefined;
+  (globalThis as unknown as { fetch?: unknown }).fetch = undefined;
 }
 
 // Mock Next.js API route handler
@@ -124,34 +141,38 @@ export function mockNextApiHandler() {
       method: 'GET',
       headers: {},
       body: null,
-      query: {}
+      query: {},
     },
     res: {
       status: vi.fn().mockReturnThis(),
       json: vi.fn(),
-      end: vi.fn()
-    }
+      end: vi.fn(),
+    },
   };
 }
 
 // Mock Next.js API route handler with custom properties
-export function mockNextApiHandlerWith(
+export function mockNextApiHandlerWith<
+  TBody = unknown,
+  TQuery extends Record<string, unknown> = Record<string, unknown>,
+  THeaders extends Record<string, string> = Record<string, string>,
+>(
   method: string = 'GET',
-  body: any = null,
-  query: any = {},
-  headers: any = {}
+  body: TBody = null as unknown as TBody,
+  query: TQuery = {} as TQuery,
+  headers: THeaders = {} as THeaders
 ) {
   return {
     req: {
       method,
       headers,
       body,
-      query
+      query,
     },
     res: {
       status: vi.fn().mockReturnThis(),
       json: vi.fn(),
-      end: vi.fn()
-    }
+      end: vi.fn(),
+    },
   };
 }

@@ -1,75 +1,68 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { useState } from "react";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { useState } from 'react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Form,
- FormControl,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { CompanySearch } from "@/components/ui/company-search";
-import { brokerRegistrationSchema } from "@/lib/zod-schemas";
-import type { CreditsafeCompany } from "@/lib/creditsafe";
-
-interface Company {
-  id: string;
-  name: string;
-  number: string;
-  country: string;
-  address: string;
-  city: string;
-  postcode: string;
-}
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { CompanySearch } from '@/components/ui/company-search';
+import { brokerRegistrationSchema } from '@/lib/zod-schemas';
+import type { CreditsafeCompany } from '@/lib/creditsafe';
 
 interface BrokerRegistrationFormProps {
   onSuccess: () => void;
   email: string;
 }
 
-export function BrokerRegistrationForm({ onSuccess, email }: BrokerRegistrationFormProps) {
+export function BrokerRegistrationForm({
+  onSuccess,
+  email,
+}: BrokerRegistrationFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof brokerRegistrationSchema>>({
     resolver: zodResolver(brokerRegistrationSchema),
     defaultValues: {
-      companyName: "",
-      companyNumber: "",
-      contactName: "",
+      companyName: '',
+      companyNumber: '',
+      contactName: '',
       email: email,
-      phone: "",
-      address: "",
-      city: "",
-      postcode: "",
-      country: "",
+      phone: '',
+      address: '',
+      city: '',
+      postcode: '',
+      country: '',
     },
   });
 
   const handleCompanySelect = (company: CreditsafeCompany) => {
-    form.setValue("companyName", company.name);
-    form.setValue("companyNumber", company.number);
-    form.setValue("address", company.address);
-    form.setValue("city", company.city);
-    form.setValue("postcode", company.postcode);
-    form.setValue("country", company.country);
+    form.setValue('companyName', company.name);
+    form.setValue('companyNumber', company.number);
+    form.setValue('address', company.address);
+    form.setValue('city', company.city);
+    form.setValue('postcode', company.postcode);
+    form.setValue('country', company.country);
   };
 
   async function onSubmit(values: z.infer<typeof brokerRegistrationSchema>) {
     setIsLoading(true);
     setApiError(null);
     try {
-      const response = await fetch("/api/registration/submit", {
-        method: "POST",
+      const response = await fetch('/api/registration/submit', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(values),
       });
@@ -77,12 +70,13 @@ export function BrokerRegistrationForm({ onSuccess, email }: BrokerRegistrationF
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to submit registration");
+        throw new Error(data.error || 'Failed to submit registration');
       }
 
       onSuccess();
     } catch (error: any) {
-      const errorMessage = error.message || "Failed to submit registration. Please try again.";
+      const errorMessage =
+        error.message || 'Failed to submit registration. Please try again.';
       setApiError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -97,25 +91,28 @@ export function BrokerRegistrationForm({ onSuccess, email }: BrokerRegistrationF
             {apiError}
           </div>
         )}
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormField
             control={form.control}
             name="companyName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Company Name</FormLabel>
-                <FormControl>
-                  <CompanySearch
-                    onCompanySelect={handleCompanySelect}
-                    placeholder="Search for a company..."
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            render={({ field }) => {
+              void field;
+              return (
+                <FormItem>
+                  <FormLabel>Company Name</FormLabel>
+                  <FormControl>
+                    <CompanySearch
+                      onCompanySelect={handleCompanySelect}
+                      placeholder="Search for a company..."
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
           />
-          
+
           <FormField
             control={form.control}
             name="companyNumber"
@@ -129,7 +126,7 @@ export function BrokerRegistrationForm({ onSuccess, email }: BrokerRegistrationF
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="contactName"
@@ -143,7 +140,7 @@ export function BrokerRegistrationForm({ onSuccess, email }: BrokerRegistrationF
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="email"
@@ -157,7 +154,7 @@ export function BrokerRegistrationForm({ onSuccess, email }: BrokerRegistrationF
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="phone"
@@ -171,7 +168,7 @@ export function BrokerRegistrationForm({ onSuccess, email }: BrokerRegistrationF
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="country"
@@ -186,7 +183,7 @@ export function BrokerRegistrationForm({ onSuccess, email }: BrokerRegistrationF
             )}
           />
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <FormField
             control={form.control}
@@ -201,7 +198,7 @@ export function BrokerRegistrationForm({ onSuccess, email }: BrokerRegistrationF
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="city"
@@ -215,7 +212,7 @@ export function BrokerRegistrationForm({ onSuccess, email }: BrokerRegistrationF
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="postcode"
@@ -230,9 +227,9 @@ export function BrokerRegistrationForm({ onSuccess, email }: BrokerRegistrationF
             )}
           />
         </div>
-        
+
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Submitting..." : "Submit Registration"}
+          {isLoading ? 'Submitting...' : 'Submit Registration'}
         </Button>
       </form>
     </Form>

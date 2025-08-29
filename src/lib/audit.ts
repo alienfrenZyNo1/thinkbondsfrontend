@@ -10,7 +10,7 @@ interface AuditLogEntry {
   userAgent?: string;
   resourceId?: string;
   resourceType: string;
-  details?: any;
+  details?: Record<string, unknown>;
 }
 
 // In-memory storage for audit logs (in production, this would be in a database)
@@ -23,14 +23,16 @@ const auditLogs: AuditLogEntry[] = [];
 export function logAuditEvent(entry: Omit<AuditLogEntry, 'timestamp'>) {
   const auditEntry: AuditLogEntry = {
     ...entry,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   };
-  
+
   // In production, this would send to a logging service or database
   auditLogs.push(auditEntry);
-  
+
   // Also log to console for development
-  console.log(`[AUDIT] ${auditEntry.timestamp} - ${auditEntry.action} - ${auditEntry.resourceType} ${auditEntry.resourceId || ''}`);
+  console.log(
+    `[AUDIT] ${auditEntry.timestamp} - ${auditEntry.action} - ${auditEntry.resourceType} ${auditEntry.resourceId || ''}`
+  );
 }
 
 /**

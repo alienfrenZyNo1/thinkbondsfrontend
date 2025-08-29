@@ -29,7 +29,7 @@ interface EditHistoryEntry {
 }
 
 // Mock data fetching functions
-async function fetchPolicyholder(id: string) {
+async function fetchPolicyholder(id: string): Promise<Policyholder> {
   // In a real implementation, this would call an API
   await new Promise(resolve => setTimeout(resolve, 500));
   const response = await fetch(`/api/policyholders/${id}`);
@@ -50,7 +50,7 @@ async function fetchCreditsafeData(companyId: string) {
   return data.length > 0 ? data[0] : null;
 }
 
-async function fetchEditHistory(id: string) {
+async function fetchEditHistory(id: string): Promise<EditHistoryEntry[]> {
   // In a real implementation, this would call an API
   await new Promise(resolve => setTimeout(resolve, 500));
   const response = await fetch(`/api/policyholders/${id}/history`);

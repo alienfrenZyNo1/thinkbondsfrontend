@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 interface Step {
   id: string;
@@ -9,23 +9,27 @@ interface Step {
   component: React.ReactNode;
 }
 
-interface FormWizardProps {
+interface FormWizardProps<
+  T extends Record<string, unknown> = Record<string, unknown>,
+> {
   steps: Step[];
-  onSubmit: (data: any) => void;
-  initialData?: any;
+  onSubmit: (data: T) => void | Promise<void>;
+  initialData?: T;
 }
 
-export default function FormWizard({ steps, onSubmit, initialData = {} }: FormWizardProps) {
+export default function FormWizard<
+  T extends Record<string, unknown> = Record<string, unknown>,
+>({ steps, onSubmit, initialData = {} as T }: FormWizardProps<T>) {
   const [currentStep, setCurrentStep] = useState(0);
-  const [formData, setFormData] = useState(initialData);
+  const [formData, setFormData] = useState<T>(initialData);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleNext = (stepData: any) => {
-    setFormData({ ...formData, ...stepData });
+  const handleNext = (stepData: Partial<T>) => {
+    setFormData({ ...formData, ...stepData } as T);
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      handleSubmit({ ...formData, ...stepData });
+      handleSubmit({ ...formData, ...stepData } as T);
     }
   };
 
@@ -35,7 +39,7 @@ export default function FormWizard({ steps, onSubmit, initialData = {} }: FormWi
     }
   };
 
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = async (data: T) => {
     setIsSubmitting(true);
     try {
       await onSubmit(data);
@@ -46,7 +50,7 @@ export default function FormWizard({ steps, onSubmit, initialData = {} }: FormWi
 
   const handleSaveDraft = () => {
     // Save draft logic would go here
-    console.log("Saving draft:", formData);
+    console.log('Saving draft:', formData);
   };
 
   return (
@@ -55,21 +59,30 @@ export default function FormWizard({ steps, onSubmit, initialData = {} }: FormWi
       <div className="mb-8">
         <div className="flex justify-between relative">
           <div className="absolute top-4 left-0 right-0 h-1 bg-gray-200 z-0"></div>
-          <div 
+          <div
             className="absolute top-4 left-0 h-1 bg-blue-500 z-10 transition-all duration-300"
-            style={{ 
-              width: `${(currentStep / (steps.length - 1)) * 10}%` 
+            style={{
+              width: `${(currentStep / (steps.length - 1)) * 10}%`,
             }}
           ></div>
-          
+
           {steps.map((step, index) => (
-            <div key={step.id} className="relative z-20 flex flex-col items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                index <= currentStep ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'
-              }`}>
+            <div
+              key={step.id}
+              className="relative z-20 flex flex-col items-center"
+            >
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                  index <= currentStep
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-200 text-gray-500'
+                }`}
+              >
                 {index + 1}
               </div>
-              <span className="mt-2 text-sm font-medium hidden md:block">{step.title}</span>
+              <span className="mt-2 text-sm font-medium hidden md:block">
+                {step.title}
+              </span>
             </div>
           ))}
         </div>
@@ -93,7 +106,7 @@ export default function FormWizard({ steps, onSubmit, initialData = {} }: FormWi
           <Button variant="outline" onClick={handleSaveDraft}>
             Save Draft
           </Button>
-          <Button 
+          <Button
             onClick={() => {
               // In a real implementation, we would collect data from the current step component
               // For now, we'll just move to the next step
@@ -101,7 +114,11 @@ export default function FormWizard({ steps, onSubmit, initialData = {} }: FormWi
             }}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Submitting...' : currentStep === steps.length - 1 ? 'Submit' : 'Next'}
+            {isSubmitting
+              ? 'Submitting...'
+              : currentStep === steps.length - 1
+                ? 'Submit'
+                : 'Next'}
           </Button>
         </div>
       </div>

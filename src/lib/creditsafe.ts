@@ -38,7 +38,10 @@ export interface CreditsafeReport {
 
 // Custom error classes
 export class CreditsafeError extends Error {
-  constructor(message: string, public statusCode?: number) {
+  constructor(
+    message: string,
+    public statusCode?: number
+  ) {
     super(message);
     this.name = 'CreditsafeError';
   }
@@ -64,7 +67,7 @@ interface CacheItem<T> {
   timestamp: number;
 }
 
-const cache = new Map<string, CacheItem<any>>();
+const cache = new Map<string, CacheItem<unknown>>();
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
 // Check if item is expired
@@ -76,12 +79,12 @@ function isExpired<T>(item: CacheItem<T>): boolean {
 function getFromCache<T>(key: string): T | null {
   const item = cache.get(key);
   if (!item) return null;
-  
+
   if (isExpired(item)) {
     cache.delete(key);
     return null;
   }
-  
+
   return item.data;
 }
 
@@ -89,19 +92,23 @@ function getFromCache<T>(key: string): T | null {
 function setInCache<T>(key: string, data: T): void {
   cache.set(key, {
     data,
-    timestamp: Date.now()
+    timestamp: Date.now(),
   });
 }
 
 // Retry function with exponential backoff
-async function retry<T>(fn: () => Promise<T>, retries: number = 3, delay: number = 1000): Promise<T> {
+async function retry<T>(
+  fn: () => Promise<T>,
+  retries: number = 3,
+  delay: number = 1000
+): Promise<T> {
   try {
     return await fn();
   } catch (error) {
     if (retries <= 0) {
       throw error;
     }
-    
+
     // Exponential backoff
     await new Promise(resolve => setTimeout(resolve, delay));
     return retry(fn, retries - 1, delay * 2);
@@ -129,40 +136,46 @@ export class CreditsafeAPI {
     if (cached) {
       return cached;
     }
-    
+
     // Check if we're using mock data
     const useMock = process.env.USE_MOCK === 'true';
-    
+
     if (useMock) {
       // For mock implementation, call our local API with retry logic
       try {
         const response = await retry(async () => {
           const res = await fetch(`/api/creditsafe/reports/${companyId}`);
-          
+
           // Handle rate limiting
           if (res.status === 429) {
-            throw new RateLimitError('Rate limit exceeded. Please try again later.');
+            throw new RateLimitError(
+              'Rate limit exceeded. Please try again later.'
+            );
           }
-          
+
           if (!res.ok) {
-            throw new NetworkError(`Failed to fetch company report: ${res.status} ${res.statusText}`);
+            throw new NetworkError(
+              `Failed to fetch company report: ${res.status} ${res.statusText}`
+            );
           }
-          
+
           return res;
         });
-        
+
         const data = await response.json();
         setInCache(cacheKey, data);
         return data;
       } catch (error) {
         console.error('Error fetching company report:', error);
-        
+
         // Re-throw with proper error type
         if (error instanceof CreditsafeError) {
           throw error;
         }
-        
-        throw new CreditsafeError('Failed to fetch company report. Please try again.');
+
+        throw new CreditsafeError(
+          'Failed to fetch company report. Please try again.'
+        );
       }
     } else {
       // Implementation for getting company report from Creditsafe API
@@ -183,40 +196,48 @@ export class CreditsafeAPI {
     if (cached) {
       return cached;
     }
-    
+
     // Check if we're using mock data
     const useMock = process.env.USE_MOCK === 'true';
-    
+
     if (useMock) {
       // For mock implementation, call our local API with retry logic
       try {
         const response = await retry(async () => {
-          const res = await fetch(`/api/creditsafe/search?q=${encodeURIComponent(searchTerm)}`);
-          
+          const res = await fetch(
+            `/api/creditsafe/search?q=${encodeURIComponent(searchTerm)}`
+          );
+
           // Handle rate limiting
           if (res.status === 429) {
-            throw new RateLimitError('Rate limit exceeded. Please try again later.');
+            throw new RateLimitError(
+              'Rate limit exceeded. Please try again later.'
+            );
           }
-          
+
           if (!res.ok) {
-            throw new NetworkError(`Failed to search companies: ${res.status} ${res.statusText}`);
+            throw new NetworkError(
+              `Failed to search companies: ${res.status} ${res.statusText}`
+            );
           }
-          
+
           return res;
         });
-        
+
         const data = await response.json();
         setInCache(cacheKey, data);
         return data;
       } catch (error) {
         console.error('Error searching companies:', error);
-        
+
         // Re-throw with proper error type
         if (error instanceof CreditsafeError) {
           throw error;
         }
-        
-        throw new CreditsafeError('Failed to search companies. Please try again.');
+
+        throw new CreditsafeError(
+          'Failed to search companies. Please try again.'
+        );
       }
     } else {
       // Implementation for searching companies in Creditsafe API
@@ -230,10 +251,12 @@ export class CreditsafeAPI {
    * @param companyId The Creditsafe company ID
    * @returns Promise<any> The company financials
    */
-  async getCompanyFinancials(companyId: string): Promise<any> {
+  async getCompanyFinancials(
+    companyId: string
+  ): Promise<CreditsafeReport['financialSummary'] | Record<string, never>> {
     // Check if we're using mock data
     const useMock = process.env.USE_MOCK === 'true';
-    
+
     if (useMock) {
       // For mock implementation, we could call a specific endpoint or return data from the report
       try {
@@ -249,14 +272,14 @@ export class CreditsafeAPI {
       throw new Error('Real Creditsafe API implementation not yet available');
     }
   }
-  
+
   /**
    * Clear the cache
    */
   static clearCache(): void {
     cache.clear();
   }
-  
+
   /**
    * Get cache size
    * @returns number The number of items in cache
