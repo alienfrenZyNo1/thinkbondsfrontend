@@ -2,7 +2,9 @@ import { Page } from '@playwright/test';
 import { encode } from 'next-auth/jwt';
 
 const isHttps = (process.env.NEXTAUTH_URL ?? '').startsWith('https://');
-const COOKIE_NAME = isHttps ? '__Secure-next-auth.session-token' : 'next-auth.session-token';
+const COOKIE_NAME = isHttps
+  ? '__Secure-next-auth.session-token'
+  : 'next-auth.session-token';
 
 export const mockAuthentication = async (page: Page, role: string) => {
   const secret = process.env.NEXTAUTH_SECRET;
@@ -11,7 +13,7 @@ export const mockAuthentication = async (page: Page, role: string) => {
   }
 
   const now = Math.floor(Date.now() / 1000);
-  
+
   // Create a JWT token that matches what NextAuth expects with dominoData structure
   const jwtToken = {
     sub: '1', // Subject (user ID)
@@ -39,13 +41,16 @@ export const mockAuthentication = async (page: Page, role: string) => {
   };
 
   console.log('JWT token payload:', JSON.stringify(jwtToken, null, 2));
-  
+
   // Use NextAuth's encode function to create a proper JWT
+  const useEncryption =
+    (process.env.NEXTAUTH_ENCRYPTION ?? '').toLowerCase() === 'true';
   const encodedToken = await encode({
     secret,
     token: jwtToken,
+    encryption: useEncryption,
   });
-  
+
   console.log('Generated JWT token length:', encodedToken.length);
   console.log('JWT token (first 50 chars):', encodedToken.substring(0, 50));
 
@@ -60,16 +65,19 @@ export const mockAuthentication = async (page: Page, role: string) => {
       sameSite: 'Lax',
       secure: isHttps,
     },
+    {
+      name: 'e2e-role',
+      value: role,
+      domain: 'localhost',
+      path: '/',
+      httpOnly: false,
+      sameSite: 'Lax',
+      secure: isHttps,
+    },
   ]);
-  
+
   console.log(`Set cookie: ${COOKIE_NAME} for localhost`);
 
-  // Navigate directly to the dashboard after setting the cookie
-  await page.goto('http://localhost:3000/dashboard');
-
-  // Add a wait for the URL or for a specific element on the dashboard
-  await page.waitForURL('http://localhost:3000/dashboard'); // Ensure it redirects
+  // Do not auto-navigate; let tests control navigation
   console.log(`Mocked authentication for role: ${role}`);
-  console.log('Current URL after navigation:', page.url()); // Log current URL
-  console.log('Page body content after navigation:', await page.textContent('body')); // Log body content
 };

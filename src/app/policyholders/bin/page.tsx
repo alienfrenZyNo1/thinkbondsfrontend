@@ -14,21 +14,22 @@ interface Policyholder {
   email: string;
   phone: string;
   status: string;
-  editHistory: any[];
+  editHistory: Record<string, unknown>[];
 }
 
 export default function PolicyholdersBinPage() {
   const router = useRouter();
- const { groups } = useAuthData();
+  const { groups } = useAuthData();
   const [policyholders, setPolicyholders] = useState<Policyholder[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   // Check if user has access to view the policyholder bin
-  const canViewPolicyholderBin = groups.includes(UserRole.ADMIN) ||
-                                groups.includes(UserRole.WHOLESALE) ||
-                                groups.includes(UserRole.AGENT) ||
-                                groups.includes(UserRole.BROKER);
+  const canViewPolicyholderBin =
+    groups.includes(UserRole.ADMIN) ||
+    groups.includes(UserRole.WHOLESALE) ||
+    groups.includes(UserRole.AGENT) ||
+    groups.includes(UserRole.BROKER);
 
   useEffect(() => {
     if (!canViewPolicyholderBin) {
@@ -45,7 +46,9 @@ export default function PolicyholdersBinPage() {
         const data = await response.json();
         setPolicyholders(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        setError(
+          err instanceof Error ? err.message : 'An unknown error occurred'
+        );
       } finally {
         setLoading(false);
       }
@@ -68,9 +71,13 @@ export default function PolicyholdersBinPage() {
       }
 
       // Remove the restored policyholder from the list
-      setPolicyholders(policyholders.filter(policyholder => policyholder.id !== id));
+      setPolicyholders(
+        policyholders.filter(policyholder => policyholder.id !== id)
+      );
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      setError(
+        err instanceof Error ? err.message : 'An unknown error occurred'
+      );
     }
   };
 
@@ -78,9 +85,13 @@ export default function PolicyholdersBinPage() {
     return (
       <ProtectedRoute>
         <div className="p-6">
-          <h1 className="text-3xl font-bold mb-4">Soft Deleted Policyholders</h1>
+          <h1 className="text-3xl font-bold mb-4">
+            Soft Deleted Policyholders
+          </h1>
           <div className="bg-yellow-50 border border-yellow-200 rounded p-4">
-            <p className="text-yellow-700">You don't have permission to view soft deleted policyholders.</p>
+            <p className="text-yellow-700">
+              You don&apos;t have permission to view soft deleted policyholders.
+            </p>
           </div>
         </div>
       </ProtectedRoute>
@@ -114,7 +125,9 @@ export default function PolicyholdersBinPage() {
 
         {!loading && !error && (
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Soft Deleted Policyholders</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              Soft Deleted Policyholders
+            </h2>
             {policyholders.length === 0 ? (
               <p>No soft deleted policyholders found.</p>
             ) : (
@@ -130,14 +143,18 @@ export default function PolicyholdersBinPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {policyholders.map((policyholder) => (
+                    {policyholders.map(policyholder => (
                       <tr key={policyholder.id} className="hover:bg-gray-50">
-                        <td className="p-4 border-b">{policyholder.companyName}</td>
-                        <td className="p-4 border-b">{policyholder.contactName}</td>
+                        <td className="p-4 border-b">
+                          {policyholder.companyName}
+                        </td>
+                        <td className="p-4 border-b">
+                          {policyholder.contactName}
+                        </td>
                         <td className="p-4 border-b">{policyholder.email}</td>
                         <td className="p-4 border-b">{policyholder.phone}</td>
                         <td className="p-4 border-b">
-                          <Button 
+                          <Button
                             onClick={() => handleRestore(policyholder.id)}
                             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                           >

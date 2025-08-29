@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { PinVerificationForm } from "@/components/forms/PinVerificationForm";
-import { BrokerRegistrationForm } from "@/components/forms/BrokerRegistrationForm";
-import { SuccessMessage } from "@/components/ui/success-message";
+import { useState } from 'react';
+import { PinVerificationForm } from '@/components/forms/PinVerificationForm';
+import { BrokerRegistrationForm } from '@/components/forms/BrokerRegistrationForm';
+import { SuccessMessage } from '@/components/ui/success-message';
 
 export default function BrokerRegisterPage() {
-  const [step, setStep] = useState<"pin" | "registration" | "success">("pin");
-  const [email, setEmail] = useState("");
+  const [step, setStep] = useState<'pin' | 'registration' | 'success'>('pin');
+  const [_email, _setEmail] = useState('');
 
   const handlePinSuccess = () => {
-    setStep("registration");
+    setStep('registration');
   };
 
   const handleRegistrationSuccess = () => {
-    setStep("success");
+    setStep('success');
   };
 
-  if (step === "success") {
+  if (step === 'success') {
     return (
       <SuccessMessage
         title="Registration Complete"
@@ -28,19 +28,18 @@ export default function BrokerRegisterPage() {
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6 text-center">Broker Registration</h1>
-      
-      {step === "pin" && (
-        <PinVerificationForm
-          onSuccess={handlePinSuccess}
-          email={email}
-        />
+      <h1 className="text-2xl font-bold mb-6 text-center">
+        Broker Registration
+      </h1>
+
+      {step === 'pin' && (
+        <PinVerificationForm onSuccess={handlePinSuccess} email={_email} />
       )}
-      
-      {step === "registration" && (
+
+      {step === 'registration' && (
         <BrokerRegistrationForm
           onSuccess={handleRegistrationSuccess}
-          email={email}
+          email={_email}
         />
       )}
     </div>

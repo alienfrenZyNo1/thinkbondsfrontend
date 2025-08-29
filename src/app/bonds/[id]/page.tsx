@@ -1,13 +1,12 @@
 'use client';
 
-import { ProtectedRoute } from "@/components/protected-route";
-import { useAuthData } from "@/lib/auth-hooks";
-import { UserRole } from "@/lib/roles";
-import { useQuery } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { ProtectedRoute } from '@/components/protected-route';
+import { useAuthData } from '@/lib/auth-hooks';
+import { UserRole } from '@/lib/roles';
+import { useQuery } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface Bond {
   id: string;
@@ -28,7 +27,7 @@ interface Bond {
   terms: string;
   status: string;
   createdAt: string;
-  editHistory: any[];
+  editHistory: EditHistoryEntry[];
 }
 
 interface EditHistoryEntry {
@@ -37,7 +36,7 @@ interface EditHistoryEntry {
   userId: string;
   userName: string;
   action: string;
-  changes?: Record<string, any>;
+  changes?: Record<string, unknown>;
 }
 
 // Mock data fetching functions
@@ -65,31 +64,41 @@ export default function BondDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const { groups } = useAuthData();
   const [activeTab, setActiveTab] = useState<'details' | 'history'>('details');
-  
+
   // Check if user has access to view bonds
-  const canViewBond = groups.includes(UserRole.ADMIN) ||
-                      groups.includes(UserRole.WHOLESALE) ||
-                      groups.includes(UserRole.AGENT) ||
-                      groups.includes(UserRole.BROKER) ||
-                      groups.includes(UserRole.POLICYHOLDER);
-  
+  const canViewBond =
+    groups.includes(UserRole.ADMIN) ||
+    groups.includes(UserRole.WHOLESALE) ||
+    groups.includes(UserRole.AGENT) ||
+    groups.includes(UserRole.BROKER) ||
+    groups.includes(UserRole.POLICYHOLDER);
+
   // Check if user can edit bonds
-  const canEditBond = groups.includes(UserRole.ADMIN) ||
-                     groups.includes(UserRole.WHOLESALE);
-  
+  const canEditBond =
+    groups.includes(UserRole.ADMIN) || groups.includes(UserRole.WHOLESALE);
+
   // Check if user can restore bonds
-  const canRestoreBond = groups.includes(UserRole.ADMIN) ||
-                         groups.includes(UserRole.WHOLESALE);
-  
+  const canRestoreBond =
+    groups.includes(UserRole.ADMIN) || groups.includes(UserRole.WHOLESALE);
+
   // Fetch bond data
-  const { data: bond, isLoading: isBondLoading, error: bondError, refetch: refetchBond } = useQuery<Bond>({
+  const {
+    data: bond,
+    isLoading: isBondLoading,
+    error: bondError,
+    refetch: refetchBond,
+  } = useQuery<Bond>({
     queryKey: ['bond', params.id],
     queryFn: () => fetchBond(params.id),
     enabled: canViewBond,
   });
 
   // Fetch edit history
-  const { data: editHistory, isLoading: isHistoryLoading, error: historyError } = useQuery<EditHistoryEntry[]>({
+  const {
+    data: editHistory,
+    isLoading: isHistoryLoading,
+    error: historyError,
+  } = useQuery<EditHistoryEntry[]>({
     queryKey: ['editHistory', params.id],
     queryFn: () => fetchEditHistory(params.id),
     enabled: canViewBond && activeTab === 'history',
@@ -97,16 +106,16 @@ export default function BondDetailPage({ params }: { params: { id: string } }) {
 
   const handleSoftDelete = async () => {
     if (!canEditBond) return;
-    
+
     try {
       const response = await fetch(`/api/bonds/${params.id}`, {
         method: 'DELETE',
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to delete bond');
       }
-      
+
       // Refresh the bond data
       refetchBond();
     } catch (error) {
@@ -116,16 +125,16 @@ export default function BondDetailPage({ params }: { params: { id: string } }) {
 
   const handleRestore = async () => {
     if (!canRestoreBond) return;
-    
+
     try {
       const response = await fetch(`/api/bonds/${params.id}/restore`, {
         method: 'PUT',
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to restore bond');
       }
-      
+
       // Refresh the bond data
       refetchBond();
     } catch (error) {
@@ -139,7 +148,9 @@ export default function BondDetailPage({ params }: { params: { id: string } }) {
         <div className="p-6">
           <h1 className="text-3xl font-bold mb-4">Bond Details</h1>
           <div className="bg-yellow-50 border border-yellow-200 rounded p-4">
-            <p className="text-yellow-700">You don't have permission to view this bond.</p>
+            <p className="text-yellow-700">
+              You don&apos;t have permission to view this bond.
+            </p>
           </div>
         </div>
       </ProtectedRoute>
@@ -153,32 +164,38 @@ export default function BondDetailPage({ params }: { params: { id: string } }) {
           <h1 className="text-3xl font-bold">Bond Details</h1>
           <div className="flex space-x-2">
             {canEditBond && (
-              <Button onClick={() => router.push(`/bonds/${params.id}/edit`)}>Edit Bond</Button>
+              <Button onClick={() => router.push(`/bonds/${params.id}/edit`)}>
+                Edit Bond
+              </Button>
             )}
             {canEditBond && bond?.status !== 'soft_deleted' && (
-              <Button variant="destructive" onClick={handleSoftDelete}>Delete Bond</Button>
+              <Button variant="destructive" onClick={handleSoftDelete}>
+                Delete Bond
+              </Button>
             )}
             {canRestoreBond && bond?.status === 'soft_deleted' && (
               <Button onClick={handleRestore}>Restore Bond</Button>
             )}
-            <Button variant="outline" onClick={() => router.back()}>Back</Button>
+            <Button variant="outline" onClick={() => router.back()}>
+              Back
+            </Button>
           </div>
         </div>
-        
+
         {/* Status indicator */}
         {bond?.status === 'soft_deleted' && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
             <p>This bond has been soft deleted.</p>
           </div>
         )}
-        
+
         {/* Loading states */}
         {(isBondLoading || isHistoryLoading) && (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
           </div>
         )}
-        
+
         {/* Error states */}
         {(bondError || historyError) && (
           <div className="bg-red-50 border border-red-200 rounded p-4 mb-6">
@@ -187,7 +204,7 @@ export default function BondDetailPage({ params }: { params: { id: string } }) {
             </p>
           </div>
         )}
-        
+
         {/* Tabs */}
         {bond && (
           <div className="mb-6">
@@ -217,7 +234,7 @@ export default function BondDetailPage({ params }: { params: { id: string } }) {
             </div>
           </div>
         )}
-        
+
         {/* Bond details tab */}
         {bond && activeTab === 'details' && (
           <div className="space-y-6">
@@ -227,13 +244,19 @@ export default function BondDetailPage({ params }: { params: { id: string } }) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="font-medium">Bond Status:</label>
-                  <span className={`px-2 py-1 rounded text-xs font-medium ${
-                    bond.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                    bond.status === 'accepted' ? 'bg-green-100 text-green-800' :
-                    bond.status === 'rejected' ? 'bg-red-100 text-red-800' :
-                    bond.status === 'soft_deleted' ? 'bg-red-100 text-red-800' :
-                    'bg-gray-10 text-gray-800'
-                  }`}>
+                  <span
+                    className={`px-2 py-1 rounded text-xs font-medium ${
+                      bond.status === 'pending'
+                        ? 'bg-yellow-100 text-yellow-800'
+                        : bond.status === 'accepted'
+                          ? 'bg-green-100 text-green-800'
+                          : bond.status === 'rejected'
+                            ? 'bg-red-100 text-red-800'
+                            : bond.status === 'soft_deleted'
+                              ? 'bg-red-100 text-red-800'
+                              : 'bg-gray-10 text-gray-800'
+                    }`}
+                  >
                     {bond.status}
                   </span>
                 </div>
@@ -259,11 +282,13 @@ export default function BondDetailPage({ params }: { params: { id: string } }) {
                 </div>
               </div>
             </div>
-            
+
             {/* Policyholder Section */}
             {bond.policyholder && (
               <div className="bg-white p-6 rounded-lg shadow-md">
-                <h2 className="text-xl font-semibold mb-4">Policyholder Information</h2>
+                <h2 className="text-xl font-semibold mb-4">
+                  Policyholder Information
+                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="font-medium">Company Name:</label>
@@ -280,11 +305,13 @@ export default function BondDetailPage({ params }: { params: { id: string } }) {
                 </div>
               </div>
             )}
-            
+
             {/* Beneficiary Section */}
             {bond.beneficiary && (
               <div className="bg-white p-6 rounded-lg shadow-md">
-                <h2 className="text-xl font-semibold mb-4">Beneficiary Information</h2>
+                <h2 className="text-xl font-semibold mb-4">
+                  Beneficiary Information
+                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="font-medium">Company Name:</label>
@@ -303,7 +330,7 @@ export default function BondDetailPage({ params }: { params: { id: string } }) {
             )}
           </div>
         )}
-        
+
         {/* Edit history tab */}
         {editHistory && activeTab === 'history' && (
           <div className="bg-white p-6 rounded-lg shadow-md">
@@ -321,17 +348,22 @@ export default function BondDetailPage({ params }: { params: { id: string } }) {
                 <tbody>
                   {editHistory.map((entry: EditHistoryEntry) => (
                     <tr key={entry.id} className="hover:bg-gray-50">
-                      <td className="p-4 border-b">{new Date(entry.timestamp).toLocaleString()}</td>
+                      <td className="p-4 border-b">
+                        {new Date(entry.timestamp).toLocaleString()}
+                      </td>
                       <td className="p-4 border-b">{entry.userName}</td>
                       <td className="p-4 border-b">{entry.action}</td>
                       <td className="p-4 border-b">
                         {entry.changes ? (
                           <ul className="list-disc pl-5">
-                            {Object.entries(entry.changes).map(([key, value]) => (
-                              <li key={key}>
-                                <strong>{key}:</strong> {JSON.stringify(value)}
-                              </li>
-                            ))}
+                            {Object.entries(entry.changes).map(
+                              ([key, value]) => (
+                                <li key={key}>
+                                  <strong>{key}:</strong>{' '}
+                                  {JSON.stringify(value)}
+                                </li>
+                              )
+                            )}
                           </ul>
                         ) : (
                           'No changes recorded'
@@ -343,7 +375,9 @@ export default function BondDetailPage({ params }: { params: { id: string } }) {
               </table>
             </div>
             {editHistory.length === 0 && (
-              <p className="text-gray-500 mt-4">No edit history found for this bond.</p>
+              <p className="text-gray-500 mt-4">
+                No edit history found for this bond.
+              </p>
             )}
           </div>
         )}

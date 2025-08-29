@@ -1,0 +1,2149 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\playwright.config.ts",
+    "rootDir": "C:/Users/Marii/OneDrive/Documents/Projects/Excella/ThinkBonds/Apps/thinkbondsportal/src/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 8
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/e2e-report.json"
+        }
+      ],
+      ["list", null]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Users/Marii/OneDrive/Documents/Projects/Excella/ThinkBonds/Apps/thinkbondsportal/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 8
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/Marii/OneDrive/Documents/Projects/Excella/ThinkBonds/Apps/thinkbondsportal/src/e2e",
+        "testIgnore": [],
+        "testMatch": ["**/*.@(spec|test).?(c|m)[jt]s?(x)"],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/Marii/OneDrive/Documents/Projects/Excella/ThinkBonds/Apps/thinkbondsportal/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 8
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/Marii/OneDrive/Documents/Projects/Excella/ThinkBonds/Apps/thinkbondsportal/src/e2e",
+        "testIgnore": [],
+        "testMatch": ["**/*.@(spec|test).?(c|m)[jt]s?(x)"],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/Marii/OneDrive/Documents/Projects/Excella/ThinkBonds/Apps/thinkbondsportal/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 8
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/Marii/OneDrive/Documents/Projects/Excella/ThinkBonds/Apps/thinkbondsportal/src/e2e",
+        "testIgnore": [],
+        "testMatch": ["**/*.@(spec|test).?(c|m)[jt]s?(x)"],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/Marii/OneDrive/Documents/Projects/Excella/ThinkBonds/Apps/thinkbondsportal/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 8
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "C:/Users/Marii/OneDrive/Documents/Projects/Excella/ThinkBonds/Apps/thinkbondsportal/src/e2e",
+        "testIgnore": [],
+        "testMatch": ["**/*.@(spec|test).?(c|m)[jt]s?(x)"],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/Marii/OneDrive/Documents/Projects/Excella/ThinkBonds/Apps/thinkbondsportal/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 8
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "C:/Users/Marii/OneDrive/Documents/Projects/Excella/ThinkBonds/Apps/thinkbondsportal/src/e2e",
+        "testIgnore": [],
+        "testMatch": ["**/*.@(spec|test).?(c|m)[jt]s?(x)"],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 8,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true,
+      "timeout": 120000,
+      "env": {
+        "ALLUSERSPROFILE": "C:\\ProgramData",
+        "APPDATA": "C:\\Users\\Marii\\AppData\\Roaming",
+        "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_23996_RSHVNBZJVIEOUJRV",
+        "COLORTERM": "truecolor",
+        "CommonProgramFiles": "C:\\Program Files\\Common Files",
+        "CommonProgramFiles(x86)": "C:\\Program Files (x86)\\Common Files",
+        "CommonProgramW6432": "C:\\Program Files\\Common Files",
+        "COMPUTERNAME": "ADRIAN-WORK",
+        "ComSpec": "C:\\Windows\\system32\\cmd.exe",
+        "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
+        "EFC_11432_1262719628": "1",
+        "EFC_11432_1592913036": "1",
+        "EFC_11432_2283032206": "1",
+        "EFC_11432_2775293581": "1",
+        "EFC_11432_3789132940": "1",
+        "FPS_BROWSER_APP_PROFILE_STRING": "Internet Explorer",
+        "FPS_BROWSER_USER_PROFILE_STRING": "Default",
+        "GIT_ASKPASS": "c:\\Users\\Marii\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass.sh",
+        "HOME": "C:\\Users\\Marii",
+        "HOMEDRIVE": "C:",
+        "HOMEPATH": "\\Users\\Marii",
+        "INIT_CWD": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal",
+        "JAVA_HOME": "C:\\Program Files\\Java\\jdk-17",
+        "LANG": "en_US.UTF-8",
+        "LOCALAPPDATA": "C:\\Users\\Marii\\AppData\\Local",
+        "LOGONSERVER": "\\\\ADRIAN-WORK",
+        "NEXTAUTH_ENCRYPTION": "true",
+        "NEXTAUTH_SECRET": "nextauth-secret-for-e2e-testing",
+        "NEXTAUTH_URL": "http://localhost:3000",
+        "NEXT_PUBLIC_E2E": "true",
+        "NODE": "C:\\Program Files\\nodejs\\node.exe",
+        "NODE_PATH": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\node_modules\\.pnpm\\@playwright+test@1.55.0\\node_modules\\@playwright\\test\\node_modules;C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\node_modules\\.pnpm\\@playwright+test@1.55.0\\node_modules\\@playwright\\node_modules;C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\node_modules\\.pnpm\\@playwright+test@1.55.0\\node_modules;C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\node_modules\\.pnpm\\node_modules",
+        "npm_command": "run-script",
+        "npm_config_frozen_lockfile": "",
+        "npm_config_node_gyp": "C:\\Users\\Marii\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\node_modules\\node-gyp\\bin\\node-gyp.js",
+        "npm_config_registry": "https://registry.npmjs.org/",
+        "npm_config_user_agent": "pnpm/10.15.0 npm/? node/v22.16.0 win32 x64",
+        "npm_config_verify_deps_before_run": "false",
+        "npm_config__jsr_registry": "https://npm.jsr.io/",
+        "npm_execpath": "C:\\Users\\Marii\\AppData\\Roaming\\npm\\node_modules\\pnpm\\bin\\pnpm.cjs",
+        "npm_lifecycle_event": "test:e2e",
+        "npm_lifecycle_script": "playwright test \"-g\" \"Role-Based Access Control\"",
+        "npm_node_execpath": "C:\\Program Files\\nodejs\\node.exe",
+        "npm_package_json": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\package.json",
+        "npm_package_name": "nextjs-app",
+        "npm_package_version": "0.6.0",
+        "NUMBER_OF_PROCESSORS": "16",
+        "OneDrive": "C:\\Users\\Marii\\OneDrive",
+        "OneDriveConsumer": "C:\\Users\\Marii\\OneDrive",
+        "ORIGINAL_XDG_CURRENT_DESKTOP": "undefined",
+        "OS": "Windows_NT",
+        "Path": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\node_modules\\.bin;C:\\Users\\Marii\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\node-gyp-bin;C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot\\bin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\nodejs\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\Docker\\Docker\\resources\\bin;C:\\Users\\Marii\\.local\\bin;C:\\Users\\Marii\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\Marii\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\Marii\\AppData\\Local\\Programs\\Python\\Launcher\\;C:\\Users\\Marii\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Marii\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\Marii\\AppData\\Roaming\\npm;C:\\Maven\\apache-maven-3.9.11\\bin;C:\\Program Files\\Java\\jdk-17\\bin;C:\\Users\\Marii\\AppData\\Local\\GitHubDesktop\\bin;C:\\ProgramData\\Marii\\GitHubDesktop\\bin;C:\\Program Files\\Apache\\maven-mvnd-1.0.2-windows-amd64\\bin;;c:\\Users\\Marii\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand",
+        "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JSE;.WSF;.WSH;.MSC;.CPL",
+        "pnpm_config_verify_deps_before_run": "false",
+        "PNPM_SCRIPT_SRC_DIR": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal",
+        "PROCESSOR_ARCHITECTURE": "AMD64",
+        "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+        "PROCESSOR_LEVEL": "6",
+        "PROCESSOR_REVISION": "ba02",
+        "ProgramData": "C:\\ProgramData",
+        "ProgramFiles": "C:\\Program Files",
+        "ProgramFiles(x86)": "C:\\Program Files (x86)",
+        "ProgramW6432": "C:\\Program Files",
+        "PROMPT": "$P$G",
+        "PSModulePath": "C:\\Users\\Marii\\OneDrive\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules",
+        "PUBLIC": "C:\\Users\\Public",
+        "SESSIONNAME": "Console",
+        "SystemDrive": "C:",
+        "SystemRoot": "C:\\Windows",
+        "TEMP": "C:\\Users\\Marii\\AppData\\Local\\Temp",
+        "TERM_PROGRAM": "vscode",
+        "TERM_PROGRAM_VERSION": "1.103.2",
+        "TMP": "C:\\Users\\Marii\\AppData\\Local\\Temp",
+        "USERDOMAIN": "ADRIAN-WORK",
+        "USERDOMAIN_ROAMINGPROFILE": "ADRIAN-WORK",
+        "USERNAME": "Marii",
+        "USERPROFILE": "C:\\Users\\Marii",
+        "VSCODE_GIT_ASKPASS_EXTRA_ARGS": "",
+        "VSCODE_GIT_ASKPASS_MAIN": "c:\\Users\\Marii\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass-main.js",
+        "VSCODE_GIT_ASKPASS_NODE": "C:\\Users\\Marii\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+        "VSCODE_GIT_IPC_HANDLE": "\\\\.\\pipe\\vscode-git-77ba283a66-sock",
+        "VSCODE_INJECTION": "1",
+        "windir": "C:\\Windows",
+        "ZES_ENABLE_SYSMAN": "1",
+        "USE_MOCK": "true"
+      }
+    }
+  },
+  "suites": [
+    {
+      "title": "auth\\rbac.spec.ts",
+      "file": "auth/rbac.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Role-Based Access Control",
+          "file": "auth/rbac.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [],
+          "suites": [
+            {
+              "title": "as broker user",
+              "file": "auth/rbac.spec.ts",
+              "line": 4,
+              "column": 16,
+              "specs": [
+                {
+                  "title": "should restrict admin-only pages from broker user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 11978,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478852,\n  \"exp\": 1756482452,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..i_YvfQ5CE\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:32.380Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-d830fbf2db630252a60e",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 5,
+                  "column": 17
+                },
+                {
+                  "title": "should show appropriate navigation menu for broker user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 3212,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478852,\n  \"exp\": 1756482452,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..pSp2TZDXN\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:32.455Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-7794d83748bb3e27a817",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 15,
+                  "column": 17
+                },
+                {
+                  "title": "should restrict actions based on user roles",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 18114,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478852,\n  \"exp\": 1756482452,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..KoEZ1aIHj\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:32.361Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-0032706f7ed8aa9649f3",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 36,
+                  "column": 17
+                },
+                {
+                  "title": "should restrict admin-only pages from broker user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 7,
+                          "status": "passed",
+                          "duration": 9612,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478854,\n  \"exp\": 1756482454,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..MNQSb1BQk\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:32.376Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-cf4f207eef81a3b6c37e",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 5,
+                  "column": 17
+                },
+                {
+                  "title": "should show appropriate navigation menu for broker user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 9,
+                          "parallelIndex": 6,
+                          "status": "passed",
+                          "duration": 8825,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478867,\n  \"exp\": 1756482467,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..HvCCtpIdu\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:40.039Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-e32067d8357452134735",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 15,
+                  "column": 17
+                },
+                {
+                  "title": "should restrict actions based on user roles",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 10,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 17702,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478865,\n  \"exp\": 1756482465,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..FyRxvq509\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:39.675Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-5fc98ee880005497e1cd",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 36,
+                  "column": 17
+                },
+                {
+                  "title": "should restrict admin-only pages from broker user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 14,
+                          "parallelIndex": 7,
+                          "status": "passed",
+                          "duration": 9550,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478875,\n  \"exp\": 1756482475,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SRYl8ROum\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:54.986Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-7baa81d975d8fef98fc1",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 5,
+                  "column": 17
+                },
+                {
+                  "title": "should show appropriate navigation menu for broker user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 13,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 6727,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478876,\n  \"exp\": 1756482476,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..rtqNp7kHW\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:55.147Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-bf5fa689a235bc1765f3",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 15,
+                  "column": 17
+                },
+                {
+                  "title": "should restrict actions based on user roles",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 15,
+                          "parallelIndex": 4,
+                          "status": "passed",
+                          "duration": 14727,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478878,\n  \"exp\": 1756482478,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..L3PMG89IK\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:58.375Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-b029cd525a99c0e77015",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 36,
+                  "column": 17
+                },
+                {
+                  "title": "should restrict admin-only pages from broker user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [
+                        {
+                          "workerIndex": 20,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 10005,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478886,\n  \"exp\": 1756482486,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..Lo33xeRt3\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:48:06.025Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-56131998cf2e6aeac53b",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 5,
+                  "column": 17
+                },
+                {
+                  "title": "should show appropriate navigation menu for broker user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "location": {
+                            "file": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\src\\e2e\\auth\\rbac.spec.ts",
+                            "line": 17,
+                            "column": 14
+                          }
+                        }
+                      ],
+                      "expectedStatus": "skipped",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [
+                        {
+                          "workerIndex": 21,
+                          "parallelIndex": 7,
+                          "status": "skipped",
+                          "duration": 506,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478889,\n  \"exp\": 1756482489,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..P8YKr7Ecs\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:48:08.683Z",
+                          "annotations": [
+                            {
+                              "type": "skip",
+                              "location": {
+                                "file": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\src\\e2e\\auth\\rbac.spec.ts",
+                                "line": 17,
+                                "column": 14
+                              }
+                            }
+                          ],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-1210112c18f2828b38e9",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 15,
+                  "column": 17
+                },
+                {
+                  "title": "should restrict actions based on user roles",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [
+                        {
+                          "workerIndex": 22,
+                          "parallelIndex": 5,
+                          "status": "passed",
+                          "duration": 13505,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478890,\n  \"exp\": 1756482490,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..wPnp2sIqX\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:48:10.378Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-f57a4360c5542e46ed28",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 36,
+                  "column": 17
+                },
+                {
+                  "title": "should restrict admin-only pages from broker user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [
+                        {
+                          "workerIndex": 25,
+                          "parallelIndex": 4,
+                          "status": "passed",
+                          "duration": 8315,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478897,\n  \"exp\": 1756482497,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..EOxd51f3-\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:48:16.628Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-2d16e325acb8d3ba5d8a",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 5,
+                  "column": 17
+                },
+                {
+                  "title": "should show appropriate navigation menu for broker user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "location": {
+                            "file": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\src\\e2e\\auth\\rbac.spec.ts",
+                            "line": 17,
+                            "column": 14
+                          }
+                        }
+                      ],
+                      "expectedStatus": "skipped",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [
+                        {
+                          "workerIndex": 26,
+                          "parallelIndex": 0,
+                          "status": "skipped",
+                          "duration": 729,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478898,\n  \"exp\": 1756482498,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..DKCejcG5v\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:48:18.060Z",
+                          "annotations": [
+                            {
+                              "type": "skip",
+                              "location": {
+                                "file": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\src\\e2e\\auth\\rbac.spec.ts",
+                                "line": 17,
+                                "column": 14
+                              }
+                            }
+                          ],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-8517cdaffa914562329b",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 15,
+                  "column": 17
+                },
+                {
+                  "title": "should restrict actions based on user roles",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [
+                        {
+                          "workerIndex": 27,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 7590,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"broker User\",\n  \"email\": \"broker@example.com\",\n  \"iat\": 1756478900,\n  \"exp\": 1756482500,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"broker User\",\n      \"email\": \"broker@example.com\",\n      \"groups\": [\n        \"broker\"\n      ]\n    },\n    \"groups\": [\n      \"broker\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"broker User\",\n    \"email\": \"broker@example.com\",\n    \"groups\": [\n      \"broker\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m549\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..kX_AeeYMY\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: broker\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:48:19.837Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-3c23de5049e28f351e38",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 36,
+                  "column": 17
+                }
+              ]
+            },
+            {
+              "title": "as policyholder user",
+              "file": "auth/rbac.spec.ts",
+              "line": 57,
+              "column": 22,
+              "specs": [
+                {
+                  "title": "should restrict broker-only pages from policyholder user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 12084,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"policyholder User\",\n  \"email\": \"policyholder@example.com\",\n  \"iat\": 1756478852,\n  \"exp\": 1756482452,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"policyholder User\",\n      \"email\": \"policyholder@example.com\",\n      \"groups\": [\n        \"policyholder\"\n      ]\n    },\n    \"groups\": [\n      \"policyholder\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"policyholder User\",\n    \"email\": \"policyholder@example.com\",\n    \"groups\": [\n      \"policyholder\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m621\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..ttCjqBl_X\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: policyholder\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "steps": [
+                            {
+                              "title": "Expect \"poll not toMatch\"",
+                              "duration": 5
+                            }
+                          ],
+                          "startTime": "2025-08-29T14:47:32.342Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-30d7eee8280aa9f34842",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 58,
+                  "column": 23
+                },
+                {
+                  "title": "should show appropriate navigation menu for policyholder user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 4,
+                          "status": "passed",
+                          "duration": 3481,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"policyholder User\",\n  \"email\": \"policyholder@example.com\",\n  \"iat\": 1756478852,\n  \"exp\": 1756482452,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"policyholder User\",\n      \"email\": \"policyholder@example.com\",\n      \"groups\": [\n        \"policyholder\"\n      ]\n    },\n    \"groups\": [\n      \"policyholder\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"policyholder User\",\n    \"email\": \"policyholder@example.com\",\n    \"groups\": [\n      \"policyholder\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m621\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..lnpBrU1y3\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: policyholder\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:32.374Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-bfcf98e396bd55f92194",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 69,
+                  "column": 23
+                },
+                {
+                  "title": "should restrict broker-only pages from policyholder user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 8,
+                          "parallelIndex": 4,
+                          "status": "passed",
+                          "duration": 11312,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"policyholder User\",\n  \"email\": \"policyholder@example.com\",\n  \"iat\": 1756478864,\n  \"exp\": 1756482464,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"policyholder User\",\n      \"email\": \"policyholder@example.com\",\n      \"groups\": [\n        \"policyholder\"\n      ]\n    },\n    \"groups\": [\n      \"policyholder\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"policyholder User\",\n    \"email\": \"policyholder@example.com\",\n    \"groups\": [\n      \"policyholder\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m621\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..2AO14w9kC\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: policyholder\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "steps": [
+                            {
+                              "title": "Expect \"poll not toMatch\"",
+                              "duration": 4
+                            }
+                          ],
+                          "startTime": "2025-08-29T14:47:39.815Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-20e4ad92de4cc8447c9c",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 58,
+                  "column": 23
+                },
+                {
+                  "title": "should show appropriate navigation menu for policyholder user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 7,
+                          "status": "passed",
+                          "duration": 6654,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"policyholder User\",\n  \"email\": \"policyholder@example.com\",\n  \"iat\": 1756478863,\n  \"exp\": 1756482463,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"policyholder User\",\n      \"email\": \"policyholder@example.com\",\n      \"groups\": [\n        \"policyholder\"\n      ]\n    },\n    \"groups\": [\n      \"policyholder\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"policyholder User\",\n    \"email\": \"policyholder@example.com\",\n    \"groups\": [\n      \"policyholder\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m621\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..YQEKuTPMu\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: policyholder\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:43.003Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-7e5464e0cc8c2befcbfe",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 69,
+                  "column": 23
+                },
+                {
+                  "title": "should restrict broker-only pages from policyholder user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 17,
+                          "parallelIndex": 6,
+                          "status": "passed",
+                          "duration": 9214,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"policyholder User\",\n  \"email\": \"policyholder@example.com\",\n  \"iat\": 1756478880,\n  \"exp\": 1756482480,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"policyholder User\",\n      \"email\": \"policyholder@example.com\",\n      \"groups\": [\n        \"policyholder\"\n      ]\n    },\n    \"groups\": [\n      \"policyholder\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"policyholder User\",\n    \"email\": \"policyholder@example.com\",\n    \"groups\": [\n      \"policyholder\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m621\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..yPLeh6SbT\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: policyholder\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "steps": [
+                            {
+                              "title": "Expect \"poll not toMatch\"",
+                              "duration": 4
+                            }
+                          ],
+                          "startTime": "2025-08-29T14:47:59.486Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-91faa478e93c3b8301d1",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 58,
+                  "column": 23
+                },
+                {
+                  "title": "should show appropriate navigation menu for policyholder user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 16,
+                          "parallelIndex": 5,
+                          "status": "passed",
+                          "duration": 7394,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"policyholder User\",\n  \"email\": \"policyholder@example.com\",\n  \"iat\": 1756478879,\n  \"exp\": 1756482479,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"policyholder User\",\n      \"email\": \"policyholder@example.com\",\n      \"groups\": [\n        \"policyholder\"\n      ]\n    },\n    \"groups\": [\n      \"policyholder\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"policyholder User\",\n    \"email\": \"policyholder@example.com\",\n    \"groups\": [\n      \"policyholder\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m621\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..TvtFqkR7M\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: policyholder\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:59.126Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-a3550f6b598f09e5161a",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 69,
+                  "column": 23
+                },
+                {
+                  "title": "should restrict broker-only pages from policyholder user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [
+                        {
+                          "workerIndex": 23,
+                          "parallelIndex": 6,
+                          "status": "passed",
+                          "duration": 9453,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"policyholder User\",\n  \"email\": \"policyholder@example.com\",\n  \"iat\": 1756478892,\n  \"exp\": 1756482492,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"policyholder User\",\n      \"email\": \"policyholder@example.com\",\n      \"groups\": [\n        \"policyholder\"\n      ]\n    },\n    \"groups\": [\n      \"policyholder\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"policyholder User\",\n    \"email\": \"policyholder@example.com\",\n    \"groups\": [\n      \"policyholder\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m621\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..DyZZgeuhK\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: policyholder\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "steps": [
+                            {
+                              "title": "Expect \"poll not toMatch\"",
+                              "duration": 2
+                            }
+                          ],
+                          "startTime": "2025-08-29T14:48:12.409Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-a8b7a3fb05754697e4cb",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 58,
+                  "column": 23
+                },
+                {
+                  "title": "should show appropriate navigation menu for policyholder user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "location": {
+                            "file": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\src\\e2e\\auth\\rbac.spec.ts",
+                            "line": 71,
+                            "column": 14
+                          }
+                        }
+                      ],
+                      "expectedStatus": "skipped",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [
+                        {
+                          "workerIndex": 21,
+                          "parallelIndex": 7,
+                          "status": "skipped",
+                          "duration": 339,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"policyholder User\",\n  \"email\": \"policyholder@example.com\",\n  \"iat\": 1756478889,\n  \"exp\": 1756482489,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"policyholder User\",\n      \"email\": \"policyholder@example.com\",\n      \"groups\": [\n        \"policyholder\"\n      ]\n    },\n    \"groups\": [\n      \"policyholder\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"policyholder User\",\n    \"email\": \"policyholder@example.com\",\n    \"groups\": [\n      \"policyholder\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m621\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..k8Hb2-RgL\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: policyholder\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:48:09.417Z",
+                          "annotations": [
+                            {
+                              "type": "skip",
+                              "location": {
+                                "file": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\src\\e2e\\auth\\rbac.spec.ts",
+                                "line": 71,
+                                "column": 14
+                              }
+                            }
+                          ],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-bf3a0e6f4983092b72b3",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 69,
+                  "column": 23
+                },
+                {
+                  "title": "should restrict broker-only pages from policyholder user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [
+                        {
+                          "workerIndex": 28,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 6073,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"policyholder User\",\n  \"email\": \"policyholder@example.com\",\n  \"iat\": 1756478900,\n  \"exp\": 1756482500,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"policyholder User\",\n      \"email\": \"policyholder@example.com\",\n      \"groups\": [\n        \"policyholder\"\n      ]\n    },\n    \"groups\": [\n      \"policyholder\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"policyholder User\",\n    \"email\": \"policyholder@example.com\",\n    \"groups\": [\n      \"policyholder\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m621\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..OvBoTbvt8\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: policyholder\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "steps": [
+                            {
+                              "title": "Expect \"poll not toMatch\"",
+                              "duration": 3
+                            }
+                          ],
+                          "startTime": "2025-08-29T14:48:20.273Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-4d8a450ee63fb6d2d0c5",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 58,
+                  "column": 23
+                },
+                {
+                  "title": "should show appropriate navigation menu for policyholder user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "location": {
+                            "file": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\src\\e2e\\auth\\rbac.spec.ts",
+                            "line": 71,
+                            "column": 14
+                          }
+                        }
+                      ],
+                      "expectedStatus": "skipped",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [
+                        {
+                          "workerIndex": 26,
+                          "parallelIndex": 0,
+                          "status": "skipped",
+                          "duration": 677,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"policyholder User\",\n  \"email\": \"policyholder@example.com\",\n  \"iat\": 1756478899,\n  \"exp\": 1756482499,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"policyholder User\",\n      \"email\": \"policyholder@example.com\",\n      \"groups\": [\n        \"policyholder\"\n      ]\n    },\n    \"groups\": [\n      \"policyholder\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"policyholder User\",\n    \"email\": \"policyholder@example.com\",\n    \"groups\": [\n      \"policyholder\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m621\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..V8kWY0CHK\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: policyholder\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:48:18.982Z",
+                          "annotations": [
+                            {
+                              "type": "skip",
+                              "location": {
+                                "file": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\src\\e2e\\auth\\rbac.spec.ts",
+                                "line": 71,
+                                "column": 14
+                              }
+                            }
+                          ],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-ee269b22dfe20387c482",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 69,
+                  "column": 23
+                }
+              ]
+            },
+            {
+              "title": "as admin user",
+              "file": "auth/rbac.spec.ts",
+              "line": 98,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should allow admin user to access all pages",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 5,
+                          "parallelIndex": 5,
+                          "status": "passed",
+                          "duration": 21617,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"admin User\",\n  \"email\": \"admin@example.com\",\n  \"iat\": 1756478852,\n  \"exp\": 1756482452,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"admin User\",\n      \"email\": \"admin@example.com\",\n      \"groups\": [\n        \"admin\"\n      ]\n    },\n    \"groups\": [\n      \"admin\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"admin User\",\n    \"email\": \"admin@example.com\",\n    \"groups\": [\n      \"admin\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m537\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..2PCQPfNe4\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: admin\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:32.375Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-53089cba655ef7dc2839",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 99,
+                  "column": 9
+                },
+                {
+                  "title": "should show appropriate navigation menu for admin user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 6,
+                          "parallelIndex": 6,
+                          "status": "passed",
+                          "duration": 3246,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"admin User\",\n  \"email\": \"admin@example.com\",\n  \"iat\": 1756478852,\n  \"exp\": 1756482452,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"admin User\",\n      \"email\": \"admin@example.com\",\n      \"groups\": [\n        \"admin\"\n      ]\n    },\n    \"groups\": [\n      \"admin\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"admin User\",\n    \"email\": \"admin@example.com\",\n    \"groups\": [\n      \"admin\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m537\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..8WGs0vXwn\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: admin\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:32.397Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-94d31f7850ef644120d1",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 115,
+                  "column": 9
+                },
+                {
+                  "title": "should allow admin user to access all pages",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 12,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 20713,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"admin User\",\n  \"email\": \"admin@example.com\",\n  \"iat\": 1756478875,\n  \"exp\": 1756482475,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"admin User\",\n      \"email\": \"admin@example.com\",\n      \"groups\": [\n        \"admin\"\n      ]\n    },\n    \"groups\": [\n      \"admin\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"admin User\",\n    \"email\": \"admin@example.com\",\n    \"groups\": [\n      \"admin\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m537\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..8AHABtupG\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: admin\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:50.295Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-fc85928d77ee48e3159d",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 99,
+                  "column": 9
+                },
+                {
+                  "title": "should show appropriate navigation menu for admin user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 11,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 7830,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"admin User\",\n  \"email\": \"admin@example.com\",\n  \"iat\": 1756478873,\n  \"exp\": 1756482473,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"admin User\",\n      \"email\": \"admin@example.com\",\n      \"groups\": [\n        \"admin\"\n      ]\n    },\n    \"groups\": [\n      \"admin\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"admin User\",\n    \"email\": \"admin@example.com\",\n    \"groups\": [\n      \"admin\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m537\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..B2HTQ0jaE\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: admin\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:47:50.272Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-df4c3f2c13fe22197a40",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 115,
+                  "column": 9
+                },
+                {
+                  "title": "should allow admin user to access all pages",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 18,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 20445,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"admin User\",\n  \"email\": \"admin@example.com\",\n  \"iat\": 1756478885,\n  \"exp\": 1756482485,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"admin User\",\n      \"email\": \"admin@example.com\",\n      \"groups\": [\n        \"admin\"\n      ]\n    },\n    \"groups\": [\n      \"admin\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"admin User\",\n    \"email\": \"admin@example.com\",\n    \"groups\": [\n      \"admin\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m537\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6YJuQEB1l\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: admin\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:48:04.764Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-8e000e14b38e29d14b6c",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 99,
+                  "column": 9
+                },
+                {
+                  "title": "should show appropriate navigation menu for admin user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 19,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 6750,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"admin User\",\n  \"email\": \"admin@example.com\",\n  \"iat\": 1756478885,\n  \"exp\": 1756482485,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"admin User\",\n      \"email\": \"admin@example.com\",\n      \"groups\": [\n        \"admin\"\n      ]\n    },\n    \"groups\": [\n      \"admin\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"admin User\",\n    \"email\": \"admin@example.com\",\n    \"groups\": [\n      \"admin\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m537\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..JD7bhZTht\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: admin\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:48:04.965Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-c590edecec0b02b4fadb",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 115,
+                  "column": 9
+                },
+                {
+                  "title": "should allow admin user to access all pages",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [
+                        {
+                          "workerIndex": 21,
+                          "parallelIndex": 7,
+                          "status": "passed",
+                          "duration": 15960,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"admin User\",\n  \"email\": \"admin@example.com\",\n  \"iat\": 1756478889,\n  \"exp\": 1756482489,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"admin User\",\n      \"email\": \"admin@example.com\",\n      \"groups\": [\n        \"admin\"\n      ]\n    },\n    \"groups\": [\n      \"admin\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"admin User\",\n    \"email\": \"admin@example.com\",\n    \"groups\": [\n      \"admin\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m537\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..ZrDxeG9z2\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: admin\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:48:09.784Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-634843ce5aa817e1c68d",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 99,
+                  "column": 9
+                },
+                {
+                  "title": "should show appropriate navigation menu for admin user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "location": {
+                            "file": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\src\\e2e\\auth\\rbac.spec.ts",
+                            "line": 117,
+                            "column": 14
+                          }
+                        }
+                      ],
+                      "expectedStatus": "skipped",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [
+                        {
+                          "workerIndex": 24,
+                          "parallelIndex": 1,
+                          "status": "skipped",
+                          "duration": 526,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"admin User\",\n  \"email\": \"admin@example.com\",\n  \"iat\": 1756478895,\n  \"exp\": 1756482495,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"admin User\",\n      \"email\": \"admin@example.com\",\n      \"groups\": [\n        \"admin\"\n      ]\n    },\n    \"groups\": [\n      \"admin\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"admin User\",\n    \"email\": \"admin@example.com\",\n    \"groups\": [\n      \"admin\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m537\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..HFtAj5DZs\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: admin\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:48:15.123Z",
+                          "annotations": [
+                            {
+                              "type": "skip",
+                              "location": {
+                                "file": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\src\\e2e\\auth\\rbac.spec.ts",
+                                "line": 117,
+                                "column": 14
+                              }
+                            }
+                          ],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-2bacdb2bcd75c8b93da8",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 115,
+                  "column": 9
+                },
+                {
+                  "title": "should allow admin user to access all pages",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [
+                        {
+                          "workerIndex": 26,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 8579,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"admin User\",\n  \"email\": \"admin@example.com\",\n  \"iat\": 1756478900,\n  \"exp\": 1756482500,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"admin User\",\n      \"email\": \"admin@example.com\",\n      \"groups\": [\n        \"admin\"\n      ]\n    },\n    \"groups\": [\n      \"admin\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"admin User\",\n    \"email\": \"admin@example.com\",\n    \"groups\": [\n      \"admin\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m537\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..cPDByUQj7\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: admin\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:48:19.703Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-b41fe8ffcc9a948e3ebe",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 99,
+                  "column": 9
+                },
+                {
+                  "title": "should show appropriate navigation menu for admin user",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "location": {
+                            "file": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\src\\e2e\\auth\\rbac.spec.ts",
+                            "line": 117,
+                            "column": 14
+                          }
+                        }
+                      ],
+                      "expectedStatus": "skipped",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [
+                        {
+                          "workerIndex": 29,
+                          "parallelIndex": 6,
+                          "status": "skipped",
+                          "duration": 546,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "JWT token payload: {\n  \"sub\": \"1\",\n  \"name\": \"admin User\",\n  \"email\": \"admin@example.com\",\n  \"iat\": 1756478904,\n  \"exp\": 1756482504,\n  \"dominoData\": {\n    \"user\": {\n      \"id\": \"1\",\n      \"name\": \"admin User\",\n      \"email\": \"admin@example.com\",\n      \"groups\": [\n        \"admin\"\n      ]\n    },\n    \"groups\": [\n      \"admin\"\n    ]\n  },\n  \"user\": {\n    \"id\": \"1\",\n    \"name\": \"admin User\",\n    \"email\": \"admin@example.com\",\n    \"groups\": [\n      \"admin\"\n    ]\n  }\n}\n"
+                            },
+                            {
+                              "text": "Generated JWT token length: \u001b[33m537\u001b[39m\n"
+                            },
+                            {
+                              "text": "JWT token (first 50 chars): eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..-MuZun4rX\n"
+                            },
+                            {
+                              "text": "Set cookie: next-auth.session-token for localhost\n"
+                            },
+                            {
+                              "text": "Mocked authentication for role: admin\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-29T14:48:24.585Z",
+                          "annotations": [
+                            {
+                              "type": "skip",
+                              "location": {
+                                "file": "C:\\Users\\Marii\\OneDrive\\Documents\\Projects\\Excella\\ThinkBonds\\Apps\\thinkbondsportal\\src\\e2e\\auth\\rbac.spec.ts",
+                                "line": 117,
+                                "column": 14
+                              }
+                            }
+                          ],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "80ea47009d23f4b6b8dd-93151c594ff94b365bfe",
+                  "file": "auth/rbac.spec.ts",
+                  "line": 115,
+                  "column": 9
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-08-29T14:47:24.868Z",
+    "duration": 63764.973999999995,
+    "expected": 29,
+    "skipped": 6,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

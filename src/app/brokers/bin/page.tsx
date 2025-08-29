@@ -14,7 +14,7 @@ interface Broker {
   email: string;
   phone: string;
   status: string;
-  editHistory: any[];
+  editHistory: unknown[];
 }
 
 export default function BrokersBinPage() {
@@ -25,8 +25,8 @@ export default function BrokersBinPage() {
   const [error, setError] = useState<string | null>(null);
 
   // Check if user has access to view the broker bin
-  const canViewBrokerBin = groups.includes(UserRole.ADMIN) ||
-                          groups.includes(UserRole.WHOLESALE);
+  const canViewBrokerBin =
+    groups.includes(UserRole.ADMIN) || groups.includes(UserRole.WHOLESALE);
 
   useEffect(() => {
     if (!canViewBrokerBin) {
@@ -43,7 +43,9 @@ export default function BrokersBinPage() {
         const data = await response.json();
         setBrokers(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        setError(
+          err instanceof Error ? err.message : 'An unknown error occurred'
+        );
       } finally {
         setLoading(false);
       }
@@ -68,7 +70,9 @@ export default function BrokersBinPage() {
       // Remove the restored broker from the list
       setBrokers(brokers.filter(broker => broker.id !== id));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      setError(
+        err instanceof Error ? err.message : 'An unknown error occurred'
+      );
     }
   };
 
@@ -78,7 +82,9 @@ export default function BrokersBinPage() {
         <div className="p-6">
           <h1 className="text-3xl font-bold mb-4">Soft Deleted Brokers</h1>
           <div className="bg-yellow-50 border border-yellow-200 rounded p-4">
-            <p className="text-yellow-700">You don't have permission to view soft deleted brokers.</p>
+            <p className="text-yellow-700">
+              You don&apos;t have permission to view soft deleted brokers.
+            </p>
           </div>
         </div>
       </ProtectedRoute>
@@ -128,14 +134,14 @@ export default function BrokersBinPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {brokers.map((broker) => (
+                    {brokers.map(broker => (
                       <tr key={broker.id} className="hover:bg-gray-50">
                         <td className="p-4 border-b">{broker.companyName}</td>
                         <td className="p-4 border-b">{broker.contactName}</td>
                         <td className="p-4 border-b">{broker.email}</td>
                         <td className="p-4 border-b">{broker.phone}</td>
                         <td className="p-4 border-b">
-                          <Button 
+                          <Button
                             onClick={() => handleRestore(broker.id)}
                             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                           >

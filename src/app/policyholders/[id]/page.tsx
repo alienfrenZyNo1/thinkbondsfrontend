@@ -1,13 +1,13 @@
 'use client';
 
-import { ProtectedRoute } from "@/components/protected-route";
-import { useAuthData } from "@/lib/auth-hooks";
-import { UserRole } from "@/lib/roles";
-import { useQuery } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import { CreditsafeReport } from "@/components/creditsafe-report";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { ProtectedRoute } from '@/components/protected-route';
+import { useAuthData } from '@/lib/auth-hooks';
+import { UserRole } from '@/lib/roles';
+import { useQuery } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import { CreditsafeReport } from '@/components/creditsafe-report';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface Policyholder {
   id: string;
@@ -16,16 +16,16 @@ interface Policyholder {
   email: string;
   phone: string;
   status: string;
-  editHistory: any[];
+  editHistory: EditHistoryEntry[];
 }
 
 interface EditHistoryEntry {
- id: string;
+  id: string;
   timestamp: string;
   userId: string;
   userName: string;
   action: string;
-  changes?: Record<string, any>;
+  changes?: Record<string, unknown>;
 }
 
 // Mock data fetching functions
@@ -60,42 +60,61 @@ async function fetchEditHistory(id: string) {
   return await response.json();
 }
 
-export default function PolicyholderDetailPage({ params }: { params: { id: string } }) {
+export default function PolicyholderDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const router = useRouter();
   const { groups } = useAuthData();
   const [activeTab, setActiveTab] = useState<'details' | 'history'>('details');
-  
+
   // Check if user has access to view policyholders
-  const canViewPolicyholder = groups.includes(UserRole.ADMIN) ||
-                            groups.includes(UserRole.WHOLESALE) ||
-                            groups.includes(UserRole.AGENT) ||
-                            groups.includes(UserRole.BROKER);
-  
+  const canViewPolicyholder =
+    groups.includes(UserRole.ADMIN) ||
+    groups.includes(UserRole.WHOLESALE) ||
+    groups.includes(UserRole.AGENT) ||
+    groups.includes(UserRole.BROKER);
+
   // Check if user can edit policyholders
-  const canEditPolicyholder = groups.includes(UserRole.ADMIN) ||
-                            groups.includes(UserRole.WHOLESALE) ||
-                            groups.includes(UserRole.BROKER);
-  
+  const canEditPolicyholder =
+    groups.includes(UserRole.ADMIN) ||
+    groups.includes(UserRole.WHOLESALE) ||
+    groups.includes(UserRole.BROKER);
+
   // Check if user can restore policyholders
-  const canRestorePolicyholder = groups.includes(UserRole.ADMIN) ||
-                               groups.includes(UserRole.WHOLESALE);
-  
+  const canRestorePolicyholder =
+    groups.includes(UserRole.ADMIN) || groups.includes(UserRole.WHOLESALE);
+
   // Fetch policyholder data
- const { data: policyholder, isLoading: isPolicyholderLoading, error: policyholderError, refetch: refetchPolicyholder } = useQuery({
+  const {
+    data: policyholder,
+    isLoading: isPolicyholderLoading,
+    error: policyholderError,
+    refetch: refetchPolicyholder,
+  } = useQuery({
     queryKey: ['policyholder', params.id],
     queryFn: () => fetchPolicyholder(params.id),
     enabled: canViewPolicyholder,
   });
 
   // Fetch Creditsafe data
-  const { data: creditsafeData, isLoading: isCreditsafeLoading, error: creditsafeError } = useQuery({
+  const {
+    data: creditsafeData,
+    isLoading: isCreditsafeLoading,
+    error: creditsafeError,
+  } = useQuery({
     queryKey: ['creditsafe', policyholder?.companyName],
     queryFn: () => fetchCreditsafeData(policyholder?.companyName),
     enabled: !!policyholder?.companyName && canViewPolicyholder,
   });
 
   // Fetch edit history
-  const { data: editHistory, isLoading: isHistoryLoading, error: historyError } = useQuery({
+  const {
+    data: editHistory,
+    isLoading: isHistoryLoading,
+    error: historyError,
+  } = useQuery({
     queryKey: ['editHistory', params.id],
     queryFn: () => fetchEditHistory(params.id),
     enabled: canViewPolicyholder && activeTab === 'history',
@@ -103,39 +122,39 @@ export default function PolicyholderDetailPage({ params }: { params: { id: strin
 
   const handleSoftDelete = async () => {
     if (!canEditPolicyholder) return;
-    
+
     try {
       const response = await fetch(`/api/policyholders/${params.id}`, {
         method: 'DELETE',
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to delete policyholder');
       }
-      
+
       // Refresh the policyholder data
       refetchPolicyholder();
-    } catch (error) {
-      console.error('Error deleting policyholder:', error);
+    } catch {
+      console.error('Error deleting policyholder');
     }
   };
 
   const handleRestore = async () => {
     if (!canRestorePolicyholder) return;
-    
+
     try {
       const response = await fetch(`/api/policyholders/${params.id}/restore`, {
         method: 'PUT',
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to restore policyholder');
       }
-      
+
       // Refresh the policyholder data
       refetchPolicyholder();
-    } catch (error) {
-      console.error('Error restoring policyholder:', error);
+    } catch {
+      console.error('Error restoring policyholder');
     }
   };
 
@@ -145,7 +164,9 @@ export default function PolicyholderDetailPage({ params }: { params: { id: strin
         <div className="p-6">
           <h1 className="text-3xl font-bold mb-4">Policyholder Details</h1>
           <div className="bg-yellow-50 border border-yellow-200 rounded p-4">
-            <p className="text-yellow-700">You don't have permission to view this policyholder.</p>
+            <p className="text-yellow-700">
+              You don&apos;t have permission to view this policyholder.
+            </p>
           </div>
         </div>
       </ProtectedRoute>
@@ -159,41 +180,53 @@ export default function PolicyholderDetailPage({ params }: { params: { id: strin
           <h1 className="text-3xl font-bold">Policyholder Details</h1>
           <div className="flex space-x-2">
             {canEditPolicyholder && (
-              <Button onClick={() => router.push(`/policyholders/${params.id}/edit`)}>Edit Policyholder</Button>
+              <Button
+                onClick={() => router.push(`/policyholders/${params.id}/edit`)}
+              >
+                Edit Policyholder
+              </Button>
             )}
             {canEditPolicyholder && policyholder?.status !== 'soft_deleted' && (
-              <Button variant="destructive" onClick={handleSoftDelete}>Delete Policyholder</Button>
+              <Button variant="destructive" onClick={handleSoftDelete}>
+                Delete Policyholder
+              </Button>
             )}
-            {canRestorePolicyholder && policyholder?.status === 'soft_deleted' && (
-              <Button onClick={handleRestore}>Restore Policyholder</Button>
-            )}
-            <Button variant="outline" onClick={() => router.back()}>Back</Button>
+            {canRestorePolicyholder &&
+              policyholder?.status === 'soft_deleted' && (
+                <Button onClick={handleRestore}>Restore Policyholder</Button>
+              )}
+            <Button variant="outline" onClick={() => router.back()}>
+              Back
+            </Button>
           </div>
         </div>
-        
+
         {/* Status indicator */}
         {policyholder?.status === 'soft_deleted' && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
             <p>This policyholder has been soft deleted.</p>
           </div>
         )}
-        
+
         {/* Loading states */}
         {(isPolicyholderLoading || isCreditsafeLoading || isHistoryLoading) && (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
           </div>
         )}
-        
+
         {/* Error states */}
         {(policyholderError || creditsafeError || historyError) && (
           <div className="bg-red-50 border border-red-200 rounded p-4 mb-6">
             <p className="text-red-700">
-              Error loading data: {policyholderError?.message || creditsafeError?.message || historyError?.message}
+              Error loading data:{' '}
+              {policyholderError?.message ||
+                creditsafeError?.message ||
+                historyError?.message}
             </p>
           </div>
         )}
-        
+
         {/* Tabs */}
         {policyholder && (
           <div className="mb-6">
@@ -223,12 +256,14 @@ export default function PolicyholderDetailPage({ params }: { params: { id: strin
             </div>
           </div>
         )}
-        
+
         {/* Policyholder details tab */}
         {policyholder && activeTab === 'details' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold mb-4">Policyholder Information</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Policyholder Information
+              </h2>
               <div className="space-y-3">
                 <div>
                   <label className="font-medium">Company Name:</label>
@@ -252,10 +287,12 @@ export default function PolicyholderDetailPage({ params }: { params: { id: strin
                 </div>
               </div>
             </div>
-            
+
             {/* Creditsafe data */}
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold mb-4">Creditsafe Information</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Creditsafe Information
+              </h2>
               {creditsafeData ? (
                 <div className="space-y-3">
                   <div>
@@ -285,17 +322,19 @@ export default function PolicyholderDetailPage({ params }: { params: { id: strin
             </div>
           </div>
         )}
-        
+
         {/* Creditsafe Report */}
-        {policyholder && policyholder.companyName && activeTab === 'details' && (
-          <div className="mb-6">
-            <CreditsafeReport
-              companyId={policyholder.id}
-              companyName={policyholder.companyName}
-            />
-          </div>
-        )}
-        
+        {policyholder &&
+          policyholder.companyName &&
+          activeTab === 'details' && (
+            <div className="mb-6">
+              <CreditsafeReport
+                companyId={policyholder.id}
+                companyName={policyholder.companyName}
+              />
+            </div>
+          )}
+
         {/* Edit history tab */}
         {editHistory && activeTab === 'history' && (
           <div className="bg-white p-6 rounded-lg shadow-md">
@@ -313,17 +352,22 @@ export default function PolicyholderDetailPage({ params }: { params: { id: strin
                 <tbody>
                   {editHistory.map((entry: EditHistoryEntry) => (
                     <tr key={entry.id} className="hover:bg-gray-50">
-                      <td className="p-4 border-b">{new Date(entry.timestamp).toLocaleString()}</td>
+                      <td className="p-4 border-b">
+                        {new Date(entry.timestamp).toLocaleString()}
+                      </td>
                       <td className="p-4 border-b">{entry.userName}</td>
                       <td className="p-4 border-b">{entry.action}</td>
                       <td className="p-4 border-b">
                         {entry.changes ? (
                           <ul className="list-disc pl-5">
-                            {Object.entries(entry.changes).map(([key, value]) => (
-                              <li key={key}>
-                                <strong>{key}:</strong> {JSON.stringify(value)}
-                              </li>
-                            ))}
+                            {Object.entries(entry.changes).map(
+                              ([key, value]) => (
+                                <li key={key}>
+                                  <strong>{key}:</strong>{' '}
+                                  {JSON.stringify(value)}
+                                </li>
+                              )
+                            )}
                           </ul>
                         ) : (
                           'No changes recorded'
@@ -335,7 +379,9 @@ export default function PolicyholderDetailPage({ params }: { params: { id: strin
               </table>
             </div>
             {editHistory.length === 0 && (
-              <p className="text-gray-500 mt-4">No edit history found for this policyholder.</p>
+              <p className="text-gray-500 mt-4">
+                No edit history found for this policyholder.
+              </p>
             )}
           </div>
         )}

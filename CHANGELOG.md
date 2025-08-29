@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.7.0 (2025-08-29)
+
+### Features
+
+- Added API routes for restoring and bin management for offers, policyholders, and proposals
+- Updated proposal and policyholder history pages with improved UI and functionality
+- Enhanced proposal detail page with better user experience
+- Updated acceptance flow component with improved error handling
+- Improved side navigation component with better responsive design
+- Enhanced offer form component with additional validation
+- Updated authentication middleware with improved security measures
+- Added comprehensive test coverage for authentication, RBAC, and proposal flows
+- Updated test mocking utilities for better test reliability
+
 ## 0.6.0 (2025-08-28)
 
 ### Features

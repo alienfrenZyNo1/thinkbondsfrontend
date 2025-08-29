@@ -1,10 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
 
-// Read from default ".env" file.
-require('dotenv').config();
-
-// Alternatively, read from ".env.test" file.
-require('dotenv').config({ path: require('path').resolve(__dirname, '.env.test') });
 import dotenv from 'dotenv';
 import path from 'path';
 
@@ -23,7 +18,7 @@ export default defineConfig({
   reporter: [
     ['html', { open: 'never' }],
     ['json', { outputFile: 'test-results/e2e-report.json' }],
-    ['list']
+    ['list'],
   ],
   use: {
     baseURL: 'http://localhost:3000',
@@ -36,21 +31,21 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        viewport: { width: 1920, height: 1080 }
+        viewport: { width: 1920, height: 1080 },
       },
     },
     {
       name: 'firefox',
       use: {
         ...devices['Desktop Firefox'],
-        viewport: { width: 1920, height: 1080 }
+        viewport: { width: 1920, height: 1080 },
       },
     },
     {
       name: 'webkit',
       use: {
         ...devices['Desktop Safari'],
-        viewport: { width: 1920, height: 1080 }
+        viewport: { width: 1920, height: 1080 },
       },
     },
     // Mobile browsers
@@ -72,5 +67,15 @@ export default defineConfig({
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
+    env: {
+      ...process.env,
+      // Ensure test env propagates to Next.js dev server
+      NEXTAUTH_URL: process.env.NEXTAUTH_URL || 'http://localhost:3000',
+      NEXTAUTH_SECRET:
+        process.env.NEXTAUTH_SECRET || 'nextauth-secret-for-e2e-testing',
+      NEXTAUTH_ENCRYPTION: process.env.NEXTAUTH_ENCRYPTION || 'true',
+      NEXT_PUBLIC_E2E: process.env.NEXT_PUBLIC_E2E || 'true',
+      USE_MOCK: process.env.USE_MOCK || 'true',
+    },
   },
 });

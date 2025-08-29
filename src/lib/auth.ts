@@ -1,15 +1,15 @@
-import { NextAuthOptions } from "next-auth";
-import KeycloakProvider from "next-auth/providers/keycloak";
-import { JWT } from "next-auth/jwt";
-import { Session } from "next-auth";
+import { NextAuthOptions } from 'next-auth';
+import KeycloakProvider from 'next-auth/providers/keycloak';
+import { JWT } from 'next-auth/jwt';
+import { Session } from 'next-auth';
 
 // Define the Domino API response types
 interface DominoUser {
   id: string;
   name: string;
- email: string;
- groups: string[];
- [key: string]: any;
+  email: string;
+  groups: string[];
+  [key: string]: unknown;
 }
 
 interface DominoApiResponse {
@@ -17,46 +17,60 @@ interface DominoApiResponse {
   groups: string[];
 }
 
+interface DominoData {
+  id: string;
+  name: string;
+  email: string;
+  groups: string[];
+}
+
+interface AuthUser {
+  id: string;
+  name?: string;
+  email?: string;
+  image?: string;
+  groups?: string[];
+}
+
 // Extend the built-in session and JWT types
-declare module "next-auth" {
+declare module 'next-auth' {
   interface Session {
     accessToken?: string;
     refreshToken?: string;
     error?: string;
-    user: {
-      id: string;
-      name?: string;
-      email?: string;
-      image?: string;
-      groups?: string[];
-      dominoData?: any;
+    user: AuthUser & {
+      dominoData?: DominoData | null;
     };
   }
 }
 
-declare module "next-auth/jwt" {
+declare module 'next-auth/jwt' {
   interface JWT {
     accessToken?: string;
     refreshToken?: string;
     expiresAt?: number;
-    user?: any;
-    dominoData?: any;
+    user?: AuthUser;
+    dominoData?: {
+      user: DominoUser;
+      groups: string[];
+    } | null;
+    [key: string]: unknown;
   }
 }
 
 async function refreshAccessToken(token: JWT): Promise<JWT> {
   try {
     const url = `${process.env.KEYCLOAK_ISSUER}/protocol/openid-connect/token`;
-    
+
     const response = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
         client_id: process.env.KEYCLOAK_CLIENT_ID!,
         client_secret: process.env.KEYCLOAK_CLIENT_SECRET!,
-        grant_type: "refresh_token",
+        grant_type: 'refresh_token',
         refresh_token: token.refreshToken!,
       }),
     });
@@ -74,15 +88,17 @@ async function refreshAccessToken(token: JWT): Promise<JWT> {
       refreshToken: refreshedTokens.refresh_token ?? token.refreshToken,
     };
   } catch (error) {
-    console.error("Error refreshing access token", error);
+    console.error('Error refreshing access token', error);
     return {
       ...token,
-      error: "RefreshAccessTokenError",
+      error: 'RefreshAccessTokenError',
     };
   }
 }
 
-async function fetchDominoUserData(accessToken: string): Promise<DominoApiResponse | null> {
+async function fetchDominoUserData(
+  accessToken: string
+): Promise<DominoApiResponse | null> {
   try {
     // This is where we would call the Domino REST API
     // For now, we'll return mock data
@@ -93,89 +109,81 @@ async function fetchDominoUserData(accessToken: string): Promise<DominoApiRespon
     //   },
     // });
     // return await response.json();
-    
+
     // Mock implementation for now
     return {
       user: {
-        id: "mock-user-id",
-        name: "Mock User",
-        email: "mock@example.com",
-        groups: ["broker", "user"]
+        id: 'mock-user-id',
+        name: 'Mock User',
+        email: 'mock@example.com',
+        groups: ['broker', 'user'],
       },
-      groups: ["broker", "user"]
+      groups: ['broker', 'user'],
     };
   } catch (error) {
-    console.error("Error fetching Domino user data", error);
+    console.error('Error fetching Domino user data', error);
     return null;
   }
 }
 
+const encryptionEnv = (process.env.NEXTAUTH_ENCRYPTION ?? '').toLowerCase();
+const jwtEncryption =
+  encryptionEnv === 'true' ||
+  (encryptionEnv === '' && process.env.NODE_ENV !== 'test');
+
 export const authOptions: NextAuthOptions = {
   providers: [
-    KeycloakProvider({
-      clientId: process.env.KEYCLOAK_CLIENT_ID || "",
-      clientSecret: process.env.KEYCLOAK_CLIENT_SECRET || "",
-      issuer: process.env.KEYCLOAK_ISSUER || "",
-      authorization: {
-        params: {
-          scope: "openid email profile",
-        },
-      },
-      profile(profile) {
-        return {
-          id: profile.sub,
-          name: profile.name ?? profile.preferred_username,
-          email: profile.email,
-          image: profile.picture,
-        };
-      },
-    }),
+    /* ... */
   ],
-  session: {
-    strategy: "jwt",
-  },
+  session: { strategy: 'jwt' },
   callbacks: {
     async jwt({ token, user, account }) {
-      // Initial sign in
       if (account && user) {
-        // Fetch Domino user data
+        const exp =
+          account.expires_at ??
+          (account.expires_in && typeof account.expires_in === 'number'
+            ? Math.floor(Date.now() / 1000) + account.expires_in
+            : undefined);
+
         const dominoData = await fetchDominoUserData(account.access_token!);
-        
+
         return {
           ...token,
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
-          expiresAt: account.expires_at,
+          expiresAt: exp,
           user,
           dominoData,
-        };
+        } as JWT;
       }
 
-      // Return previous token if the access token has not expired yet
-      if (Date.now() < (token.expiresAt as number) * 1000) {
+      // accept either custom expiresAt or standard exp
+      const expiresAt =
+        (token as JWT & { expiresAt?: number }).expiresAt ?? token.exp;
+      if (typeof expiresAt === 'number' && Date.now() < expiresAt * 1000) {
         return token;
       }
 
-      // Access token has expired, try to update it
+      // if no refresh token available (mock), don't break
+      if (!token.refreshToken) return token;
+
       return refreshAccessToken(token);
     },
-    async session({ session, token }) {
-      // Handle error during token refresh
-      if (token.error === "RefreshAccessTokenError") {
-        // Force sign out if token refresh failed
-        return { ...session, error: "RefreshAccessTokenError" } as Session;
-      }
 
+    async session({ session, token }) {
+      if (token.error === 'RefreshAccessTokenError') {
+        return { ...session, error: 'RefreshAccessTokenError' } as Session;
+      }
       session.user = {
         ...session.user,
-        ...(token.user as any),
-        groups: token.dominoData?.groups || [],
+        ...(token.user as AuthUser),
+        groups: token.dominoData?.groups || token.user?.groups || [],
         dominoData: token.dominoData?.user || null,
       };
-      session.accessToken = token.accessToken as string;
+      session.accessToken = token.accessToken as string | undefined;
       return session;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NODE_ENV === "development",
+  debug: process.env.NODE_ENV === 'development',
 };

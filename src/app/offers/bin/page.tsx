@@ -16,7 +16,7 @@ interface Offer {
   expiryDate: string;
   terms: string;
   status: string;
-  editHistory: any[];
+  editHistory: unknown[];
 }
 
 export default function OffersBinPage() {
@@ -27,8 +27,8 @@ export default function OffersBinPage() {
   const [error, setError] = useState<string | null>(null);
 
   // Check if user has access to view the offer bin
-  const canViewOfferBin = groups.includes(UserRole.ADMIN) ||
-                         groups.includes(UserRole.WHOLESALE);
+  const canViewOfferBin =
+    groups.includes(UserRole.ADMIN) || groups.includes(UserRole.WHOLESALE);
 
   useEffect(() => {
     if (!canViewOfferBin) {
@@ -45,7 +45,9 @@ export default function OffersBinPage() {
         const data = await response.json();
         setOffers(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        setError(
+          err instanceof Error ? err.message : 'An unknown error occurred'
+        );
       } finally {
         setLoading(false);
       }
@@ -70,7 +72,9 @@ export default function OffersBinPage() {
       // Remove the restored offer from the list
       setOffers(offers.filter(offer => offer.id !== id));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      setError(
+        err instanceof Error ? err.message : 'An unknown error occurred'
+      );
     }
   };
 
@@ -80,7 +84,9 @@ export default function OffersBinPage() {
         <div className="p-6">
           <h1 className="text-3xl font-bold mb-4">Soft Deleted Offers</h1>
           <div className="bg-yellow-50 border border-yellow-200 rounded p-4">
-            <p className="text-yellow-700">You don't have permission to view soft deleted offers.</p>
+            <p className="text-yellow-700">
+              You don&apos;t have permission to view soft deleted offers.
+            </p>
           </div>
         </div>
       </ProtectedRoute>
@@ -132,7 +138,7 @@ export default function OffersBinPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {offers.map((offer) => (
+                    {offers.map(offer => (
                       <tr key={offer.id} className="hover:bg-gray-50">
                         <td className="p-4 border-b">{offer.id}</td>
                         <td className="p-4 border-b">{offer.proposalId}</td>
@@ -141,7 +147,7 @@ export default function OffersBinPage() {
                         <td className="p-4 border-b">{offer.effectiveDate}</td>
                         <td className="p-4 border-b">{offer.expiryDate}</td>
                         <td className="p-4 border-b">
-                          <Button 
+                          <Button
                             onClick={() => handleRestore(offer.id)}
                             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                           >

@@ -1,34 +1,88 @@
-"use client";
+'use client';
 
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { offerSchema } from "@/lib/zod-schemas";
+import { useEffect } from 'react';
+import { useForm, type Resolver } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { offerSchema } from '@/lib/zod-schemas';
 
-export type OfferFormData = z.infer<typeof offerSchema>;
+export type OfferFormData = {
+  bondAmount: string;
+  premium: string;
+  terms: string;
+  effectiveDate: string;
+  expiryDate: string;
+  proposalId: string;
+  status: 'pending' | 'approved' | 'declined' | 'soft_deleted';
+  editHistory: {
+    id: string;
+    timestamp: string;
+    userId: string;
+    userName: string;
+    action: string;
+    changes?: Record<string, unknown>;
+  }[];
+};
+
+interface Proposal {
+  id: string;
+  title: string;
+  description: string;
+  brokerId: string;
+  policyholderId: string;
+  status: 'pending' | 'approved' | 'declined' | 'soft_deleted';
+  editHistory: {
+    id: string;
+    timestamp: string;
+    userId: string;
+    userName: string;
+    action: string;
+    changes?: Record<string, unknown>;
+  }[];
+}
 
 interface OfferFormProps {
   onSubmit: (data: OfferFormData) => void;
   isSubmitting: boolean;
-  proposal?: any;
+  proposal?: Proposal;
 }
 
-export function OfferForm({ onSubmit, isSubmitting, proposal }: OfferFormProps) {
+export function OfferForm({
+  onSubmit,
+  isSubmitting,
+  proposal,
+}: OfferFormProps) {
   const form = useForm<OfferFormData>({
-    resolver: zodResolver(offerSchema),
+    resolver: zodResolver(offerSchema) as Resolver<OfferFormData>,
     defaultValues: {
-      bondAmount: "",
-      premium: "",
-      terms: "",
-      effectiveDate: "",
-      expiryDate: "",
-      proposalId: proposal?.id || "",
+      bondAmount: '',
+      premium: '',
+      terms: '',
+      effectiveDate: '',
+      expiryDate: '',
+      proposalId: proposal?.id || '',
+      status: 'pending',
+      editHistory: [],
     },
   });
+
+  // Keep proposalId in sync once proposal loads
+  useEffect(() => {
+    if (proposal?.id) {
+      form.setValue('proposalId', proposal.id);
+    }
+  }, [proposal?.id, form]);
 
   return (
     <Form {...form}>
@@ -41,9 +95,9 @@ export function OfferForm({ onSubmit, isSubmitting, proposal }: OfferFormProps) 
               <FormItem>
                 <FormLabel>Bond Amount</FormLabel>
                 <FormControl>
-                  <Input 
-                    placeholder="Enter bond amount" 
-                    {...field} 
+                  <Input
+                    placeholder="Enter bond amount"
+                    {...field}
                     type="text"
                   />
                 </FormControl>
@@ -51,7 +105,7 @@ export function OfferForm({ onSubmit, isSubmitting, proposal }: OfferFormProps) 
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="premium"
@@ -59,9 +113,9 @@ export function OfferForm({ onSubmit, isSubmitting, proposal }: OfferFormProps) 
               <FormItem>
                 <FormLabel>Premium</FormLabel>
                 <FormControl>
-                  <Input 
-                    placeholder="Enter premium amount" 
-                    {...field} 
+                  <Input
+                    placeholder="Enter premium amount"
+                    {...field}
                     type="text"
                   />
                 </FormControl>
@@ -69,7 +123,7 @@ export function OfferForm({ onSubmit, isSubmitting, proposal }: OfferFormProps) 
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="effectiveDate"
@@ -77,16 +131,13 @@ export function OfferForm({ onSubmit, isSubmitting, proposal }: OfferFormProps) 
               <FormItem>
                 <FormLabel>Effective Date</FormLabel>
                 <FormControl>
-                  <Input 
-                    type="date" 
-                    {...field} 
-                  />
+                  <Input type="date" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="expiryDate"
@@ -94,17 +145,14 @@ export function OfferForm({ onSubmit, isSubmitting, proposal }: OfferFormProps) 
               <FormItem>
                 <FormLabel>Expiry Date</FormLabel>
                 <FormControl>
-                  <Input 
-                    type="date" 
-                    {...field} 
-                  />
+                  <Input type="date" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-        
+
         <FormField
           control={form.control}
           name="terms"
@@ -122,19 +170,17 @@ export function OfferForm({ onSubmit, isSubmitting, proposal }: OfferFormProps) 
             </FormItem>
           )}
         />
-        
+
         {/* Hidden field for proposalId */}
         <FormField
           control={form.control}
           name="proposalId"
-          render={({ field }) => (
-            <input type="hidden" {...field} />
-          )}
+          render={({ field }) => <input type="hidden" {...field} />}
         />
-        
+
         <div className="flex justify-end">
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Creating Offer..." : "Create Offer"}
+            {isSubmitting ? 'Creating Offer...' : 'Create Offer'}
           </Button>
         </div>
       </form>

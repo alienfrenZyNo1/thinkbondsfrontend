@@ -12,21 +12,36 @@ interface EditHistoryEntry {
   userId: string;
   userName: string;
   action: string;
-  changes?: Record<string, any>;
+  changes?: Record<string, unknown>;
 }
 
-export default function PolicyholderHistoryPage({ params }: { params: { id: string } }) {
+export default function PolicyholderHistoryPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const router = useRouter();
   const { groups } = useAuthData();
   const [editHistory, setEditHistory] = useState<EditHistoryEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [entityId, setEntityId] = useState<string | null>(null);
 
   // Check if user has access to view policyholder history
-  const canViewPolicyholderHistory = groups.includes(UserRole.ADMIN) ||
-                                    groups.includes(UserRole.WHOLESALE) ||
-                                    groups.includes(UserRole.AGENT) ||
-                                    groups.includes(UserRole.BROKER);
+  const canViewPolicyholderHistory =
+    groups.includes(UserRole.ADMIN) ||
+    groups.includes(UserRole.WHOLESALE) ||
+    groups.includes(UserRole.AGENT) ||
+    groups.includes(UserRole.BROKER);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const parts = window.location.pathname.split('/');
+      // /policyholders/:id/history -> id is at length-2
+      const id = parts.length >= 3 ? parts[parts.length - 2] : null;
+      setEntityId(id);
+    }
+  }, []);
 
   useEffect(() => {
     if (!canViewPolicyholderHistory) {
@@ -36,21 +51,24 @@ export default function PolicyholderHistoryPage({ params }: { params: { id: stri
     const fetchEditHistory = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`/api/policyholders/${params.id}/history`);
+        if (!entityId) return;
+        const response = await fetch(`/api/policyholders/${entityId}/history`);
         if (!response.ok) {
           throw new Error('Failed to fetch edit history');
         }
         const data = await response.json();
         setEditHistory(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        setError(
+          err instanceof Error ? err.message : 'An unknown error occurred'
+        );
       } finally {
         setLoading(false);
       }
     };
 
     fetchEditHistory();
-  }, [params.id, canViewPolicyholderHistory]);
+  }, [entityId, canViewPolicyholderHistory]);
 
   if (!canViewPolicyholderHistory) {
     return (
@@ -58,7 +76,10 @@ export default function PolicyholderHistoryPage({ params }: { params: { id: stri
         <div className="p-6">
           <h1 className="text-3xl font-bold mb-4">Policyholder Edit History</h1>
           <div className="bg-yellow-50 border border-yellow-200 rounded p-4">
-            <p className="text-yellow-700">You don't have permission to view this policyholder's edit history.</p>
+            <p className="text-yellow-700">
+              You don&apos;t have permission to view this policyholder&apos;s
+              edit history.
+            </p>
           </div>
         </div>
       </ProtectedRoute>
@@ -107,19 +128,24 @@ export default function PolicyholderHistoryPage({ params }: { params: { id: stri
                     </tr>
                   </thead>
                   <tbody>
-                    {editHistory.map((entry) => (
+                    {editHistory.map(entry => (
                       <tr key={entry.id} className="hover:bg-gray-50">
-                        <td className="p-4 border-b">{new Date(entry.timestamp).toLocaleString()}</td>
+                        <td className="p-4 border-b">
+                          {new Date(entry.timestamp).toLocaleString()}
+                        </td>
                         <td className="p-4 border-b">{entry.userName}</td>
                         <td className="p-4 border-b">{entry.action}</td>
                         <td className="p-4 border-b">
                           {entry.changes ? (
                             <ul className="list-disc pl-5">
-                              {Object.entries(entry.changes).map(([key, value]) => (
-                                <li key={key}>
-                                  <strong>{key}:</strong> {JSON.stringify(value)}
-                                </li>
-                              ))}
+                              {Object.entries(entry.changes).map(
+                                ([key, value]) => (
+                                  <li key={key}>
+                                    <strong>{key}:</strong>{' '}
+                                    {JSON.stringify(value)}
+                                  </li>
+                                )
+                              )}
                             </ul>
                           ) : (
                             'No changes recorded'

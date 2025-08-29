@@ -1,57 +1,77 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useAuthData } from "@/lib/auth-hooks";
-import { UserRole } from "@/lib/roles";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useAuthData } from '@/lib/auth-hooks';
+import { UserRole } from '@/lib/roles';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 interface NavItem {
   title: string;
   href: string;
   icon?: React.ReactNode;
- roles: UserRole[];
+  roles: UserRole[];
   children?: NavItem[];
 }
 
 const navItems: NavItem[] = [
   {
-    title: "Dashboard",
-    href: "/dashboard",
-    roles: [UserRole.ADMIN, UserRole.WHOLESALE, UserRole.BROKER, UserRole.POLICYHOLDER],
+    title: 'Dashboard',
+    href: '/dashboard',
+    roles: [
+      UserRole.ADMIN,
+      UserRole.WHOLESALE,
+      UserRole.BROKER,
+      UserRole.POLICYHOLDER,
+    ],
   },
   {
-    title: "Brokers",
-    href: "/brokers",
-    roles: [UserRole.ADMIN, UserRole.WHOLESALE, UserRole.BROKER],
+    title: 'Brokers',
+    href: '/brokers',
+    roles: [UserRole.ADMIN, UserRole.WHOLESALE],
   },
   {
-    title: "Policyholders",
-    href: "/policyholders",
-    roles: [UserRole.ADMIN, UserRole.WHOLESALE, UserRole.BROKER, UserRole.POLICYHOLDER],
+    title: 'Policyholders',
+    href: '/policyholders',
+    roles: [UserRole.ADMIN, UserRole.WHOLESALE],
   },
   {
-    title: "Proposals",
-    href: "/proposals",
+    title: 'Proposals',
+    href: '/proposals',
     roles: [UserRole.ADMIN, UserRole.WHOLESALE, UserRole.BROKER],
     children: [
       {
-        title: "Create New",
-        href: "/proposals/new",
+        title: 'Create New',
+        href: '/proposals/new',
         roles: [UserRole.ADMIN, UserRole.WHOLESALE, UserRole.BROKER],
       },
     ],
   },
   {
-    title: "Settings",
-    href: "/settings",
+    title: 'Offers',
+    href: '/offers',
+    roles: [UserRole.ADMIN, UserRole.WHOLESALE, UserRole.BROKER],
+  },
+  {
+    title: 'Bonds',
+    href: '/bonds',
+    roles: [UserRole.ADMIN],
+  },
+  {
+    title: 'My Bonds',
+    href: '/bonds',
+    roles: [UserRole.POLICYHOLDER],
+  },
+  {
+    title: 'Settings',
+    href: '/settings',
     roles: [UserRole.ADMIN, UserRole.WHOLESALE],
     children: [
       {
-        title: "Wholesaler",
-        href: "/settings/wholesaler",
+        title: 'Wholesaler',
+        href: '/settings/wholesaler',
         roles: [UserRole.ADMIN, UserRole.WHOLESALE],
       },
     ],
@@ -61,10 +81,12 @@ const navItems: NavItem[] = [
 export default function SideNav({ className }: { className?: string }) {
   const pathname = usePathname();
   const { groups, isLoading } = useAuthData();
-  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
+  const [expandedSections, setExpandedSections] = useState<
+    Record<string, boolean>
+  >({});
 
   const toggleSection = (title: string) => {
-    setExpandedSections((prev) => ({
+    setExpandedSections(prev => ({
       ...prev,
       [title]: !prev[title],
     }));
@@ -72,7 +94,7 @@ export default function SideNav({ className }: { className?: string }) {
 
   const userHasRole = (roles: UserRole[]) => {
     if (isLoading) return false;
-    return roles.some((role) => groups.includes(role));
+    return roles.some(role => groups.includes(role));
   };
 
   const renderNavItem = (item: NavItem, depth = 0) => {
@@ -91,20 +113,20 @@ export default function SideNav({ className }: { className?: string }) {
           <Button
             variant="ghost"
             className={cn(
-              "w-full justify-between text-left font-normal hover:bg-accent hover:text-accent-foreground",
-              depth > 0 && "pl-8",
-              isActive && "bg-accent text-accent-foreground"
+              'w-full justify-between text-left font-normal hover:bg-accent hover:text-accent-foreground',
+              depth > 0 && 'pl-8',
+              isActive && 'bg-accent text-accent-foreground'
             )}
             onClick={() => toggleSection(item.title)}
           >
             <span>{item.title}</span>
             <span className="transform transition-transform">
-              {isExpanded ? "▼" : "▶"}
+              {isExpanded ? '▼' : '▶'}
             </span>
           </Button>
           {isExpanded && (
             <div className="ml-4 mt-1 space-y-1">
-              {item.children?.map((child) => renderNavItem(child, depth + 1))}
+              {item.children?.map(child => renderNavItem(child, depth + 1))}
             </div>
           )}
         </div>
@@ -116,11 +138,9 @@ export default function SideNav({ className }: { className?: string }) {
         key={item.title}
         href={item.href}
         className={cn(
-          "block w-full rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground",
-          depth > 0 && "pl-8",
-          isActive 
-            ? "bg-accent text-accent-foreground" 
-            : "text-foreground/70"
+          'block w-full rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground',
+          depth > 0 && 'pl-8',
+          isActive ? 'bg-accent text-accent-foreground' : 'text-foreground/70'
         )}
       >
         {item.title}
@@ -130,12 +150,15 @@ export default function SideNav({ className }: { className?: string }) {
 
   if (isLoading) {
     return (
-      <aside className={cn("w-64 border-r bg-white", className)}>
+      <aside className={cn('w-64 border-r bg-white', className)}>
         <div className="p-4">
           <div className="mb-6 h-8 w-32 animate-pulse rounded bg-gray-200"></div>
           <div className="space-y-2">
             {[...Array(5)].map((_, i) => (
-              <div key={i} className="h-8 w-full animate-pulse rounded bg-gray-200"></div>
+              <div
+                key={i}
+                className="h-8 w-full animate-pulse rounded bg-gray-200"
+              ></div>
             ))}
           </div>
         </div>
@@ -144,11 +167,11 @@ export default function SideNav({ className }: { className?: string }) {
   }
 
   return (
-    <aside className={cn("w-64 border-r bg-white", className)}>
+    <aside className={cn('w-64 border-r bg-white', className)}>
       <div className="p-4">
         <h2 className="mb-6 text-xl font-bold">Navigation</h2>
         <nav className="space-y-1">
-          {navItems.map((item) => renderNavItem(item))}
+          {navItems.map(item => renderNavItem(item))}
         </nav>
       </div>
     </aside>

@@ -13,6 +13,13 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/tests/setup.ts'],
     globals: true,
+    exclude: [
+      'src/e2e/**',
+      'node_modules/**',
+      'dist/**',
+      'build/**',
+      '.next/**',
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
@@ -44,8 +51,8 @@ export default defineConfig({
         '.husky/',
         '.roo/',
         'keycloakexample.html',
-        'Portal Design Document.docx'
-      ]
-    }
+        'Portal Design Document.docx',
+      ],
+    },
   },
 });

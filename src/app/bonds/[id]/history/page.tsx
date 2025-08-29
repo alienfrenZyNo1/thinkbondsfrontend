@@ -12,10 +12,14 @@ interface EditHistoryEntry {
   userId: string;
   userName: string;
   action: string;
- changes?: Record<string, any>;
+  changes?: Record<string, unknown>;
 }
 
-export default function BondHistoryPage({ params }: { params: { id: string } }) {
+export default function BondHistoryPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const router = useRouter();
   const { groups } = useAuthData();
   const [editHistory, setEditHistory] = useState<EditHistoryEntry[]>([]);
@@ -23,11 +27,12 @@ export default function BondHistoryPage({ params }: { params: { id: string } }) 
   const [error, setError] = useState<string | null>(null);
 
   // Check if user has access to view bond history
-  const canViewBondHistory = groups.includes(UserRole.ADMIN) ||
-                            groups.includes(UserRole.WHOLESALE) ||
-                            groups.includes(UserRole.AGENT) ||
-                            groups.includes(UserRole.BROKER) ||
-                            groups.includes(UserRole.POLICYHOLDER);
+  const canViewBondHistory =
+    groups.includes(UserRole.ADMIN) ||
+    groups.includes(UserRole.WHOLESALE) ||
+    groups.includes(UserRole.AGENT) ||
+    groups.includes(UserRole.BROKER) ||
+    groups.includes(UserRole.POLICYHOLDER);
 
   useEffect(() => {
     if (!canViewBondHistory) {
@@ -44,7 +49,9 @@ export default function BondHistoryPage({ params }: { params: { id: string } }) 
         const data = await response.json();
         setEditHistory(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        setError(
+          err instanceof Error ? err.message : 'An unknown error occurred'
+        );
       } finally {
         setLoading(false);
       }
@@ -59,7 +66,10 @@ export default function BondHistoryPage({ params }: { params: { id: string } }) 
         <div className="p-6">
           <h1 className="text-3xl font-bold mb-4">Bond Edit History</h1>
           <div className="bg-yellow-50 border border-yellow-200 rounded p-4">
-            <p className="text-yellow-700">You don't have permission to view this bond's edit history.</p>
+            <p className="text-yellow-700">
+              You don&apos;t have permission to view this bond&apos;s edit
+              history.
+            </p>
           </div>
         </div>
       </ProtectedRoute>
@@ -108,19 +118,24 @@ export default function BondHistoryPage({ params }: { params: { id: string } }) 
                     </tr>
                   </thead>
                   <tbody>
-                    {editHistory.map((entry) => (
+                    {editHistory.map(entry => (
                       <tr key={entry.id} className="hover:bg-gray-50">
-                        <td className="p-4 border-b">{new Date(entry.timestamp).toLocaleString()}</td>
+                        <td className="p-4 border-b">
+                          {new Date(entry.timestamp).toLocaleString()}
+                        </td>
                         <td className="p-4 border-b">{entry.userName}</td>
                         <td className="p-4 border-b">{entry.action}</td>
                         <td className="p-4 border-b">
                           {entry.changes ? (
                             <ul className="list-disc pl-5">
-                              {Object.entries(entry.changes).map(([key, value]) => (
-                                <li key={key}>
-                                  <strong>{key}:</strong> {JSON.stringify(value)}
-                                </li>
-                              ))}
+                              {Object.entries(entry.changes).map(
+                                ([key, value]) => (
+                                  <li key={key}>
+                                    <strong>{key}:</strong>{' '}
+                                    {JSON.stringify(value)}
+                                  </li>
+                                )
+                              )}
                             </ul>
                           ) : (
                             'No changes recorded'
