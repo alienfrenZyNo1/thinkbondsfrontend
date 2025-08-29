@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { OfferForm } from '@/components/offer-form';
+import { OfferForm, type OfferFormData } from '@/components/offer-form';
 import { generateTimeLimitedToken, generateOTP } from '@/lib/security';
 
 // In-memory storage for OTPs (in production, this would be in a database)
@@ -108,7 +108,7 @@ export default function CreateOfferPage({
     );
   }
 
-  const handleOfferSubmit = async (values: any) => {
+  const handleOfferSubmit = async (values: OfferFormData) => {
     setIsSubmitting(true);
     setSubmitError(null);
 

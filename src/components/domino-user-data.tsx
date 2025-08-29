@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useAuthData } from "@/lib/auth-hooks";
-import { useEffect, useState } from "react";
+import { useAuthData } from '@/lib/auth-hooks';
+import { useEffect, useState } from 'react';
 
 interface DominoUser {
   id: string;
   name: string;
   email: string;
   groups: string[];
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface DominoData {
@@ -19,7 +19,7 @@ interface DominoData {
 export function DominoUserData() {
   const { accessToken, isAuthenticated } = useAuthData();
   const [dominoData, setDominoData] = useState<DominoData | null>(null);
- const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -32,21 +32,23 @@ export function DominoUserData() {
       try {
         setLoading(true);
         setError(null);
-        
-        const response = await fetch("/api/me", {
+
+        const response = await fetch('/api/me', {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch Domino user data");
+          throw new Error('Failed to fetch Domino user data');
         }
 
         const data: DominoData = await response.json();
         setDominoData(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "An unknown error occurred");
+        setError(
+          err instanceof Error ? err.message : 'An unknown error occurred'
+        );
       } finally {
         setLoading(false);
       }
@@ -102,8 +104,8 @@ export function DominoUserData() {
           <span className="font-medium">Email:</span> {dominoData.user.email}
         </div>
         <div>
-          <span className="font-medium">Groups:</span>{" "}
-          {dominoData.groups.join(", ") || "None"}
+          <span className="font-medium">Groups:</span>{' '}
+          {dominoData.groups.join(', ') || 'None'}
         </div>
         <div>
           <span className="font-medium">User ID:</span> {dominoData.user.id}

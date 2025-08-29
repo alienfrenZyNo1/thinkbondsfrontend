@@ -1,12 +1,18 @@
-"use client";
+'use client';
 
-import { useSession } from "next-auth/react";
-import { ReactNode, createContext, useContext, useEffect, useState } from "react";
+import { useSession } from 'next-auth/react';
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
-  user: any;
+  user: unknown;
   groups: string[];
 }
 
@@ -28,24 +34,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (session?.user?.groups) {
       setGroups(session.user.groups);
-    } else if ((session as any)?.dominoData?.groups) {
+    } else if (
+      (session as unknown as { dominoData?: { groups?: string[] } })?.dominoData
+        ?.groups
+    ) {
       // Fallback to dominoData groups if user groups are not available
-      setGroups((session as any).dominoData.groups);
+      setGroups(
+        (session as unknown as { dominoData?: { groups?: string[] } })
+          ?.dominoData?.groups || []
+      );
     } else {
       setGroups([]);
     }
   }, [session]);
 
   const contextValue = {
-    isAuthenticated: status === "authenticated",
-    isLoading: status === "loading",
+    isAuthenticated: status === 'authenticated',
+    isLoading: status === 'loading',
     user: session?.user || null,
     groups,
   };
 
   return (
-    <AuthContext.Provider value={contextValue}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 }

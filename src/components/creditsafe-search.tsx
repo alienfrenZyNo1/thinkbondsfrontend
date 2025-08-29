@@ -1,35 +1,41 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef } from "react";
-import { Input } from "@/components/ui/input";
-import { CreditsafeAPI } from "@/lib/creditsafe";
-import type { CreditsafeCompany } from "@/lib/creditsafe";
+import { useState, useEffect, useRef } from 'react';
+import { Input } from '@/components/ui/input';
+import { CreditsafeAPI } from '@/lib/creditsafe';
+import type { CreditsafeCompany } from '@/lib/creditsafe';
 
 interface CreditsafeSearchProps {
   onCompanySelect: (company: CreditsafeCompany) => void;
   placeholder?: string;
 }
 
-export function CreditsafeSearch({ onCompanySelect, placeholder = "Search for a company..." }: CreditsafeSearchProps) {
-  const [searchTerm, setSearchTerm] = useState("");
+export function CreditsafeSearch({
+  onCompanySelect,
+  placeholder = 'Search for a company...',
+}: CreditsafeSearchProps) {
+  const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState<CreditsafeCompany[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const searchRef = useRef<HTMLDivElement>(null);
-  
-  const creditsafeAPI = new CreditsafeAPI(process.env.CREDITSafe_API_KEY || "");
+
+  const creditsafeAPI = new CreditsafeAPI(process.env.CREDITSafe_API_KEY || '');
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node)
+      ) {
         setShowResults(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -55,9 +61,13 @@ export function CreditsafeSearch({ onCompanySelect, placeholder = "Search for a 
       const searchResults = await creditsafeAPI.searchCompanies(searchTerm);
       setResults(searchResults);
       setShowResults(true);
-    } catch (error: any) {
-      console.error("Error searching companies:", error);
-      setError(error.message || "Failed to search companies. Please try again.");
+    } catch (error) {
+      console.error('Error searching companies:', error);
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'Failed to search companies. Please try again.';
+      setError(message);
       setResults([]);
     } finally {
       setIsLoading(false);
@@ -76,11 +86,11 @@ export function CreditsafeSearch({ onCompanySelect, placeholder = "Search for a 
         type="text"
         placeholder={placeholder}
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={e => setSearchTerm(e.target.value)}
         onFocus={() => searchTerm.length >= 2 && setShowResults(true)}
         className="w-full"
       />
-      
+
       {showResults && (
         <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto">
           {isLoading ? (
@@ -88,18 +98,22 @@ export function CreditsafeSearch({ onCompanySelect, placeholder = "Search for a 
           ) : error ? (
             <div className="p-4 text-center text-red-500">{error}</div>
           ) : results.length > 0 ? (
-            results.map((company) => (
+            results.map(company => (
               <div
                 key={company.id}
                 className="p-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0"
                 onClick={() => handleSelect(company)}
               >
                 <div className="font-medium">{company.name}</div>
-                <div className="text-sm text-gray-500">{company.number} - {company.city}, {company.country}</div>
+                <div className="text-sm text-gray-500">
+                  {company.number} - {company.city}, {company.country}
+                </div>
               </div>
             ))
           ) : (
-            <div className="p-4 text-center text-gray-500">No companies found</div>
+            <div className="p-4 text-center text-gray-500">
+              No companies found
+            </div>
           )}
         </div>
       )}

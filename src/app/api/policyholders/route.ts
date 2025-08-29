@@ -4,21 +4,43 @@ import { logAuditEvent } from '@/lib/audit';
 import { v4 as uuidv4 } from 'uuid';
 
 // GET /api/policyholders
+type EditHistoryEntry = {
+  id: string;
+  timestamp: string;
+  userId: string;
+  userName: string;
+  action: string;
+  changes?: Record<string, unknown>;
+};
+
+type Policyholder = {
+  id: string;
+  companyName: string;
+  contactName: string;
+  email: string;
+  phone: string;
+  status: string;
+  editHistory?: EditHistoryEntry[];
+};
+
 export async function GET(request: Request) {
   try {
     // Check if we're using mock data
     const useMock = process.env.USE_MOCK === 'true';
-    
+
     // Get query parameters
     const url = new URL(request.url);
     const includeDeleted = url.searchParams.get('includeDeleted') === 'true';
-    
+
     if (useMock) {
       // Filter out soft deleted items unless explicitly requested
       const filteredPolicyholders = includeDeleted
         ? policyholders
-        : policyholders.filter((policyholder: any) => policyholder.status !== 'soft_deleted');
-      
+        : policyholders.filter(
+            (policyholder: Policyholder) =>
+              policyholder.status !== 'soft_deleted'
+          );
+
       return NextResponse.json(filteredPolicyholders);
     } else {
       // In a real implementation, this would call the DRAPI
@@ -39,9 +61,11 @@ export async function GET_BIN() {
   try {
     // Check if we're using mock data
     const useMock = process.env.USE_MOCK === 'true';
-    
+
     if (useMock) {
-      const softDeletedPolicyholders = policyholders.filter((policyholder: any) => policyholder.status === 'soft_deleted');
+      const softDeletedPolicyholders = policyholders.filter(
+        (policyholder: Policyholder) => policyholder.status === 'soft_deleted'
+      );
       return NextResponse.json(softDeletedPolicyholders);
     } else {
       // In a real implementation, this would call the DRAPI
@@ -62,19 +86,21 @@ export async function GET_HISTORY(request: Request) {
   try {
     const url = new URL(request.url);
     const id = url.pathname.split('/').pop();
-    
+
     // Check if we're using mock data
     const useMock = process.env.USE_MOCK === 'true';
-    
+
     if (useMock) {
-      const policyholder: any = policyholders.find((p: any) => p.id === id);
+      const policyholder: Policyholder | undefined = (
+        policyholders as Policyholder[]
+      ).find(p => p.id === id);
       if (!policyholder) {
         return NextResponse.json(
           { error: 'Policyholder not found' },
           { status: 404 }
         );
       }
-      
+
       return NextResponse.json(policyholder.editHistory || []);
     } else {
       // In a real implementation, this would call the DRAPI
@@ -94,10 +120,10 @@ export async function GET_HISTORY(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    
+
     // Check if we're using mock data
     const useMock = process.env.USE_MOCK === 'true';
-    
+
     if (useMock) {
       // Create edit history entry
       const editHistoryEntry = {
@@ -106,36 +132,36 @@ export async function POST(request: Request) {
         userId: 'current_user_id', // In a real implementation, this would come from the session
         userName: 'Current User', // In a real implementation, this would come from the session
         action: 'Created',
-        changes: {}
+        changes: {},
       };
-      
+
       // Add status and editHistory to the new policyholder
-      const newPolicyholder = {
+      const newPolicyholder: Policyholder = {
         ...body,
         id: (policyholders.length + 1).toString(),
         status: 'pending',
-        editHistory: [editHistoryEntry]
+        editHistory: [editHistoryEntry],
       };
-      
+
       // Log audit event
       logAuditEvent({
         action: 'POLICYHOLDER_CREATED',
         resourceType: 'policyholder',
         resourceId: newPolicyholder.id,
-        details: { policyholder: newPolicyholder }
+        details: { policyholder: newPolicyholder },
       });
-      
+
       // In a real implementation, this would create a policyholder in the DRAPI
       // For now, just return a success message
       return NextResponse.json({
         message: 'Policyholder created successfully',
-        data: newPolicyholder
+        data: newPolicyholder,
       });
     } else {
       // In a real implementation, this would call the DRAPI
       return NextResponse.json({
         message: 'Policyholder created successfully',
-        data: { ...body, id: (policyholders.length + 1).toString() }
+        data: { ...body, id: (policyholders.length + 1).toString() },
       });
     }
   } catch (error) {
@@ -153,20 +179,22 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const url = new URL(request.url);
     const id = url.pathname.split('/').pop();
-    
+
     // Check if we're using mock data
     const useMock = process.env.USE_MOCK === 'true';
-    
+
     if (useMock) {
       // Find the existing policyholder
-      const existingPolicyholder: any = policyholders.find((p: any) => p.id === id);
+      const existingPolicyholder: Policyholder | undefined = (
+        policyholders as Policyholder[]
+      ).find(p => p.id === id);
       if (!existingPolicyholder) {
         return NextResponse.json(
           { error: 'Policyholder not found' },
           { status: 404 }
         );
       }
-      
+
       // Create edit history entry
       const editHistoryEntry = {
         id: uuidv4(),
@@ -174,28 +202,35 @@ export async function PUT(request: Request) {
         userId: 'current_user_id', // In a real implementation, this would come from the session
         userName: 'Current User', // In a real implementation, this would come from the session
         action: 'Updated',
-        changes: {}
+        changes: {},
       };
-      
+
       // Log audit event
       logAuditEvent({
         action: 'POLICYHOLDER_UPDATED',
         resourceType: 'policyholder',
         resourceId: id,
-        details: { policyholder: body }
+        details: { policyholder: body },
       });
-      
+
       // In a real implementation, this would update a policyholder in the DRAPI
       // For now, just return a success message
       return NextResponse.json({
         message: `Policyholder ${id} updated successfully`,
-        data: { ...body, id, editHistory: [...(existingPolicyholder.editHistory || []), editHistoryEntry] }
+        data: {
+          ...body,
+          id,
+          editHistory: [
+            ...(existingPolicyholder.editHistory || []),
+            editHistoryEntry,
+          ],
+        },
       });
     } else {
       // In a real implementation, this would call the DRAPI
       return NextResponse.json({
         message: `Policyholder ${id} updated successfully`,
-        data: { ...body, id }
+        data: { ...body, id },
       });
     }
   } catch (error) {
@@ -212,20 +247,22 @@ export async function DELETE(request: Request) {
   try {
     const url = new URL(request.url);
     const id = url.pathname.split('/').pop();
-    
+
     // Check if we're using mock data
     const useMock = process.env.USE_MOCK === 'true';
-    
+
     if (useMock) {
       // Find the existing policyholder
-      const existingPolicyholder: any = policyholders.find((p: any) => p.id === id);
+      const existingPolicyholder: Policyholder | undefined = (
+        policyholders as Policyholder[]
+      ).find(p => p.id === id);
       if (!existingPolicyholder) {
         return NextResponse.json(
           { error: 'Policyholder not found' },
           { status: 404 }
         );
       }
-      
+
       // Create edit history entry for soft delete
       const editHistoryEntry = {
         id: uuidv4(),
@@ -234,18 +271,18 @@ export async function DELETE(request: Request) {
         userName: 'Current User', // In a real implementation, this would come from the session
         action: 'Soft Deleted',
         changes: {
-          status: 'soft_deleted'
-        }
+          status: 'soft_deleted',
+        },
       };
-      
+
       // Log audit event
       logAuditEvent({
         action: 'POLICYHOLDER_SOFT_DELETED',
         resourceType: 'policyholder',
         resourceId: id,
-        details: { policyholder: existingPolicyholder }
+        details: { policyholder: existingPolicyholder },
       });
-      
+
       // In a real implementation, this would update the policyholder status to soft_deleted in the DRAPI
       // For now, just return a success message
       return NextResponse.json({
@@ -254,13 +291,16 @@ export async function DELETE(request: Request) {
           ...existingPolicyholder,
           id,
           status: 'soft_deleted',
-          editHistory: [...(existingPolicyholder.editHistory || []), editHistoryEntry]
-        }
+          editHistory: [
+            ...(existingPolicyholder.editHistory || []),
+            editHistoryEntry,
+          ],
+        },
       });
     } else {
       // In a real implementation, this would call the DRAPI
       return NextResponse.json({
-        message: `Policyholder ${id} soft deleted successfully`
+        message: `Policyholder ${id} soft deleted successfully`,
       });
     }
   } catch (error) {
@@ -277,20 +317,22 @@ export async function PUT_RESTORE(request: Request) {
   try {
     const url = new URL(request.url);
     const id = url.pathname.split('/').pop();
-    
+
     // Check if we're using mock data
     const useMock = process.env.USE_MOCK === 'true';
-    
+
     if (useMock) {
       // Find the existing policyholder
-      const existingPolicyholder: any = policyholders.find((p: any) => p.id === id);
+      const existingPolicyholder: Policyholder | undefined = (
+        policyholders as Policyholder[]
+      ).find(p => p.id === id);
       if (!existingPolicyholder) {
         return NextResponse.json(
           { error: 'Policyholder not found' },
           { status: 404 }
         );
       }
-      
+
       // Check if the policyholder is actually soft deleted
       if (existingPolicyholder.status !== 'soft_deleted') {
         return NextResponse.json(
@@ -298,7 +340,7 @@ export async function PUT_RESTORE(request: Request) {
           { status: 400 }
         );
       }
-      
+
       // Create edit history entry for restore
       const editHistoryEntry = {
         id: uuidv4(),
@@ -307,18 +349,18 @@ export async function PUT_RESTORE(request: Request) {
         userName: 'Current User', // In a real implementation, this would come from the session
         action: 'Restored',
         changes: {
-          status: 'pending' // or whatever the appropriate status should be
-        }
+          status: 'pending', // or whatever the appropriate status should be
+        },
       };
-      
+
       // Log audit event
       logAuditEvent({
         action: 'POLICYHOLDER_RESTORED',
         resourceType: 'policyholder',
         resourceId: id,
-        details: { policyholder: existingPolicyholder }
+        details: { policyholder: existingPolicyholder },
       });
-      
+
       // In a real implementation, this would update the policyholder status to pending in the DRAPI
       // For now, just return a success message
       return NextResponse.json({
@@ -327,13 +369,16 @@ export async function PUT_RESTORE(request: Request) {
           ...existingPolicyholder,
           id,
           status: 'pending',
-          editHistory: [...(existingPolicyholder.editHistory || []), editHistoryEntry]
-        }
+          editHistory: [
+            ...(existingPolicyholder.editHistory || []),
+            editHistoryEntry,
+          ],
+        },
       });
     } else {
       // In a real implementation, this would call the DRAPI
       return NextResponse.json({
-        message: `Policyholder ${id} restored successfully`
+        message: `Policyholder ${id} restored successfully`,
       });
     }
   } catch (error) {

@@ -7,8 +7,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { formatDate } from "@/lib/utils";
+} from '@/components/ui/table';
+import { formatDate } from '@/lib/utils';
 
 interface EditHistoryEntry {
   id: string;
@@ -16,7 +16,7 @@ interface EditHistoryEntry {
   userId: string;
   userName: string;
   action: string;
-  changes?: Record<string, any>;
+  changes?: Record<string, unknown>;
 }
 
 interface EditHistoryTableProps {
@@ -37,7 +37,7 @@ export function EditHistoryTable({ editHistory }: EditHistoryTableProps) {
         </TableHeader>
         <TableBody>
           {editHistory && editHistory.length > 0 ? (
-            editHistory.map((entry) => (
+            editHistory.map(entry => (
               <TableRow key={entry.id}>
                 <TableCell>{formatDate(entry.timestamp)}</TableCell>
                 <TableCell>{entry.userName}</TableCell>

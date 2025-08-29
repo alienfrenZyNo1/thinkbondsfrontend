@@ -10,7 +10,8 @@ export function AuthErrorHandler() {
 
   useEffect(() => {
     // Check if there's an authentication error
-    if ((session as any)?.error === 'RefreshAccessTokenError') {
+    const maybeError = (session as unknown as { error?: string } | null)?.error;
+    if (maybeError === 'RefreshAccessTokenError') {
       // Sign out the user to clear the invalid session
       // This will redirect them to the sign-in page
       router.push('/api/auth/signout');

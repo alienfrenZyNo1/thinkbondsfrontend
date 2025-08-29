@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { CompanySearch } from '@/components/ui/company-search';
+import type { CreditsafeCompany } from '@/lib/creditsafe';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -182,7 +183,7 @@ export default function NewProposalPage() {
   };
 
   // Handle policyholder company selection from Creditsafe
-  const handlePolicyholderCompanySelect = (company: any) => {
+  const handlePolicyholderCompanySelect = (company: CreditsafeCompany) => {
     policyholderForm.setValue('companyName', company.name);
     policyholderForm.setValue('companyNumber', company.number);
     policyholderForm.setValue('address', company.address);
@@ -192,7 +193,7 @@ export default function NewProposalPage() {
   };
 
   // Handle beneficiary company selection from Creditsafe
-  const handleBeneficiaryCompanySelect = (company: any) => {
+  const handleBeneficiaryCompanySelect = (company: CreditsafeCompany) => {
     beneficiaryForm.setValue('companyName', company.name);
     beneficiaryForm.setValue('companyNumber', company.number);
     beneficiaryForm.setValue('address', company.address);

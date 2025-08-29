@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { useState } from "react";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { useState } from 'react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -13,16 +13,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { pinVerificationSchema } from "@/lib/zod-schemas";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { pinVerificationSchema } from '@/lib/zod-schemas';
 
 interface PinVerificationFormProps {
   onSuccess: () => void;
   email: string;
 }
 
-export function PinVerificationForm({ onSuccess, email }: PinVerificationFormProps) {
+export function PinVerificationForm({
+  onSuccess,
+  email,
+}: PinVerificationFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
 
@@ -30,7 +33,7 @@ export function PinVerificationForm({ onSuccess, email }: PinVerificationFormPro
     resolver: zodResolver(pinVerificationSchema),
     defaultValues: {
       email: email,
-      pin: "",
+      pin: '',
     },
   });
 
@@ -38,10 +41,10 @@ export function PinVerificationForm({ onSuccess, email }: PinVerificationFormPro
     setIsLoading(true);
     setApiError(null);
     try {
-      const response = await fetch("/api/registration/verify-pin", {
-        method: "POST",
+      const response = await fetch('/api/registration/verify-pin', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(values),
       });
@@ -49,12 +52,15 @@ export function PinVerificationForm({ onSuccess, email }: PinVerificationFormPro
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Invalid PIN");
+        throw new Error(data.error || 'Invalid PIN');
       }
 
       onSuccess();
-    } catch (error: any) {
-      const errorMessage = error.message || "Invalid PIN. Please try again.";
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'Invalid PIN. Please try again.';
       setApiError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -69,7 +75,7 @@ export function PinVerificationForm({ onSuccess, email }: PinVerificationFormPro
             {apiError}
           </div>
         )}
-        
+
         <FormField
           control={form.control}
           name="email"
@@ -83,7 +89,7 @@ export function PinVerificationForm({ onSuccess, email }: PinVerificationFormPro
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="pin"
@@ -95,7 +101,7 @@ export function PinVerificationForm({ onSuccess, email }: PinVerificationFormPro
                   placeholder="Enter 6-digit PIN"
                   {...field}
                   maxLength={6}
-                  onChange={(e) => {
+                  onChange={e => {
                     // Only allow digits
                     const value = e.target.value.replace(/\D/g, '');
                     field.onChange(value);
@@ -106,9 +112,9 @@ export function PinVerificationForm({ onSuccess, email }: PinVerificationFormPro
             </FormItem>
           )}
         />
-        
+
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Verifying..." : "Verify PIN"}
+          {isLoading ? 'Verifying...' : 'Verify PIN'}
         </Button>
       </form>
     </Form>

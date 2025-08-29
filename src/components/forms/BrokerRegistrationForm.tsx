@@ -74,9 +74,11 @@ export function BrokerRegistrationForm({
       }
 
       onSuccess();
-    } catch (error: any) {
+    } catch (error) {
       const errorMessage =
-        error.message || 'Failed to submit registration. Please try again.';
+        error instanceof Error
+          ? error.message
+          : 'Failed to submit registration. Please try again.';
       setApiError(errorMessage);
     } finally {
       setIsLoading(false);

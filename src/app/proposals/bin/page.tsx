@@ -14,7 +14,7 @@ interface Proposal {
   brokerId: string;
   policyholderId: string;
   status: string;
-  editHistory: any[];
+  editHistory: Record<string, unknown>[];
 }
 
 export default function ProposalsBinPage() {
@@ -25,10 +25,11 @@ export default function ProposalsBinPage() {
   const [error, setError] = useState<string | null>(null);
 
   // Check if user has access to view the proposal bin
-  const canViewProposalBin = groups.includes(UserRole.ADMIN) ||
-                            groups.includes(UserRole.WHOLESALE) ||
-                            groups.includes(UserRole.AGENT) ||
-                            groups.includes(UserRole.BROKER);
+  const canViewProposalBin =
+    groups.includes(UserRole.ADMIN) ||
+    groups.includes(UserRole.WHOLESALE) ||
+    groups.includes(UserRole.AGENT) ||
+    groups.includes(UserRole.BROKER);
 
   useEffect(() => {
     if (!canViewProposalBin) {
@@ -45,7 +46,9 @@ export default function ProposalsBinPage() {
         const data = await response.json();
         setProposals(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        setError(
+          err instanceof Error ? err.message : 'An unknown error occurred'
+        );
       } finally {
         setLoading(false);
       }
@@ -70,7 +73,9 @@ export default function ProposalsBinPage() {
       // Remove the restored proposal from the list
       setProposals(proposals.filter(proposal => proposal.id !== id));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      setError(
+        err instanceof Error ? err.message : 'An unknown error occurred'
+      );
     }
   };
 
@@ -80,7 +85,9 @@ export default function ProposalsBinPage() {
         <div className="p-6">
           <h1 className="text-3xl font-bold mb-4">Soft Deleted Proposals</h1>
           <div className="bg-yellow-50 border border-yellow-200 rounded p-4">
-            <p className="text-yellow-700">You don't have permission to view soft deleted proposals.</p>
+            <p className="text-yellow-700">
+              You don't have permission to view soft deleted proposals.
+            </p>
           </div>
         </div>
       </ProtectedRoute>
@@ -114,7 +121,9 @@ export default function ProposalsBinPage() {
 
         {!loading && !error && (
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Soft Deleted Proposals</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              Soft Deleted Proposals
+            </h2>
             {proposals.length === 0 ? (
               <p>No soft deleted proposals found.</p>
             ) : (
@@ -125,19 +134,23 @@ export default function ProposalsBinPage() {
                       <th className="border-b p-4 text-left">Title</th>
                       <th className="border-b p-4 text-left">Description</th>
                       <th className="border-b p-4 text-left">Broker ID</th>
-                      <th className="border-b p-4 text-left">Policyholder ID</th>
+                      <th className="border-b p-4 text-left">
+                        Policyholder ID
+                      </th>
                       <th className="border-b p-4 text-left">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {proposals.map((proposal) => (
+                    {proposals.map(proposal => (
                       <tr key={proposal.id} className="hover:bg-gray-50">
                         <td className="p-4 border-b">{proposal.title}</td>
                         <td className="p-4 border-b">{proposal.description}</td>
                         <td className="p-4 border-b">{proposal.brokerId}</td>
-                        <td className="p-4 border-b">{proposal.policyholderId}</td>
                         <td className="p-4 border-b">
-                          <Button 
+                          {proposal.policyholderId}
+                        </td>
+                        <td className="p-4 border-b">
+                          <Button
                             onClick={() => handleRestore(proposal.id)}
                             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                           >

@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { useState } from "react";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { useState } from 'react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -13,9 +13,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { accessRequestSchema } from "@/lib/zod-schemas";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { accessRequestSchema } from '@/lib/zod-schemas';
 
 interface AccessRequestFormProps {
   onSuccess?: (data: { email: string; pin6: string; link: string }) => void;
@@ -28,8 +28,8 @@ export function AccessRequestForm({ onSuccess }: AccessRequestFormProps) {
   const form = useForm<z.infer<typeof accessRequestSchema>>({
     resolver: zodResolver(accessRequestSchema),
     defaultValues: {
-      email: "",
-      country: "",
+      email: '',
+      country: '',
     },
   });
 
@@ -37,10 +37,10 @@ export function AccessRequestForm({ onSuccess }: AccessRequestFormProps) {
     setIsLoading(true);
     setApiError(null);
     try {
-      const response = await fetch("/api/registration/access-code", {
-        method: "POST",
+      const response = await fetch('/api/registration/access-code', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(values),
       });
@@ -48,14 +48,17 @@ export function AccessRequestForm({ onSuccess }: AccessRequestFormProps) {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to request access");
+        throw new Error(data.error || 'Failed to request access');
       }
 
       if (onSuccess) {
         onSuccess(data);
       }
-    } catch (error: any) {
-      const errorMessage = error.message || "Failed to request access. Please try again.";
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'Failed to request access. Please try again.';
       setApiError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -64,16 +67,19 @@ export function AccessRequestForm({ onSuccess }: AccessRequestFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        form.handleSubmit(handleSubmit)(e);
-      }} className="space-y-6">
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          form.handleSubmit(handleSubmit)(e);
+        }}
+        className="space-y-6"
+      >
         {apiError && (
           <div className="p-3 bg-red-100 text-red-700 rounded-md">
             {apiError}
           </div>
         )}
-        
+
         <FormField
           control={form.control}
           name="email"
@@ -87,7 +93,7 @@ export function AccessRequestForm({ onSuccess }: AccessRequestFormProps) {
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="country"
@@ -101,9 +107,9 @@ export function AccessRequestForm({ onSuccess }: AccessRequestFormProps) {
             </FormItem>
           )}
         />
-        
+
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Requesting Access..." : "Request Access"}
+          {isLoading ? 'Requesting Access...' : 'Request Access'}
         </Button>
       </form>
     </Form>
