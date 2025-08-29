@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useSession } from "next-auth/react";
-import { useAuthData, useHasRole, useHasPermission } from "@/lib/auth-hooks";
-import { UserRole } from "@/lib/roles";
-import { Button } from "@/components/ui/button";
+import { useSession } from 'next-auth/react';
+import { useAuthData, useHasRole, useHasPermission } from '@/lib/auth-hooks';
+import { UserRole } from '@/lib/roles';
+import { Button } from '@/components/ui/button';
 
 interface ProtectedRouteProps {
   requiredRole?: UserRole;
@@ -11,18 +11,20 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
-export function ProtectedRoute({ 
-  requiredRole, 
-  requiredPermission, 
-  children 
+export function ProtectedRoute({
+  requiredRole,
+  requiredPermission,
+  children,
 }: ProtectedRouteProps) {
   const { status } = useSession();
   const { isAuthenticated, isLoading } = useAuthData();
   const hasRequiredRole = requiredRole ? useHasRole(requiredRole) : true;
-  const hasRequiredPermission = requiredPermission ? useHasPermission(requiredPermission) : true;
+  const hasRequiredPermission = requiredPermission
+    ? useHasPermission(requiredPermission)
+    : true;
 
   // Show loading state while checking authentication
-  if (isLoading || status === "loading") {
+  if (isLoading || status === 'loading') {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="text-center">
@@ -39,7 +41,7 @@ export function ProtectedRoute({
       <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-4">Authentication Required</h2>
         <p className="mb-4">You need to be signed in to access this content.</p>
-        <Button onClick={() => window.location.href = "/api/auth/signin"}>
+        <Button onClick={() => (window.location.href = '/api/auth/signin')}>
           Sign In
         </Button>
       </div>
@@ -54,9 +56,7 @@ export function ProtectedRoute({
         <p className="mb-4">
           You need the {requiredRole} role to access this content.
         </p>
-        <Button onClick={() => window.history.back()}>
-          Go Back
-        </Button>
+        <Button onClick={() => window.history.back()}>Go Back</Button>
       </div>
     );
   }
@@ -69,9 +69,7 @@ export function ProtectedRoute({
         <p className="mb-4">
           You need the "{requiredPermission}" permission to access this content.
         </p>
-        <Button onClick={() => window.history.back()}>
-          Go Back
-        </Button>
+        <Button onClick={() => window.history.back()}>Go Back</Button>
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import { AccessRequestWrapper } from "@/components/AccessRequestWrapper";
+import { AccessRequestWrapper } from '@/components/AccessRequestWrapper';
 
 export default function AccessRequestPage() {
   return <AccessRequestWrapper />;

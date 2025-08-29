@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { UserProfile } from "@/components/user-profile";
-import { Button } from "@/components/ui/button";
-import { Menu, Bell } from "lucide-react";
+import { useState } from 'react';
+import { UserProfile } from '@/components/user-profile';
+import { Button } from '@/components/ui/button';
+import { Menu, Bell } from 'lucide-react';
 
-export default function Navbar({ 
-  onMenuToggle 
-}: { 
-  onMenuToggle?: () => void 
+export default function Navbar({
+  onMenuToggle,
+}: {
+  onMenuToggle?: () => void;
 }) {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
@@ -16,9 +16,9 @@ export default function Navbar({
     <nav className="border-b bg-white">
       <div className="flex h-16 items-center px-4 justify-between">
         <div className="flex items-center space-x-4">
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            variant="ghost"
+            size="icon"
             className="md:hidden"
             onClick={onMenuToggle}
           >
@@ -27,10 +27,10 @@ export default function Navbar({
           </Button>
           <h2 className="text-xl font-bold">ThinkBonds Portal</h2>
         </div>
-        
+
         <div className="flex items-center space-x-4">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             size="icon"
             onClick={() => setNotificationsOpen(!notificationsOpen)}
           >
@@ -40,7 +40,7 @@ export default function Navbar({
           <UserProfile />
         </div>
       </div>
-      
+
       {/* Notifications dropdown - placeholder for future implementation */}
       {notificationsOpen && (
         <div className="absolute right-4 top-16 w-80 bg-white border rounded-md shadow-lg p-4">

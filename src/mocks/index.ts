@@ -1,9 +1,9 @@
-import { worker } from './browser'
+import { worker } from './browser';
 
 export async function enableMocking() {
   if (process.env.NODE_ENV !== 'development') {
-    return
+    return;
   }
 
-  return worker.start()
+  return worker.start();
 }

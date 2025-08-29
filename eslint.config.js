@@ -35,7 +35,7 @@ module.exports = [
       prettier: pluginPrettier,
     },
     rules: {
-      'prettier/prettier': 'off',
+      'prettier/prettier': 'error',
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'warn',
     },

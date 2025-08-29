@@ -6,29 +6,29 @@ export const testUsers = [
     name: 'Admin User',
     email: 'admin@example.com',
     role: 'admin',
-    password: 'admin123'
+    password: 'admin123',
   },
   {
     id: 'broker-1',
     name: 'Broker User',
     email: 'broker@example.com',
     role: 'broker',
-    password: 'broker123'
+    password: 'broker123',
   },
   {
     id: 'policyholder-1',
     name: 'Policyholder User',
     email: 'policyholder@example.com',
     role: 'policyholder',
-    password: 'policyholder123'
+    password: 'policyholder123',
   },
   {
     id: 'wholesale-1',
     name: 'Wholesale User',
     email: 'wholesale@example.com',
     role: 'wholesale',
-    password: 'wholesale123'
-  }
+    password: 'wholesale123',
+  },
 ];
 
 export const testBrokers = [
@@ -39,8 +39,8 @@ export const testBrokers = [
     email: 'john@broker.com',
     phone: '+1234567890',
     status: 'approved',
-    editHistory: []
-  }
+    editHistory: [],
+  },
 ];
 
 export const testPolicyholders = [
@@ -51,8 +51,8 @@ export const testPolicyholders = [
     email: 'john@company.com',
     phone: '+1234567891',
     status: 'approved',
-    editHistory: []
-  }
+    editHistory: [],
+  },
 ];
 
 export const testProposals = [
@@ -63,8 +63,8 @@ export const testProposals = [
     brokerId: 'broker-1',
     policyholderId: 'policyholder-1',
     status: 'approved',
-    editHistory: []
-  }
+    editHistory: [],
+  },
 ];
 
 export const testOffers = [
@@ -77,8 +77,8 @@ export const testOffers = [
     expiryDate: '2024-01-01',
     proposalId: 'proposal-1',
     status: 'pending',
-    editHistory: []
-  }
+    editHistory: [],
+  },
 ];
 
 export const testBonds = [
@@ -92,8 +92,8 @@ export const testBonds = [
     policyholderId: 'policyholder-1',
     beneficiaryId: 'beneficiary-1',
     status: 'active',
-    editHistory: []
-  }
+    editHistory: [],
+  },
 ];
 
 export const testBeneficiaries = [
@@ -104,8 +104,8 @@ export const testBeneficiaries = [
     email: 'john@beneficiary.com',
     phone: '+1234567892',
     status: 'approved',
-    editHistory: []
-  }
+    editHistory: [],
+  },
 ];
 
 export const testEditHistory = [
@@ -115,7 +115,7 @@ export const testEditHistory = [
     userId: 'admin-1',
     userName: 'Admin User',
     action: 'Created',
-    changes: {}
+    changes: {},
   },
   {
     id: 'history-2',
@@ -124,40 +124,40 @@ export const testEditHistory = [
     userName: 'Admin User',
     action: 'Updated',
     changes: {
-      status: 'approved'
-    }
-  }
+      status: 'approved',
+    },
+  },
 ];
 
 export const testTokens = {
   validAcceptToken: 'valid-accept-token-123',
   expiredAcceptToken: 'expired-accept-token-123',
-  invalidAcceptToken: 'invalid-accept-token-123'
+  invalidAcceptToken: 'invalid-accept-token-123',
 };
 
 export const testOTP = {
   valid: '123456',
-  invalid: '000000'
+  invalid: '000000',
 };
 
 export const testCountries = [
   { code: 'GB', name: 'United Kingdom' },
   { code: 'US', name: 'United States' },
   { code: 'CA', name: 'Canada' },
-  { code: 'AU', name: 'Australia' }
+  { code: 'AU', name: 'Australia' },
 ];
 
 export const testCredentials = {
   admin: {
     email: 'admin@example.com',
-    password: 'admin123'
+    password: 'admin123',
   },
   broker: {
     email: 'broker@example.com',
-    password: 'broker123'
+    password: 'broker123',
   },
   policyholder: {
     email: 'policyholder@example.com',
-    password: 'policyholder123'
-  }
+    password: 'policyholder123',
+  },
 };

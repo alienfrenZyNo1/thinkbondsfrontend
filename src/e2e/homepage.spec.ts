@@ -7,10 +7,16 @@ test('should display homepage with form and data', async ({ page }) => {
   await expect(page).toHaveTitle(/ThinkBonds Portal/);
 
   // Check that the welcome message is visible
-  await expect(page.locator('h1:has-text("Welcome to ThinkBonds Portal")')).toBeVisible();
+  await expect(
+    page.locator('h1:has-text("Welcome to ThinkBonds Portal")')
+  ).toBeVisible();
 
   // Check that the description text is visible
-  await expect(page.locator('text=Please sign in to access your dashboard and manage your policies.')).toBeVisible();
+  await expect(
+    page.locator(
+      'text=Please sign in to access your dashboard and manage your policies.'
+    )
+  ).toBeVisible();
 
   // Check that the Sign In button is visible
   await expect(page.locator('button:has-text("Sign In")')).toBeVisible();
@@ -19,5 +25,7 @@ test('should display homepage with form and data', async ({ page }) => {
   await expect(page.locator('button:has-text("Request Access")')).toBeVisible();
 
   // Check that the Register as Broker button is visible
-  await expect(page.locator('button:has-text("Register as Broker")')).toBeVisible();
+  await expect(
+    page.locator('button:has-text("Register as Broker")')
+  ).toBeVisible();
 });

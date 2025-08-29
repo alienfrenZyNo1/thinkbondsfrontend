@@ -8,14 +8,14 @@ import {
   proposalSchema,
   accessRequestSchema,
   pinVerificationSchema,
- brokerRegistrationSchema,
+  brokerRegistrationSchema,
   creditsafeCompanySchema,
   creditsafeFinancialSummarySchema,
   creditsafeCreditScoreSchema,
   creditsafeReportSchema,
   beneficiarySchema,
   bondSchema,
-  offerSchema
+  offerSchema,
 } from '@/lib/zod-schemas';
 
 describe('Zod Schemas', () => {
@@ -40,9 +40,9 @@ describe('Zod Schemas', () => {
         userId: 'user1',
         userName: 'Test User',
         action: 'Created',
-        changes: { field: 'value' }
+        changes: { field: 'value' },
       };
-      
+
       expect(editHistorySchema.parse(validData)).toEqual(validData);
     });
 
@@ -52,9 +52,9 @@ describe('Zod Schemas', () => {
         timestamp: '2023-01-01T00:00Z',
         userId: 'user1',
         userName: 'Test User',
-        action: 'Created'
+        action: 'Created',
       };
-      
+
       expect(editHistorySchema.parse(validData)).toEqual(validData);
     });
 
@@ -64,9 +64,9 @@ describe('Zod Schemas', () => {
         timestamp: 'invalid-date',
         userId: 'user1',
         userName: 'Test User',
-        action: 'Created'
+        action: 'Created',
       };
-      
+
       expect(() => editHistorySchema.parse(invalidData)).toThrow();
     });
   });
@@ -76,9 +76,9 @@ describe('Zod Schemas', () => {
       const validData = {
         name: 'Test User',
         email: 'test@example.com',
-        role: 'admin'
+        role: 'admin',
       };
-      
+
       expect(userSchema.parse(validData)).toEqual(validData);
     });
 
@@ -86,18 +86,18 @@ describe('Zod Schemas', () => {
       const invalidData = {
         name: 'Test User',
         email: 'invalid-email',
-        role: 'admin'
+        role: 'admin',
       };
-      
+
       expect(() => userSchema.parse(invalidData)).toThrow();
     });
 
     it('should throw error for missing name', () => {
       const invalidData = {
         email: 'test@example.com',
-        role: 'admin'
+        role: 'admin',
       };
-      
+
       expect(() => userSchema.parse(invalidData)).toThrow();
     });
   });
@@ -110,9 +110,9 @@ describe('Zod Schemas', () => {
         email: 'test@example.com',
         phone: '1234567890',
         status: 'pending',
-        editHistory: []
+        editHistory: [],
       };
-      
+
       expect(brokerSchema.parse(validData)).toEqual(validData);
     });
 
@@ -121,9 +121,9 @@ describe('Zod Schemas', () => {
         companyName: 'Test Company',
         contactName: 'Test Contact',
         email: 'test@example.com',
-        phone: '1234567890'
+        phone: '1234567890',
       };
-      
+
       const result = brokerSchema.parse(validData);
       expect(result.status).toBe('pending');
       expect(result.editHistory).toEqual([]);
@@ -138,9 +138,9 @@ describe('Zod Schemas', () => {
         email: 'test@example.com',
         phone: '1234567890',
         status: 'approved',
-        editHistory: []
+        editHistory: [],
       };
-      
+
       expect(policyholderSchema.parse(validData)).toEqual(validData);
     });
   });
@@ -153,9 +153,9 @@ describe('Zod Schemas', () => {
         brokerId: 'broker-1',
         policyholderId: 'policyholder-1',
         status: 'pending',
-        editHistory: []
+        editHistory: [],
       };
-      
+
       expect(proposalSchema.parse(validData)).toEqual(validData);
     });
   });
@@ -164,18 +164,18 @@ describe('Zod Schemas', () => {
     it('should validate correct access request data', () => {
       const validData = {
         email: 'test@example.com',
-        country: 'USA'
+        country: 'USA',
       };
-      
+
       expect(accessRequestSchema.parse(validData)).toEqual(validData);
     });
 
     it('should throw error for invalid email', () => {
       const invalidData = {
         email: 'invalid-email',
-        country: 'USA'
+        country: 'USA',
       };
-      
+
       expect(() => accessRequestSchema.parse(invalidData)).toThrow();
     });
   });
@@ -184,27 +184,27 @@ describe('Zod Schemas', () => {
     it('should validate correct PIN verification data', () => {
       const validData = {
         email: 'test@example.com',
-        pin: '123456'
+        pin: '123456',
       };
-      
+
       expect(pinVerificationSchema.parse(validData)).toEqual(validData);
     });
 
     it('should throw error for invalid PIN format', () => {
       const invalidData = {
         email: 'test@example.com',
-        pin: '12345' // Too short
+        pin: '12345', // Too short
       };
-      
+
       expect(() => pinVerificationSchema.parse(invalidData)).toThrow();
     });
 
     it('should throw error for non-numeric PIN', () => {
       const invalidData = {
         email: 'test@example.com',
-        pin: '123abc' // Contains letters
+        pin: '123abc', // Contains letters
       };
-      
+
       expect(() => pinVerificationSchema.parse(invalidData)).toThrow();
     });
   });
@@ -220,9 +220,9 @@ describe('Zod Schemas', () => {
         address: '123 Test St',
         city: 'Test City',
         postcode: '12345',
-        country: 'USA'
+        country: 'USA',
       };
-      
+
       expect(brokerRegistrationSchema.parse(validData)).toEqual(validData);
     });
   });
@@ -236,9 +236,9 @@ describe('Zod Schemas', () => {
         country: 'USA',
         address: '123 Test St',
         city: 'Test City',
-        postcode: '12345'
+        postcode: '12345',
       };
-      
+
       expect(creditsafeCompanySchema.parse(validData)).toEqual(validData);
     });
   });
@@ -250,10 +250,12 @@ describe('Zod Schemas', () => {
         revenue: 1000000,
         profit: 100000,
         equity: 500000,
-        employees: 50
+        employees: 50,
       };
-      
-      expect(creditsafeFinancialSummarySchema.parse(validData)).toEqual(validData);
+
+      expect(creditsafeFinancialSummarySchema.parse(validData)).toEqual(
+        validData
+      );
     });
 
     it('should throw error for negative revenue', () => {
@@ -262,10 +264,12 @@ describe('Zod Schemas', () => {
         revenue: -1000000,
         profit: 100000,
         equity: 500000,
-        employees: 50
+        employees: 50,
       };
-      
-      expect(() => creditsafeFinancialSummarySchema.parse(invalidData)).toThrow();
+
+      expect(() =>
+        creditsafeFinancialSummarySchema.parse(invalidData)
+      ).toThrow();
     });
   });
 
@@ -274,9 +278,9 @@ describe('Zod Schemas', () => {
       const validData = {
         score: 80,
         rating: 'A',
-        limit: 1000000
+        limit: 1000000,
       };
-      
+
       expect(creditsafeCreditScoreSchema.parse(validData)).toEqual(validData);
     });
 
@@ -284,9 +288,9 @@ describe('Zod Schemas', () => {
       const invalidData = {
         score: 150,
         rating: 'A',
-        limit: 1000000
+        limit: 1000000,
       };
-      
+
       expect(() => creditsafeCreditScoreSchema.parse(invalidData)).toThrow();
     });
   });
@@ -303,9 +307,9 @@ describe('Zod Schemas', () => {
         address: '123 Test St',
         city: 'Test City',
         postcode: '12345',
-        country: 'USA'
+        country: 'USA',
       };
-      
+
       expect(creditsafeReportSchema.parse(validData)).toEqual(validData);
     });
   });
@@ -318,9 +322,9 @@ describe('Zod Schemas', () => {
         email: 'test@example.com',
         phone: '1234567890',
         status: 'pending',
-        editHistory: []
+        editHistory: [],
       };
-      
+
       expect(beneficiarySchema.parse(validData)).toEqual(validData);
     });
   });
@@ -336,9 +340,9 @@ describe('Zod Schemas', () => {
         policyholderId: 'policyholder-1',
         beneficiaryId: 'beneficiary-1',
         status: 'pending',
-        editHistory: []
+        editHistory: [],
       };
-      
+
       expect(bondSchema.parse(validData)).toEqual(validData);
     });
 
@@ -350,9 +354,9 @@ describe('Zod Schemas', () => {
         effectiveDate: '2023-01-01',
         expiryDate: '2024-01-01',
         policyholderId: 'policyholder-1',
-        beneficiaryId: 'beneficiary-1'
+        beneficiaryId: 'beneficiary-1',
       };
-      
+
       expect(() => bondSchema.parse(invalidData)).toThrow();
     });
   });
@@ -367,9 +371,9 @@ describe('Zod Schemas', () => {
         expiryDate: '2024-01-01',
         proposalId: 'proposal-1',
         status: 'pending',
-        editHistory: []
+        editHistory: [],
       };
-      
+
       expect(offerSchema.parse(validData)).toEqual(validData);
     });
   });

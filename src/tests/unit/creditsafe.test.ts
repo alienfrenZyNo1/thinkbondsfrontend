@@ -3,7 +3,7 @@ import {
   CreditsafeAPI,
   CreditsafeError,
   NetworkError,
-  RateLimitError
+  RateLimitError,
 } from '@/lib/creditsafe';
 
 describe('Creditsafe helpers', () => {
@@ -25,7 +25,10 @@ describe('Creditsafe helpers', () => {
     });
 
     it('should create an instance with custom base URL', () => {
-      const customAPI = new CreditsafeAPI('test-api-key', 'https://custom.creditsafe.com');
+      const customAPI = new CreditsafeAPI(
+        'test-api-key',
+        'https://custom.creditsafe.com'
+      );
       expect(customAPI).toBeInstanceOf(CreditsafeAPI);
     });
   });
@@ -34,11 +37,11 @@ describe('Creditsafe helpers', () => {
     it('should throw error for real implementation', async () => {
       // Set environment to not use mock
       vi.stubEnv('USE_MOCK', 'false');
-      
-      await expect(creditsafeAPI.getCompanyReport('company-123'))
-        .rejects
-        .toThrow('Real Creditsafe API implementation not yet available');
-        
+
+      await expect(
+        creditsafeAPI.getCompanyReport('company-123')
+      ).rejects.toThrow('Real Creditsafe API implementation not yet available');
+
       // Restore environment
       vi.unstubAllEnvs();
     });
@@ -48,11 +51,11 @@ describe('Creditsafe helpers', () => {
     it('should throw error for real implementation', async () => {
       // Set environment to not use mock
       vi.stubEnv('USE_MOCK', 'false');
-      
-      await expect(creditsafeAPI.searchCompanies('test'))
-        .rejects
-        .toThrow('Real Creditsafe API implementation not yet available');
-        
+
+      await expect(creditsafeAPI.searchCompanies('test')).rejects.toThrow(
+        'Real Creditsafe API implementation not yet available'
+      );
+
       // Restore environment
       vi.unstubAllEnvs();
     });
@@ -62,11 +65,11 @@ describe('Creditsafe helpers', () => {
     it('should throw error for real implementation', async () => {
       // Set environment to not use mock
       vi.stubEnv('USE_MOCK', 'false');
-      
-      await expect(creditsafeAPI.getCompanyFinancials('company-123'))
-        .rejects
-        .toThrow('Real Creditsafe API implementation not yet available');
-        
+
+      await expect(
+        creditsafeAPI.getCompanyFinancials('company-123')
+      ).rejects.toThrow('Real Creditsafe API implementation not yet available');
+
       // Restore environment
       vi.unstubAllEnvs();
     });

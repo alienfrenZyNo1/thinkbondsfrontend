@@ -1,15 +1,18 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { CreditsafeAPI } from "@/lib/creditsafe";
-import type { CreditsafeReport } from "@/lib/creditsafe";
+import { useState, useEffect } from 'react';
+import { CreditsafeAPI } from '@/lib/creditsafe';
+import type { CreditsafeReport } from '@/lib/creditsafe';
 
 interface CreditsafeReportProps {
   companyId: string;
   companyName?: string;
 }
 
-export function CreditsafeReport({ companyId, companyName }: CreditsafeReportProps) {
+export function CreditsafeReport({
+  companyId,
+  companyName,
+}: CreditsafeReportProps) {
   const [report, setReport] = useState<CreditsafeReport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -17,17 +20,19 @@ export function CreditsafeReport({ companyId, companyName }: CreditsafeReportPro
   useEffect(() => {
     const fetchReport = async () => {
       if (!companyId) return;
-      
+
       setLoading(true);
       setError(null);
-      
+
       try {
-        const creditsafeAPI = new CreditsafeAPI(process.env.CREDITSafe_API_KEY || "");
+        const creditsafeAPI = new CreditsafeAPI(
+          process.env.CREDITSafe_API_KEY || ''
+        );
         const reportData = await creditsafeAPI.getCompanyReport(companyId);
         setReport(reportData);
       } catch (err) {
-        console.error("Error fetching Creditsafe report:", err);
-        setError("Failed to load credit report. Please try again later.");
+        console.error('Error fetching Creditsafe report:', err);
+        setError('Failed to load credit report. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -62,7 +67,9 @@ export function CreditsafeReport({ companyId, companyName }: CreditsafeReportPro
   if (!report) {
     return (
       <div className="bg-yellow-50 border border-yellow-200 rounded p-4">
-        <p className="text-yellow-700">No credit report available for this company.</p>
+        <p className="text-yellow-700">
+          No credit report available for this company.
+        </p>
       </div>
     );
   }
@@ -72,7 +79,7 @@ export function CreditsafeReport({ companyId, companyName }: CreditsafeReportPro
       <h2 className="text-xl font-semibold mb-4">
         Credit Report for {companyName || report.companyName}
       </h2>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <h3 className="text-lg font-medium mb-3">Company Information</h3>
@@ -99,7 +106,7 @@ export function CreditsafeReport({ companyId, companyName }: CreditsafeReportPro
             </div>
           </div>
         </div>
-        
+
         <div>
           <h3 className="text-lg font-medium mb-3">Address</h3>
           <div className="space-y-2">
@@ -121,7 +128,7 @@ export function CreditsafeReport({ companyId, companyName }: CreditsafeReportPro
             </div>
           </div>
         </div>
-        
+
         {report.financialSummary && (
           <div>
             <h3 className="text-lg font-medium mb-3">Financial Summary</h3>
@@ -132,15 +139,24 @@ export function CreditsafeReport({ companyId, companyName }: CreditsafeReportPro
               </div>
               <div>
                 <label className="font-medium">Revenue:</label>
-                <p>{report.financialSummary.currency} {report.financialSummary.revenue.toLocaleString()}</p>
+                <p>
+                  {report.financialSummary.currency}{' '}
+                  {report.financialSummary.revenue.toLocaleString()}
+                </p>
               </div>
               <div>
                 <label className="font-medium">Profit:</label>
-                <p>{report.financialSummary.currency} {report.financialSummary.profit.toLocaleString()}</p>
+                <p>
+                  {report.financialSummary.currency}{' '}
+                  {report.financialSummary.profit.toLocaleString()}
+                </p>
               </div>
               <div>
                 <label className="font-medium">Equity:</label>
-                <p>{report.financialSummary.currency} {report.financialSummary.equity.toLocaleString()}</p>
+                <p>
+                  {report.financialSummary.currency}{' '}
+                  {report.financialSummary.equity.toLocaleString()}
+                </p>
               </div>
               <div>
                 <label className="font-medium">Employees:</label>
@@ -149,7 +165,7 @@ export function CreditsafeReport({ companyId, companyName }: CreditsafeReportPro
             </div>
           </div>
         )}
-        
+
         {report.creditScore && (
           <div>
             <h3 className="text-lg font-medium mb-3">Credit Score</h3>
@@ -164,7 +180,10 @@ export function CreditsafeReport({ companyId, companyName }: CreditsafeReportPro
               </div>
               <div>
                 <label className="font-medium">Credit Limit:</label>
-                <p>{report.financialSummary?.currency || 'USD'} {report.creditScore.limit.toLocaleString()}</p>
+                <p>
+                  {report.financialSummary?.currency || 'USD'}{' '}
+                  {report.creditScore.limit.toLocaleString()}
+                </p>
               </div>
             </div>
           </div>

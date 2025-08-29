@@ -1,7 +1,7 @@
 // Authentication test helpers
 
-import { Session } from "next-auth";
-import { JWT } from "next-auth/jwt";
+import { Session } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 
 // Mock session data
 export const mockSession: Session = {
@@ -15,11 +15,11 @@ export const mockSession: Session = {
       id: 'domino-1',
       name: 'Test User',
       email: 'test@example.com',
-      groups: ['broker', 'user']
-    }
+      groups: ['broker', 'user'],
+    },
   },
   accessToken: 'mock-access-token',
-  expires: new Date(Date.now() + 3600 * 1000).toISOString() // 1 hour from now
+  expires: new Date(Date.now() + 3600 * 1000).toISOString(), // 1 hour from now
 };
 
 // Mock JWT token data
@@ -30,7 +30,7 @@ export const mockToken: JWT = {
   user: {
     id: '1',
     name: 'Test User',
-    email: 'test@example.com'
+    email: 'test@example.com',
   },
   dominoData: {
     groups: ['broker', 'user'],
@@ -38,9 +38,9 @@ export const mockToken: JWT = {
       id: 'domino-1',
       name: 'Test User',
       email: 'test@example.com',
-      groups: ['broker', 'user']
-    }
-  }
+      groups: ['broker', 'user'],
+    },
+  },
 };
 
 // Mock admin session data
@@ -55,11 +55,11 @@ export const mockAdminSession: Session = {
       id: 'domino-2',
       name: 'Admin User',
       email: 'admin@example.com',
-      groups: ['admin']
-    }
+      groups: ['admin'],
+    },
   },
   accessToken: 'mock-admin-access-token',
-  expires: new Date(Date.now() + 3600 * 1000).toISOString()
+  expires: new Date(Date.now() + 3600 * 1000).toISOString(),
 };
 
 // Mock admin JWT token data
@@ -70,7 +70,7 @@ export const mockAdminToken: JWT = {
   user: {
     id: '2',
     name: 'Admin User',
-    email: 'admin@example.com'
+    email: 'admin@example.com',
   },
   dominoData: {
     groups: ['admin'],
@@ -78,9 +78,9 @@ export const mockAdminToken: JWT = {
       id: 'domino-2',
       name: 'Admin User',
       email: 'admin@example.com',
-      groups: ['admin']
-    }
-  }
+      groups: ['admin'],
+    },
+  },
 };
 
 // Mock broker session data
@@ -95,11 +95,11 @@ export const mockBrokerSession: Session = {
       id: 'domino-3',
       name: 'Broker User',
       email: 'broker@example.com',
-      groups: ['broker']
-    }
+      groups: ['broker'],
+    },
   },
   accessToken: 'mock-broker-access-token',
- expires: new Date(Date.now() + 3600 * 1000).toISOString()
+  expires: new Date(Date.now() + 3600 * 1000).toISOString(),
 };
 
 // Mock policyholder session data
@@ -114,11 +114,11 @@ export const mockPolicyholderSession: Session = {
       id: 'domino-4',
       name: 'Policyholder User',
       email: 'policyholder@example.com',
-      groups: ['policyholder']
-    }
+      groups: ['policyholder'],
+    },
   },
   accessToken: 'mock-policyholder-access-token',
-  expires: new Date(Date.now() + 3600 * 1000).toISOString()
+  expires: new Date(Date.now() + 3600 * 1000).toISOString(),
 };
 
 // Function to create a mock session with custom properties
@@ -140,21 +140,21 @@ export function createMockSession(
         id: `domino-${id}`,
         name,
         email,
-        groups
-      }
+        groups,
+      },
     },
     accessToken,
-    expires: new Date(Date.now() + 3600 * 1000).toISOString()
+    expires: new Date(Date.now() + 3600 * 1000).toISOString(),
   };
 }
 
 // Function to create a mock JWT token with custom properties
 export function createMockToken(
- id: string,
+  id: string,
   name: string,
   email: string,
   groups: string[] = ['user'],
- accessToken: string = 'mock-access-token'
+  accessToken: string = 'mock-access-token'
 ): JWT {
   return {
     accessToken,
@@ -163,7 +163,7 @@ export function createMockToken(
     user: {
       id,
       name,
-      email
+      email,
     },
     dominoData: {
       groups,
@@ -171,8 +171,8 @@ export function createMockToken(
         id: `domino-${id}`,
         name,
         email,
-        groups
-      }
-    }
+        groups,
+      },
+    },
   };
 }

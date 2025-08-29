@@ -3,27 +3,27 @@ import { NextResponse } from 'next/server';
 // Since beneficiaries are part of proposals, we'll mock some data
 const beneficiaries = [
   {
-    id: "1",
-    companyName: "Beneficiary Corp",
-    contactName: "Sam Wilson",
-    email: "sam@beneficiary.com",
-    phone: "+11111111",
-    address: "123 Beneficiary St",
-    city: "Beneficiary City",
-    postcode: "BC1 1BC",
-    country: "GB"
+    id: '1',
+    companyName: 'Beneficiary Corp',
+    contactName: 'Sam Wilson',
+    email: 'sam@beneficiary.com',
+    phone: '+11111111',
+    address: '123 Beneficiary St',
+    city: 'Beneficiary City',
+    postcode: 'BC1 1BC',
+    country: 'GB',
   },
   {
-    id: "2",
-    companyName: "Another Beneficiary Ltd",
-    contactName: "Jane Doe",
-    email: "jane@anotherbeneficiary.com",
-    phone: "+2222222",
-    address: "456 Another St",
-    city: "Another City",
-    postcode: "AC2 2AC",
-    country: "GB"
-  }
+    id: '2',
+    companyName: 'Another Beneficiary Ltd',
+    contactName: 'Jane Doe',
+    email: 'jane@anotherbeneficiary.com',
+    phone: '+2222222',
+    address: '456 Another St',
+    city: 'Another City',
+    postcode: 'AC2 2AC',
+    country: 'GB',
+  },
 ];
 
 // GET /api/beneficiaries
@@ -31,7 +31,7 @@ export async function GET() {
   try {
     // Check if we're using mock data
     const useMock = process.env.USE_MOCK === 'true';
-    
+
     if (useMock) {
       return NextResponse.json(beneficiaries);
     } else {
@@ -52,22 +52,22 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    
+
     // Check if we're using mock data
     const useMock = process.env.USE_MOCK === 'true';
-    
+
     if (useMock) {
       // In a real implementation, this would create a beneficiary in the DRAPI
       // For now, just return a success message
-      return NextResponse.json({ 
+      return NextResponse.json({
         message: 'Beneficiary created successfully',
-        data: { ...body, id: (beneficiaries.length + 1).toString() }
+        data: { ...body, id: (beneficiaries.length + 1).toString() },
       });
     } else {
       // In a real implementation, this would call the DRAPI
-      return NextResponse.json({ 
+      return NextResponse.json({
         message: 'Beneficiary created successfully',
-        data: { ...body, id: (beneficiaries.length + 1).toString() }
+        data: { ...body, id: (beneficiaries.length + 1).toString() },
       });
     }
   } catch (error) {
@@ -85,22 +85,22 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const url = new URL(request.url);
     const id = url.pathname.split('/').pop();
-    
+
     // Check if we're using mock data
     const useMock = process.env.USE_MOCK === 'true';
-    
+
     if (useMock) {
       // In a real implementation, this would update a beneficiary in the DRAPI
       // For now, just return a success message
-      return NextResponse.json({ 
+      return NextResponse.json({
         message: `Beneficiary ${id} updated successfully`,
-        data: { ...body, id }
+        data: { ...body, id },
       });
     } else {
       // In a real implementation, this would call the DRAPI
-      return NextResponse.json({ 
+      return NextResponse.json({
         message: `Beneficiary ${id} updated successfully`,
-        data: { ...body, id }
+        data: { ...body, id },
       });
     }
   } catch (error) {
@@ -117,20 +117,20 @@ export async function DELETE(request: Request) {
   try {
     const url = new URL(request.url);
     const id = url.pathname.split('/').pop();
-    
+
     // Check if we're using mock data
     const useMock = process.env.USE_MOCK === 'true';
-    
+
     if (useMock) {
       // In a real implementation, this would delete a beneficiary in the DRAPI
       // For now, just return a success message
-      return NextResponse.json({ 
-        message: `Beneficiary ${id} deleted successfully`
+      return NextResponse.json({
+        message: `Beneficiary ${id} deleted successfully`,
       });
     } else {
       // In a real implementation, this would call the DRAPI
-      return NextResponse.json({ 
-        message: `Beneficiary ${id} deleted successfully`
+      return NextResponse.json({
+        message: `Beneficiary ${id} deleted successfully`,
       });
     }
   } catch (error) {

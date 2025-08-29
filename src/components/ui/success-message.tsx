@@ -1,4 +1,4 @@
-import { CheckCircle } from "lucide-react";
+import { CheckCircle } from 'lucide-react';
 
 interface SuccessMessageProps {
   title: string;
@@ -6,7 +6,11 @@ interface SuccessMessageProps {
   children?: React.ReactNode;
 }
 
-export function SuccessMessage({ title, message, children }: SuccessMessageProps) {
+export function SuccessMessage({
+  title,
+  message,
+  children,
+}: SuccessMessageProps) {
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md text-center">
       <div className="flex justify-center mb-4">

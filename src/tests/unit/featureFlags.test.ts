@@ -6,12 +6,20 @@ describe('Feature flags', () => {
     it('should create an instance with default feature flags', () => {
       const manager = new FeatureFlagManager();
       expect(manager).toBeInstanceOf(FeatureFlagManager);
-      
+
       // Check that all default flags are set correctly
-      expect(manager.isEnabled('enableNewDashboard')).toBe(defaultFeatureFlags.enableNewDashboard);
-      expect(manager.isEnabled('enableProposalWorkflow')).toBe(defaultFeatureFlags.enableProposalWorkflow);
-      expect(manager.isEnabled('enableBrokerPortal')).toBe(defaultFeatureFlags.enableBrokerPortal);
-      expect(manager.isEnabled('enablePolicyholderPortal')).toBe(defaultFeatureFlags.enablePolicyholderPortal);
+      expect(manager.isEnabled('enableNewDashboard')).toBe(
+        defaultFeatureFlags.enableNewDashboard
+      );
+      expect(manager.isEnabled('enableProposalWorkflow')).toBe(
+        defaultFeatureFlags.enableProposalWorkflow
+      );
+      expect(manager.isEnabled('enableBrokerPortal')).toBe(
+        defaultFeatureFlags.enableBrokerPortal
+      );
+      expect(manager.isEnabled('enablePolicyholderPortal')).toBe(
+        defaultFeatureFlags.enablePolicyholderPortal
+      );
     });
 
     it('should create an instance with custom feature flags', () => {
@@ -19,12 +27,12 @@ describe('Feature flags', () => {
         enableNewDashboard: true,
         enableProposalWorkflow: false,
         enableBrokerPortal: true,
-        enablePolicyholderPortal: false
+        enablePolicyholderPortal: false,
       };
-      
+
       const manager = new FeatureFlagManager(customFlags);
       expect(manager).toBeInstanceOf(FeatureFlagManager);
-      
+
       expect(manager.isEnabled('enableNewDashboard')).toBe(true);
       expect(manager.isEnabled('enableProposalWorkflow')).toBe(false);
       expect(manager.isEnabled('enableBrokerPortal')).toBe(true);
@@ -33,7 +41,7 @@ describe('Feature flags', () => {
 
     it('should check if a feature flag is enabled', () => {
       const manager = new FeatureFlagManager();
-      
+
       // Test with default values
       expect(manager.isEnabled('enableNewDashboard')).toBe(false);
       expect(manager.isEnabled('enableProposalWorkflow')).toBe(false);
@@ -41,7 +49,7 @@ describe('Feature flags', () => {
 
     it('should enable a feature flag', () => {
       const manager = new FeatureFlagManager();
-      
+
       expect(manager.isEnabled('enableNewDashboard')).toBe(false);
       manager.enable('enableNewDashboard');
       expect(manager.isEnabled('enableNewDashboard')).toBe(true);
@@ -50,7 +58,7 @@ describe('Feature flags', () => {
     it('should disable a feature flag', () => {
       const customFlags = { ...defaultFeatureFlags, enableNewDashboard: true };
       const manager = new FeatureFlagManager(customFlags);
-      
+
       expect(manager.isEnabled('enableNewDashboard')).toBe(true);
       manager.disable('enableNewDashboard');
       expect(manager.isEnabled('enableNewDashboard')).toBe(false);

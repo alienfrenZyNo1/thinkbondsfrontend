@@ -2,7 +2,7 @@
 export interface FeatureFlags {
   enableNewDashboard: boolean;
   enableProposalWorkflow: boolean;
- enableBrokerPortal: boolean;
+  enableBrokerPortal: boolean;
   enablePolicyholderPortal: boolean;
 }
 

@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { UserRole, hasPermission, canAccessRoute, rolePermissions } from '@/lib/roles';
+import {
+  UserRole,
+  hasPermission,
+  canAccessRoute,
+  rolePermissions,
+} from '@/lib/roles';
 
 describe('Roles utilities', () => {
   describe('hasPermission', () => {
@@ -29,11 +34,20 @@ describe('Roles utilities', () => {
 
   describe('rolePermissions', () => {
     it('should define correct permissions for each role', () => {
-      expect(rolePermissions[UserRole.ADMIN]).toEqual(['read', 'write', 'delete', 'manage-users']);
+      expect(rolePermissions[UserRole.ADMIN]).toEqual([
+        'read',
+        'write',
+        'delete',
+        'manage-users',
+      ]);
       expect(rolePermissions[UserRole.AGENT]).toEqual(['read']);
       expect(rolePermissions[UserRole.BROKER]).toEqual(['read', 'write']);
       expect(rolePermissions[UserRole.POLICYHOLDER]).toEqual(['read']);
-      expect(rolePermissions[UserRole.WHOLESALE]).toEqual(['read', 'write', 'manage-brokers']);
+      expect(rolePermissions[UserRole.WHOLESALE]).toEqual([
+        'read',
+        'write',
+        'manage-brokers',
+      ]);
     });
   });
 });

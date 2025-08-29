@@ -3,7 +3,7 @@ import { GET, POST, GET_HISTORY } from '@/app/api/bonds/route';
 
 // Mock environment variables
 vi.mock('@/lib/audit', () => ({
-  logAuditEvent: vi.fn()
+  logAuditEvent: vi.fn(),
 }));
 
 describe('Bonds API Routes', () => {
@@ -25,7 +25,7 @@ describe('Bonds API Routes', () => {
       });
 
       const response = await GET(request);
-      
+
       expect(response.status).toBe(200);
       const data = await response.json();
       expect(data.id).toBeDefined();
@@ -34,12 +34,15 @@ describe('Bonds API Routes', () => {
     });
 
     it('should handle includeDeleted parameter', async () => {
-      const request = new Request('https://example.com/api/bonds?includeDeleted=true', {
-        method: 'GET',
-      });
+      const request = new Request(
+        'https://example.com/api/bonds?includeDeleted=true',
+        {
+          method: 'GET',
+        }
+      );
 
       const response = await GET(request);
-      
+
       expect(response.status).toBe(200);
       const data = await response.json();
       expect(data.id).toBeDefined();
@@ -55,9 +58,9 @@ describe('Bonds API Routes', () => {
         effectiveDate: '2023-01-01',
         expiryDate: '2024-01-01',
         policyholderId: 'policyholder-1',
-        beneficiaryId: 'beneficiary-1'
+        beneficiaryId: 'beneficiary-1',
       };
-      
+
       const request = new Request('https://example.com/api/bonds', {
         method: 'POST',
         headers: {
@@ -67,7 +70,7 @@ describe('Bonds API Routes', () => {
       });
 
       const response = await POST(request);
-      
+
       expect(response.status).toBe(200);
       const data = await response.json();
       expect(data.message).toBe('Bond PDF generated successfully');
@@ -77,10 +80,10 @@ describe('Bonds API Routes', () => {
 
     it('should validate required fields', async () => {
       const mockBody = {
-        bondAmount: '1000.00'
+        bondAmount: '1000.00',
         // Missing other required fields
       };
-      
+
       const request = new Request('https://example.com/api/bonds', {
         method: 'POST',
         headers: {
@@ -90,7 +93,7 @@ describe('Bonds API Routes', () => {
       });
 
       const response = await POST(request);
-      
+
       // In mock mode, it might still return success
       expect(response.status).toBe(200);
       const data = await response.json();
@@ -105,7 +108,7 @@ describe('Bonds API Routes', () => {
       });
 
       const response = await GET(request);
-      
+
       expect(response.status).toBe(200);
       const data = await response.json();
       expect(data.id).toBe('1');
@@ -121,7 +124,7 @@ describe('Bonds API Routes', () => {
       });
 
       const response = await GET_HISTORY(request);
-      
+
       expect(response.status).toBe(200);
       const data = await response.json();
       expect(Array.isArray(data)).toBe(true);

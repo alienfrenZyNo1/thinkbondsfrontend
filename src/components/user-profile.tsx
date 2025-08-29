@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useAuthData } from "@/lib/auth-hooks";
-import { Button } from "@/components/ui/button";
+import { useAuthData } from '@/lib/auth-hooks';
+import { Button } from '@/components/ui/button';
 
 export function UserProfile() {
   const { user, groups, isAuthenticated, isLoading } = useAuthData();
@@ -21,7 +21,10 @@ export function UserProfile() {
   if (!isAuthenticated) {
     return (
       <div className="flex items-center space-x-2">
-        <Button variant="outline" onClick={() => window.location.href = "/api/auth/signin"}>
+        <Button
+          variant="outline"
+          onClick={() => (window.location.href = '/api/auth/signin')}
+        >
           Sign In
         </Button>
       </div>
@@ -32,15 +35,15 @@ export function UserProfile() {
     <div className="flex items-center space-x-3">
       <div className="relative">
         {user?.image ? (
-          <img 
-            src={user.image} 
-            alt={user.name || "User"} 
+          <img
+            src={user.image}
+            alt={user.name || 'User'}
             className="rounded-full h-10 w-10 object-cover"
           />
         ) : (
           <div className="bg-gray-200 border-2 border-dashed rounded-xl w-10 h-10 flex items-center justify-center">
             <span className="text-gray-500 text-sm font-medium">
-              {user?.name?.charAt(0) || user?.email?.charAt(0) || "U"}
+              {user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'}
             </span>
           </div>
         )}
@@ -48,13 +51,13 @@ export function UserProfile() {
       <div className="hidden md:block">
         <p className="text-sm font-medium">{user?.name || user?.email}</p>
         <p className="text-xs text-gray-500">
-          {groups.length > 0 ? groups.join(", ") : "No groups"}
+          {groups.length > 0 ? groups.join(', ') : 'No groups'}
         </p>
       </div>
-      <Button 
-        variant="outline" 
-        size="sm" 
-        onClick={() => window.location.href = "/api/auth/signout"}
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => (window.location.href = '/api/auth/signout')}
       >
         Sign Out
       </Button>

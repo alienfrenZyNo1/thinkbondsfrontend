@@ -2,7 +2,12 @@
 import { z } from 'zod';
 
 // Status enum for all entities
-export const entityStatusSchema = z.enum(['pending', 'approved', 'declined', 'soft_deleted']);
+export const entityStatusSchema = z.enum([
+  'pending',
+  'approved',
+  'declined',
+  'soft_deleted',
+]);
 
 // Edit History schema
 export const editHistorySchema = z.object({
@@ -60,7 +65,10 @@ export const accessRequestSchema = z.object({
 // PIN verification schema
 export const pinVerificationSchema = z.object({
   email: z.string().email('Invalid email address'),
-  pin: z.string().length(6, 'PIN must be 6 digits').regex(/^\d{6}$/, 'PIN must be 6 digits'),
+  pin: z
+    .string()
+    .length(6, 'PIN must be 6 digits')
+    .regex(/^\d{6}$/, 'PIN must be 6 digits'),
 });
 
 // Broker registration schema
@@ -72,7 +80,7 @@ export const brokerRegistrationSchema = z.object({
   phone: z.string().min(1, 'Phone number is required'),
   address: z.string().min(1, 'Address is required'),
   city: z.string().min(1, 'City is required'),
- postcode: z.string().min(1, 'Postcode is required'),
+  postcode: z.string().min(1, 'Postcode is required'),
   country: z.string().min(1, 'Country is required'),
 });
 
@@ -82,8 +90,8 @@ export const creditsafeCompanySchema = z.object({
   name: z.string().min(1, 'Company name is required'),
   number: z.string().min(1, 'Company number is required'),
   country: z.string().min(1, 'Country is required'),
- address: z.string().min(1, 'Address is required'),
- city: z.string().min(1, 'City is required'),
+  address: z.string().min(1, 'Address is required'),
+  city: z.string().min(1, 'City is required'),
   postcode: z.string().min(1, 'Postcode is required'),
 });
 
@@ -98,7 +106,10 @@ export const creditsafeFinancialSummarySchema = z.object({
 
 // Creditsafe credit score schema
 export const creditsafeCreditScoreSchema = z.object({
-  score: z.number().min(0, 'Score must be between 0 and 100').max(100, 'Score must be between 0 and 100'),
+  score: z
+    .number()
+    .min(0, 'Score must be between 0 and 100')
+    .max(100, 'Score must be between 0 and 100'),
   rating: z.string().min(1, 'Rating is required'),
   limit: z.number().min(0, 'Credit limit must be a positive number'),
 });
@@ -109,7 +120,7 @@ export const creditsafeReportSchema = z.object({
   companyName: z.string().min(1, 'Company name is required'),
   registrationNumber: z.string().min(1, 'Registration number is required'),
   status: z.string().min(1, 'Status is required'),
- legalForm: z.string().min(1, 'Legal form is required'),
+  legalForm: z.string().min(1, 'Legal form is required'),
   incorporationDate: z.string().min(1, 'Incorporation date is required'),
   address: z.string().min(1, 'Address is required'),
   city: z.string().min(1, 'City is required'),
@@ -131,25 +142,43 @@ export const beneficiarySchema = z.object({
 
 // Bond schema
 export const bondSchema = z.object({
-  bondAmount: z.string().min(1, "Bond amount is required").regex(/^\d+(\.\d{1,2})?$/, "Invalid amount format"),
-  premium: z.string().min(1, "Premium is required").regex(/^\d+(\.\d{1,2})?$/, "Invalid premium format"),
-  terms: z.string().min(1, "Terms are required").max(1000, "Terms must be less than 1000 characters"),
- effectiveDate: z.string().min(1, "Effective date is required"),
-  expiryDate: z.string().min(1, "Expiry date is required"),
-  policyholderId: z.string().min(1, "Policyholder ID is required"),
-  beneficiaryId: z.string().min(1, "Beneficiary ID is required"),
+  bondAmount: z
+    .string()
+    .min(1, 'Bond amount is required')
+    .regex(/^\d+(\.\d{1,2})?$/, 'Invalid amount format'),
+  premium: z
+    .string()
+    .min(1, 'Premium is required')
+    .regex(/^\d+(\.\d{1,2})?$/, 'Invalid premium format'),
+  terms: z
+    .string()
+    .min(1, 'Terms are required')
+    .max(1000, 'Terms must be less than 1000 characters'),
+  effectiveDate: z.string().min(1, 'Effective date is required'),
+  expiryDate: z.string().min(1, 'Expiry date is required'),
+  policyholderId: z.string().min(1, 'Policyholder ID is required'),
+  beneficiaryId: z.string().min(1, 'Beneficiary ID is required'),
   status: entityStatusSchema.default('pending'),
   editHistory: z.array(editHistorySchema).default([]),
 });
 
 // Offer schema
 export const offerSchema = z.object({
-  bondAmount: z.string().min(1, "Bond amount is required").regex(/^\d+(\.\d{1,2})?$/, "Invalid amount format"),
-  premium: z.string().min(1, "Premium is required").regex(/^\d+(\.\d{1,2})?$/, "Invalid premium format"),
-  terms: z.string().min(1, "Terms are required").max(1000, "Terms must be less than 1000 characters"),
- effectiveDate: z.string().min(1, "Effective date is required"),
-  expiryDate: z.string().min(1, "Expiry date is required"),
-  proposalId: z.string().min(1, "Proposal ID is required"),
+  bondAmount: z
+    .string()
+    .min(1, 'Bond amount is required')
+    .regex(/^\d+(\.\d{1,2})?$/, 'Invalid amount format'),
+  premium: z
+    .string()
+    .min(1, 'Premium is required')
+    .regex(/^\d+(\.\d{1,2})?$/, 'Invalid premium format'),
+  terms: z
+    .string()
+    .min(1, 'Terms are required')
+    .max(1000, 'Terms must be less than 1000 characters'),
+  effectiveDate: z.string().min(1, 'Effective date is required'),
+  expiryDate: z.string().min(1, 'Expiry date is required'),
+  proposalId: z.string().min(1, 'Proposal ID is required'),
   status: entityStatusSchema.default('pending'),
   editHistory: z.array(editHistorySchema).default([]),
 });

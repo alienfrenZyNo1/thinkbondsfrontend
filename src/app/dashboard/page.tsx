@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { ProtectedRoute } from "@/components/protected-route";
-import { DominoUserData } from "@/components/domino-user-data";
-import { useAuthData } from "@/lib/auth-hooks";
-import { UserRole } from "@/lib/roles";
-import { useQuery } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import Shell from "@/components/layout/Shell";
+import { ProtectedRoute } from '@/components/protected-route';
+import { DominoUserData } from '@/components/domino-user-data';
+import { useAuthData } from '@/lib/auth-hooks';
+import { UserRole } from '@/lib/roles';
+import { useQuery } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import Shell from '@/components/layout/Shell';
 
 // Mock data fetching functions
 async function fetchPendingRegistrations() {
@@ -74,13 +74,17 @@ async function fetchMyProposals() {
 
 export default function DashboardPage() {
   const { groups } = useAuthData();
-  
+
   // Determine user role
-  const userRole = groups.includes(UserRole.ADMIN) ? UserRole.ADMIN :
-                  groups.includes(UserRole.WHOLESALE) ? UserRole.WHOLESALE :
-                  groups.includes(UserRole.BROKER) ? UserRole.BROKER :
-                  groups.includes(UserRole.POLICYHOLDER) ? UserRole.POLICYHOLDER :
-                  null;
+  const userRole = groups.includes(UserRole.ADMIN)
+    ? UserRole.ADMIN
+    : groups.includes(UserRole.WHOLESALE)
+      ? UserRole.WHOLESALE
+      : groups.includes(UserRole.BROKER)
+        ? UserRole.BROKER
+        : groups.includes(UserRole.POLICYHOLDER)
+          ? UserRole.POLICYHOLDER
+          : null;
 
   // Fetch data based on role
   const { data: pendingRegistrations } = useQuery({
@@ -129,12 +133,12 @@ export default function DashboardPage() {
       <Shell>
         <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
         <p className="mb-4">Welcome to your dashboard!</p>
-        
+
         {/* Role-specific content */}
         {userRole === UserRole.WHOLESALE && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <DominoUserData />
-            
+
             <div className="p-4 bg-white border rounded">
               <h3 className="text-lg font-semibold mb-3">Quick Actions</h3>
               <div className="space-y-2">
@@ -149,13 +153,18 @@ export default function DashboardPage() {
                 </Button>
               </div>
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold mb-4">Pending Registrations</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Pending Registrations
+              </h2>
               {pendingRegistrations?.length ? (
                 <ul className="space-y-2">
                   {pendingRegistrations.map(reg => (
-                    <li key={reg.id} className="flex justify-between items-center">
+                    <li
+                      key={reg.id}
+                      className="flex justify-between items-center"
+                    >
                       <span>{reg.brokerName}</span>
                       <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-sm">
                         {reg.status}
@@ -167,13 +176,18 @@ export default function DashboardPage() {
                 <p>No pending registrations</p>
               )}
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold mb-4">Policyholders Needing Review</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Policyholders Needing Review
+              </h2>
               {policyholdersNeedingReview?.length ? (
                 <ul className="space-y-2">
                   {policyholdersNeedingReview.map(ph => (
-                    <li key={ph.id} className="flex justify-between items-center">
+                    <li
+                      key={ph.id}
+                      className="flex justify-between items-center"
+                    >
                       <span>{ph.companyName}</span>
                       <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">
                         {ph.status}
@@ -185,13 +199,18 @@ export default function DashboardPage() {
                 <p>No policyholders needing review</p>
               )}
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold mb-4">Proposals Needing Decision</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Proposals Needing Decision
+              </h2>
               {proposalsNeedingDecision?.length ? (
                 <ul className="space-y-2">
                   {proposalsNeedingDecision.map(prop => (
-                    <li key={prop.id} className="flex justify-between items-center">
+                    <li
+                      key={prop.id}
+                      className="flex justify-between items-center"
+                    >
                       <span>{prop.title}</span>
                       <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-sm">
                         {prop.status}
@@ -203,13 +222,16 @@ export default function DashboardPage() {
                 <p>No proposals needing decision</p>
               )}
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold mb-4">Notices</h2>
               {notices?.length ? (
                 <ul className="space-y-2">
                   {notices.map(notice => (
-                    <li key={notice.id} className="border-b pb-2 last:border-b-0 last:pb-0">
+                    <li
+                      key={notice.id}
+                      className="border-b pb-2 last:border-b-0 last:pb-0"
+                    >
                       <div className="font-medium">{notice.title}</div>
                       <div className="text-sm text-gray-500">{notice.date}</div>
                     </li>
@@ -221,20 +243,24 @@ export default function DashboardPage() {
             </div>
           </div>
         )}
-        
+
         {userRole === UserRole.WHOLESALE && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <DominoUserData />
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold mb-4">Broker Summaries</h2>
               {brokerSummaries?.length ? (
                 <ul className="space-y-3">
                   {brokerSummaries.map(broker => (
-                    <li key={broker.id} className="border-b pb-3 last:border-b-0 last:pb-0">
+                    <li
+                      key={broker.id}
+                      className="border-b pb-3 last:border-b-0 last:pb-0"
+                    >
                       <div className="font-medium">{broker.brokerName}</div>
                       <div className="text-sm text-gray-600">
-                        Policies: {broker.policies} | Proposals: {broker.proposals}
+                        Policies: {broker.policies} | Proposals:{' '}
+                        {broker.proposals}
                       </div>
                     </li>
                   ))}
@@ -245,11 +271,11 @@ export default function DashboardPage() {
             </div>
           </div>
         )}
-        
+
         {userRole === UserRole.BROKER && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <DominoUserData />
-            
+
             <div className="p-4 bg-white border rounded">
               <h3 className="text-lg font-semibold mb-3">Quick Actions</h3>
               <div className="space-y-2">
@@ -261,13 +287,16 @@ export default function DashboardPage() {
                 </Button>
               </div>
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold mb-4">My Policyholders</h2>
               {myPolicyholders?.length ? (
                 <ul className="space-y-2">
                   {myPolicyholders.map(ph => (
-                    <li key={ph.id} className="flex justify-between items-center">
+                    <li
+                      key={ph.id}
+                      className="flex justify-between items-center"
+                    >
                       <span>{ph.companyName}</span>
                       <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">
                         {ph.status}
@@ -279,13 +308,16 @@ export default function DashboardPage() {
                 <p>No policyholders</p>
               )}
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold mb-4">My Proposals</h2>
               {myProposals?.length ? (
                 <ul className="space-y-2">
                   {myProposals.map(prop => (
-                    <li key={prop.id} className="flex justify-between items-center">
+                    <li
+                      key={prop.id}
+                      className="flex justify-between items-center"
+                    >
                       <span>{prop.title}</span>
                       <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-sm">
                         {prop.status}
@@ -299,11 +331,11 @@ export default function DashboardPage() {
             </div>
           </div>
         )}
-        
+
         {userRole === UserRole.ADMIN && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <DominoUserData />
-            
+
             <div className="p-4 bg-white border rounded">
               <h3 className="text-lg font-semibold mb-3">Quick Actions</h3>
               <div className="space-y-2">
@@ -321,13 +353,18 @@ export default function DashboardPage() {
                 </Button>
               </div>
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold mb-4">Pending Registrations</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Pending Registrations
+              </h2>
               {pendingRegistrations?.length ? (
                 <ul className="space-y-2">
                   {pendingRegistrations.map(reg => (
-                    <li key={reg.id} className="flex justify-between items-center">
+                    <li
+                      key={reg.id}
+                      className="flex justify-between items-center"
+                    >
                       <span>{reg.brokerName}</span>
                       <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-sm">
                         {reg.status}
@@ -339,13 +376,18 @@ export default function DashboardPage() {
                 <p>No pending registrations</p>
               )}
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold mb-4">Policyholders Needing Review</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Policyholders Needing Review
+              </h2>
               {policyholdersNeedingReview?.length ? (
                 <ul className="space-y-2">
                   {policyholdersNeedingReview.map(ph => (
-                    <li key={ph.id} className="flex justify-between items-center">
+                    <li
+                      key={ph.id}
+                      className="flex justify-between items-center"
+                    >
                       <span>{ph.companyName}</span>
                       <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">
                         {ph.status}
@@ -359,7 +401,7 @@ export default function DashboardPage() {
             </div>
           </div>
         )}
-        
+
         {/* Default content for other roles or when no specific role is detected */}
         {!userRole && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">

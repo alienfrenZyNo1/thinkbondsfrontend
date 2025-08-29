@@ -9,12 +9,12 @@ export const test = base.extend({
   page: async ({ page }, use) => {
     // Enable API mocking before each test
     server.listen();
-    
+
     // Mock authentication for the test with admin role (default)
     await mockAuthentication(page, 'admin');
-    
+
     await use(page);
-    
+
     // Clean up after each test
     server.resetHandlers();
   },
@@ -25,12 +25,12 @@ export const testAsBroker = base.extend({
   page: async ({ page }, use) => {
     // Enable API mocking before each test
     server.listen();
-    
+
     // Mock authentication for the test with broker role
     await mockAuthentication(page, 'broker');
-    
+
     await use(page);
-    
+
     // Clean up after each test
     server.resetHandlers();
   },
@@ -41,12 +41,12 @@ export const testAsPolicyholder = base.extend({
   page: async ({ page }, use) => {
     // Enable API mocking before each test
     server.listen();
-    
+
     // Mock authentication for the test with policyholder role
     await mockAuthentication(page, 'policyholder');
-    
+
     await use(page);
-    
+
     // Clean up after each test
     server.resetHandlers();
   },
