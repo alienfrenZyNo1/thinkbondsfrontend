@@ -7,7 +7,7 @@ import { SuccessMessage } from '@/components/ui/success-message';
 
 export default function BrokerRegisterPage() {
   const [step, setStep] = useState<'pin' | 'registration' | 'success'>('pin');
-  const [_email, _setEmail] = useState('');
+  const [_email] = useState('');
 
   const handlePinSuccess = () => {
     setStep('registration');

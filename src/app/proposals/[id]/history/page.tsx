@@ -15,11 +15,7 @@ interface EditHistoryEntry {
   changes?: Record<string, unknown>;
 }
 
-export default function ProposalHistoryPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default function ProposalHistoryPage() {
   const router = useRouter();
   const { groups } = useAuthData();
   const [editHistory, setEditHistory] = useState<EditHistoryEntry[]>([]);

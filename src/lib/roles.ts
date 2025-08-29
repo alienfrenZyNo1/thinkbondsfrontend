@@ -21,6 +21,8 @@ export function hasPermission(userRole: UserRole, permission: string): boolean {
 }
 
 export function canAccessRoute(userRole: UserRole, route: string): boolean {
-  // Implementation for checking if a user can access a route
-  return true; // Placeholder implementation
+  // Placeholder implementation; reference params to avoid unused warnings
+  void userRole;
+  void route;
+  return true;
 }

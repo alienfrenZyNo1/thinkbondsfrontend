@@ -31,19 +31,19 @@ test.describe('Edit History', () => {
     expect(await historyRows.count()).toBeGreaterThan(0);
   });
 
-  test.skip('should show edit history for offer', async ({ page }) => {
+  test.skip('should show edit history for offer', async () => {
     // Offer detail/history pages not implemented
   });
 
-  test.skip('should show edit history for broker', async ({ page }) => {
+  test.skip('should show edit history for broker', async () => {
     // Broker detail/history pages not implemented
   });
 
-  test.skip('should show edit history for bond', async ({ page }) => {
+  test.skip('should show edit history for bond', async () => {
     // Bond detail/history pages not implemented
   });
 
-  test.skip('should show detailed history entry', async ({ page }) => {
+  test.skip('should show detailed history entry', async () => {
     // Not implemented in current UI
   });
 });

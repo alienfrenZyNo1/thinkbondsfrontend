@@ -22,8 +22,6 @@ test.describe('Soft Delete Bin (restore flows)', () => {
       return;
     }
     const firstRow = rows.first();
-    const firstName =
-      (await firstRow.locator('td').first().textContent())?.trim() || '';
     await firstRow.getByRole('button', { name: /restore/i }).click();
 
     // Row should be removed from bin list
@@ -43,8 +41,6 @@ test.describe('Soft Delete Bin (restore flows)', () => {
       return;
     }
     const firstRow = rows.first();
-    const firstTitle =
-      (await firstRow.locator('td').first().textContent())?.trim() || '';
     await firstRow.getByRole('button', { name: /restore/i }).click();
 
     await expect(rows).toHaveCount(startCount - 1);
@@ -63,8 +59,6 @@ test.describe('Soft Delete Bin (restore flows)', () => {
       return;
     }
     const firstRow = rows.first();
-    const firstId =
-      (await firstRow.locator('td').first().textContent())?.trim() || '';
     await firstRow.getByRole('button', { name: /restore/i }).click();
 
     await expect(rows).toHaveCount(startCount - 1);

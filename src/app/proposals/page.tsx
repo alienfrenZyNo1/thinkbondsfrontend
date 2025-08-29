@@ -79,20 +79,23 @@ export default function ProposalsPage() {
   ];
 
   // Define actions for each row
-  const actions = (row: Proposal) => (
-    <div className="flex space-x-2">
-      <Button variant="outline" size="sm">
-        View
-      </Button>
-      {groups.includes(UserRole.ADMIN) ||
-      groups.includes(UserRole.WHOLESALE) ||
-      groups.includes(UserRole.BROKER) ? (
+  const actions = (row: Proposal) => {
+    void row;
+    return (
+      <div className="flex space-x-2">
         <Button variant="outline" size="sm">
-          Edit
+          View
         </Button>
-      ) : null}
-    </div>
-  );
+        {groups.includes(UserRole.ADMIN) ||
+        groups.includes(UserRole.WHOLESALE) ||
+        groups.includes(UserRole.BROKER) ? (
+          <Button variant="outline" size="sm">
+            Edit
+          </Button>
+        ) : null}
+      </div>
+    );
+  };
 
   if (!canViewProposals) {
     return (

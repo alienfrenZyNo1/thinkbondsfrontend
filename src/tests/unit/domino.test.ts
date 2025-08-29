@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { DominoAPI } from '@/lib/domino';
 
 describe('DominoAPI', () => {
@@ -14,7 +14,10 @@ describe('DominoAPI', () => {
     });
 
     it('should create an instance with custom base URL', () => {
-      const customDominoAPI = new DominoAPI('test-api-key', 'https://custom.domino.com');
+      const customDominoAPI = new DominoAPI(
+        'test-api-key',
+        'https://custom.domino.com'
+      );
       expect(customDominoAPI).toBeInstanceOf(DominoAPI);
     });
   });
@@ -24,7 +27,7 @@ describe('DominoAPI', () => {
       const result = await dominoAPI.getPolicyData('policy-123');
       expect(result).toEqual({
         policyId: 'policy-123',
-        message: 'Policy data from Domino API'
+        message: 'Policy data from Domino API',
       });
     });
   });
@@ -35,7 +38,7 @@ describe('DominoAPI', () => {
       const result = await dominoAPI.createProposal(proposalData);
       expect(result).toEqual({
         proposalData,
-        message: 'Proposal created in Domino API'
+        message: 'Proposal created in Domino API',
       });
     });
   });
@@ -47,7 +50,7 @@ describe('DominoAPI', () => {
       expect(result).toEqual({
         policyId: 'policy-123',
         updateData,
-        message: 'Policy updated in Domino API'
+        message: 'Policy updated in Domino API',
       });
     });
   });
@@ -58,7 +61,7 @@ describe('DominoAPI', () => {
       const result = await dominoAPI.createBondOffer(offerData);
       expect(result).toEqual({
         offerData,
-        message: 'Bond offer created in Domino API'
+        message: 'Bond offer created in Domino API',
       });
     });
   });
@@ -68,7 +71,7 @@ describe('DominoAPI', () => {
       const result = await dominoAPI.getBondOffer('offer-123');
       expect(result).toEqual({
         offerId: 'offer-123',
-        message: 'Bond offer data from Domino API'
+        message: 'Bond offer data from Domino API',
       });
     });
   });
@@ -76,11 +79,14 @@ describe('DominoAPI', () => {
   describe('acceptBondOffer', () => {
     it('should accept a bond offer', async () => {
       const acceptanceData = { accepted: true };
-      const result = await dominoAPI.acceptBondOffer('offer-123', acceptanceData);
+      const result = await dominoAPI.acceptBondOffer(
+        'offer-123',
+        acceptanceData
+      );
       expect(result).toEqual({
         offerId: 'offer-123',
         acceptanceData,
-        message: 'Bond offer accepted in Domino API'
+        message: 'Bond offer accepted in Domino API',
       });
     });
   });
@@ -88,11 +94,14 @@ describe('DominoAPI', () => {
   describe('rejectBondOffer', () => {
     it('should reject a bond offer', async () => {
       const rejectionData = { reason: 'Not interested' };
-      const result = await dominoAPI.rejectBondOffer('offer-123', rejectionData);
+      const result = await dominoAPI.rejectBondOffer(
+        'offer-123',
+        rejectionData
+      );
       expect(result).toEqual({
         offerId: 'offer-123',
         rejectionData,
-        message: 'Bond offer rejected in Domino API'
+        message: 'Bond offer rejected in Domino API',
       });
     });
   });
@@ -102,7 +111,7 @@ describe('DominoAPI', () => {
       const result = await dominoAPI.generateBondPDF('offer-123');
       expect(result).toEqual({
         offerId: 'offer-123',
-        message: 'Bond PDF generated in Domino API'
+        message: 'Bond PDF generated in Domino API',
       });
     });
   });

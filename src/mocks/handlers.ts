@@ -12,11 +12,6 @@ interface RegistrationRequestBody {
   email: string;
 }
 
-interface VerifyPinRequestBody {
-  email: string;
-  pin: string;
-}
-
 interface BondRequestBody {
   bondAmount: string;
   premium: string;

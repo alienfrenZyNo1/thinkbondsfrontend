@@ -1,5 +1,4 @@
 import { NextAuthOptions } from 'next-auth';
-import KeycloakProvider from 'next-auth/providers/keycloak';
 import { JWT } from 'next-auth/jwt';
 import { Session } from 'next-auth';
 
@@ -100,6 +99,7 @@ async function fetchDominoUserData(
   accessToken: string
 ): Promise<DominoApiResponse | null> {
   try {
+    void accessToken;
     // This is where we would call the Domino REST API
     // For now, we'll return mock data
     // In a real implementation, you would call:
@@ -125,11 +125,6 @@ async function fetchDominoUserData(
     return null;
   }
 }
-
-const encryptionEnv = (process.env.NEXTAUTH_ENCRYPTION ?? '').toLowerCase();
-const jwtEncryption =
-  encryptionEnv === 'true' ||
-  (encryptionEnv === '' && process.env.NODE_ENV !== 'test');
 
 export const authOptions: NextAuthOptions = {
   providers: [

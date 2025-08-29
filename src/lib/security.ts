@@ -15,13 +15,16 @@ export function generateSecureToken(length: number = 32): string {
  * @param expiresIn Time in seconds until the token expires (default: 1 day)
  * @returns A JWT-like token with expiration
  */
-export function generateTimeLimitedToken(data: any, expiresIn: number = 86400): string {
+export function generateTimeLimitedToken<T = unknown>(
+  data: T,
+  expiresIn: number = 86400
+): string {
   const payload = {
     data,
     exp: Math.floor(Date.now() / 1000) + expiresIn,
-    iat: Math.floor(Date.now() / 1000)
+    iat: Math.floor(Date.now() / 1000),
   };
-  
+
   // In a real implementation, this would be a proper JWT
   // For now, we'll use a simple approach
   return Buffer.from(JSON.stringify(payload)).toString('base64');
@@ -32,17 +35,18 @@ export function generateTimeLimitedToken(data: any, expiresIn: number = 86400): 
  * @param token The token to verify
  * @returns The decoded data if valid, null if invalid or expired
  */
-export function verifyTimeLimitedToken(token: string): any | null {
+export function verifyTimeLimitedToken<T = unknown>(token: string): T | null {
   try {
     const payload = JSON.parse(Buffer.from(token, 'base64').toString('utf-8'));
-    
+
     // Check if token has expired
     if (payload.exp < Math.floor(Date.now() / 1000)) {
       return null; // Token expired
     }
-    
+
     return payload.data;
   } catch (error) {
+    void error;
     return null; // Invalid token
   }
 }

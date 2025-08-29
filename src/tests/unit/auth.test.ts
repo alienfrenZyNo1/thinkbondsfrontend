@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 
 // Mock the auth module with mocked environment variables
 vi.mock('@/lib/auth', () => ({
@@ -14,18 +14,18 @@ vi.mock('@/lib/auth', () => ({
             scope: 'openid email profile',
           },
         },
-      }
+      },
     ],
     session: {
-      strategy: 'jwt'
+      strategy: 'jwt',
     },
     callbacks: {
       jwt: vi.fn(),
-      session: vi.fn()
+      session: vi.fn(),
     },
     secret: 'test-secret',
-    debug: false
-  }
+    debug: false,
+  },
 }));
 
 import { authOptions } from '@/lib/auth';
@@ -39,7 +39,7 @@ describe('Auth functions', () => {
 
     it('should have correct session configuration', () => {
       expect(authOptions.session).toEqual({
-        strategy: 'jwt'
+        strategy: 'jwt',
       });
     });
 
@@ -56,18 +56,23 @@ describe('Auth functions', () => {
 
   describe('KeycloakProvider', () => {
     it('should be configured with correct client credentials', () => {
-      const provider: any = authOptions.providers[0];
+      const provider: unknown = authOptions.providers[0];
       expect(provider).toHaveProperty('clientId', 'test-client-id');
       expect(provider).toHaveProperty('clientSecret', 'test-client-secret');
       expect(provider).toHaveProperty('issuer', 'https://keycloak.example.com');
     });
 
     it('should have correct authorization parameters', () => {
-      const provider: any = authOptions.providers[0];
+      const provider: unknown = authOptions.providers[0];
       expect(provider).toHaveProperty('authorization');
-      expect(provider.authorization).toHaveProperty('params');
-      expect(provider.authorization.params).toEqual({
-        scope: 'openid email profile'
+      expect(
+        (provider as Record<string, unknown>).authorization
+      ).toHaveProperty('params');
+      expect(
+        (provider as { authorization: { params: unknown } }).authorization
+          .params
+      ).toEqual({
+        scope: 'openid email profile',
       });
     });
   });
