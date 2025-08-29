@@ -1,0 +1,1 @@
+CRITICAL: Terminal is Powershell

@@ -1,0 +1,86 @@
+[
+  {
+    "id": "1",
+    "title": "Commercial Insurance Proposal",
+    "description": "Comprehensive insurance coverage for Tech Solutions Inc.",
+    "brokerId": "1",
+    "policyholderId": "1",
+    "status": "draft",
+    "editHistory": [
+      {
+        "id": "1",
+        "timestamp": "2025-08-20T10:30:00Z",
+        "userId": "broker1",
+        "userName": "Broker User",
+        "action": "Created",
+        "changes": {}
+      },
+      {
+        "id": "2",
+        "timestamp": "2025-08-22T14:15:00Z",
+        "userId": "broker1",
+        "userName": "Broker User",
+        "action": "Updated description",
+        "changes": {
+          "description": "Comprehensive insurance coverage for Tech Solutions Inc."
+        }
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Manufacturing Risk Assessment",
+    "description": "Risk assessment and insurance proposal for Global Manufacturing",
+    "brokerId": "2",
+    "policyholderId": "2",
+    "status": "submitted",
+    "editHistory": [
+      {
+        "id": "3",
+        "timestamp": "2025-08-25T09:45:00Z",
+        "userId": "broker2",
+        "userName": "Another Broker",
+        "action": "Created",
+        "changes": {}
+      },
+      {
+        "id": "4",
+        "timestamp": "2025-08-26T09:45:00Z",
+        "userId": "broker2",
+        "userName": "Another Broker",
+        "action": "Submitted",
+        "changes": {
+          "status": "submitted"
+        }
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Deleted Proposal",
+    "description": "This proposal has been deleted",
+    "brokerId": "1",
+    "policyholderId": "2",
+    "status": "soft_deleted",
+    "editHistory": [
+      {
+        "id": "5",
+        "timestamp": "2025-08-26T09:45:00Z",
+        "userId": "broker1",
+        "userName": "Broker User",
+        "action": "Created",
+        "changes": {}
+      },
+      {
+        "id": "6",
+        "timestamp": "2025-08-27T09:45:00Z",
+        "userId": "broker1",
+        "userName": "Broker User",
+        "action": "Soft deleted",
+        "changes": {
+          "status": "soft_deleted"
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "companyId": "1",
+    "companyName": "ABC Insurance Brokers Ltd",
+    "registrationNumber": "12345678",
+    "status": "Active",
+    "legalForm": "Limited Company",
+    "incorporationDate": "2010-05-15",
+    "address": "123 Main Street",
+    "city": "London",
+    "postcode": "SW1A 1AA",
+    "country": "GB",
+    "financialSummary": {
+      "currency": "GBP",
+      "revenue": 5000000,
+      "profit": 750000,
+      "equity": 250000,
+      "employees": 45
+    },
+    "creditScore": {
+      "score": 95,
+      "rating": "Excellent",
+      "limit": 1000000
+    }
+  },
+  {
+    "companyId": "2",
+    "companyName": "XYZ Risk Management Inc",
+    "registrationNumber": "87654321",
+    "status": "Active",
+    "legalForm": "Corporation",
+    "incorporationDate": "2005-11-30",
+    "address": "456 Broadway",
+    "city": "New York",
+    "postcode": "NY 10001",
+    "country": "US",
+    "financialSummary": {
+      "currency": "USD",
+      "revenue": 12000000,
+      "profit": 1800000,
+      "equity": 500000,
+      "employees": 120
+    },
+    "creditScore": {
+      "score": 92,
+      "rating": "Excellent",
+      "limit": 2500000
+    }
+  },
+  {
+    "companyId": "3",
+    "companyName": "Global Insurance Solutions Ltd",
+    "registrationNumber": "1122344",
+    "status": "Active",
+    "legalForm": "Limited Company",
+    "incorporationDate": "2012-03-22",
+    "address": "789 Queen Street",
+    "city": "Manchester",
+    "postcode": "M1 1AA",
+    "country": "GB",
+    "financialSummary": {
+      "currency": "GBP",
+      "revenue": 350000,
+      "profit": 525000,
+      "equity": 1750000,
+      "employees": 32
+    },
+    "creditScore": {
+      "score": 88,
+      "rating": "Good",
+      "limit": 750000
+    }
+  },
+  {
+    "companyId": "4",
+    "companyName": "Secure Brokers Pty Ltd",
+    "registrationNumber": "566778",
+    "status": "Active",
+    "legalForm": "Proprietary Limited",
+    "incorporationDate": "2015-07-10",
+    "address": "321 King Street",
+    "city": "Sydney",
+    "postcode": "NSW 2000",
+    "country": "AU",
+    "financialSummary": {
+      "currency": "AUD",
+      "revenue": 280000,
+      "profit": 420000,
+      "equity": 1400000,
+      "employees": 25
+    },
+    "creditScore": {
+      "score": 90,
+      "rating": "Excellent",
+      "limit": 600000
+    }
+  },
+  {
+    "companyId": "5",
+    "companyName": "Trust Insurance GmbH",
+    "registrationNumber": "99887766",
+    "status": "Active",
+    "legalForm": "Gesellschaft mit beschränkter Haftung",
+    "incorporationDate": "2008-09-18",
+    "address": "654 Hauptstrasse",
+    "city": "Berlin",
+    "postcode": "1015",
+    "country": "DE",
+    "financialSummary": {
+      "currency": "EUR",
+      "revenue": 4200000,
+      "profit": 63000,
+      "equity": 2100000,
+      "employees": 38
+    },
+    "creditScore": {
+      "score": 93,
+      "rating": "Excellent",
+      "limit": 900000
+    }
+  }
+]

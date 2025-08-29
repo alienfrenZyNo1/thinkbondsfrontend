@@ -1,0 +1,76 @@
+[
+  {
+    "id": "1",
+    "companyName": "Tech Solutions Inc.",
+    "contactName": "Alice Johnson",
+    "email": "alice@techsolutions.com",
+    "phone": "+111111",
+    "status": "approved",
+    "editHistory": [
+      {
+        "id": "1",
+        "timestamp": "2025-08-20T10:30:00Z",
+        "userId": "admin1",
+        "userName": "Admin User",
+        "action": "Created",
+        "changes": {}
+      },
+      {
+        "id": "2",
+        "timestamp": "2025-08-22T14:15:00Z",
+        "userId": "admin1",
+        "userName": "Admin User",
+        "action": "Updated status to approved",
+        "changes": {
+          "status": "approved"
+        }
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "companyName": "Global Manufacturing",
+    "contactName": "Bob Wilson",
+    "email": "bob@globalmanufacturing.com",
+    "phone": "+2222",
+    "status": "pending",
+    "editHistory": [
+      {
+        "id": "3",
+        "timestamp": "2025-08-25T09:45:0Z",
+        "userId": "admin2",
+        "userName": "Another Admin",
+        "action": "Created",
+        "changes": {}
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "companyName": "Deleted Policyholder",
+    "contactName": "Deleted User",
+    "email": "deleted_policyholder@example.com",
+    "phone": "+333333",
+    "status": "soft_deleted",
+    "editHistory": [
+      {
+        "id": "4",
+        "timestamp": "2025-08-26T09:45:00Z",
+        "userId": "admin1",
+        "userName": "Admin User",
+        "action": "Created",
+        "changes": {}
+      },
+      {
+        "id": "5",
+        "timestamp": "2025-08-27T09:45:00Z",
+        "userId": "admin1",
+        "userName": "Admin User",
+        "action": "Soft deleted",
+        "changes": {
+          "status": "soft_deleted"
+        }
+      }
+    ]
+  }
+]

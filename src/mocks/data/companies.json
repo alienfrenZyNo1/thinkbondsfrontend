@@ -1,0 +1,92 @@
+[
+  {
+    "id": "1",
+    "name": "ABC Insurance Brokers Ltd",
+    "number": "12345678",
+    "country": "GB",
+    "address": "123 Main Street",
+    "city": "London",
+    "postcode": "SW1A 1AA"
+  },
+  {
+    "id": "2",
+    "name": "XYZ Risk Management Inc",
+    "number": "87654321",
+    "country": "US",
+    "address": "456 Broadway",
+    "city": "New York",
+    "postcode": "NY 10001"
+  },
+  {
+    "id": "3",
+    "name": "Global Insurance Solutions Ltd",
+    "number": "1122344",
+    "country": "GB",
+    "address": "789 Queen Street",
+    "city": "Manchester",
+    "postcode": "M1 1AA"
+  },
+  {
+    "id": "4",
+    "name": "Secure Brokers Pty Ltd",
+    "number": "5566778",
+    "country": "AU",
+    "address": "321 King Street",
+    "city": "Sydney",
+    "postcode": "NSW 2000"
+  },
+  {
+    "id": "5",
+    "name": "Trust Insurance GmbH",
+    "number": "99887766",
+    "country": "DE",
+    "address": "654 Hauptstrasse",
+    "city": "Berlin",
+    "postcode": "1015"
+  },
+  {
+    "id": "6",
+    "name": "Global Tech Solutions Inc",
+    "number": "GT123456",
+    "country": "US",
+    "address": "789 Innovation Blvd",
+    "city": "San Francisco",
+    "postcode": "CA 94102"
+  },
+  {
+    "id": "7",
+    "name": "Euro Manufacturing GmbH",
+    "number": "EM789012",
+    "country": "DE",
+    "address": "123 Industriestrasse",
+    "city": "Munich",
+    "postcode": "80331"
+  },
+  {
+    "id": "8",
+    "name": "Pacific Trading Co Ltd",
+    "number": "PT345678",
+    "country": "AU",
+    "address": "456 Harbour View",
+    "city": "Melbourne",
+    "postcode": "VIC 3000"
+  },
+  {
+    "id": "9",
+    "name": "North Star Logistics Ltd",
+    "number": "NS901234",
+    "country": "GB",
+    "address": "987 Distribution Way",
+    "city": "Birmingham",
+    "postcode": "B1 1AA"
+  },
+  {
+    "id": "10",
+    "name": "Alpine Construction SA",
+    "number": "AC567890",
+    "country": "CH",
+    "address": "654 Mountain Road",
+    "city": "Zurich",
+    "postcode": "8001"
+  }
+]
