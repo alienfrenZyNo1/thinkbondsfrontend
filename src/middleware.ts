@@ -13,7 +13,7 @@ const PUBLIC_EXACT = new Set<string>([
   '/', // exact match only
   '/access/request',
   '/broker/register',
-  '/accept',
+  '/accept'
 ]);
 
 function isPublicRoute(pathname: string): boolean {
@@ -38,21 +38,32 @@ export default withAuth(
     callbacks: {
       authorized: ({ token, req }) => {
         const pathname = req.nextUrl.pathname;
+        const e2eEnabled =
+          (process.env.NEXT_PUBLIC_E2E ?? '').toLowerCase() === 'true';
+        const e2eRole = req.cookies.get('e2e-role')?.value;
 
         // public pages are always allowed
         if (isPublicRoute(pathname)) return true;
 
-        // require auth elsewhere
-        if (!token) return false;
+        // In demo mode, treat presence of e2e-role cookie as authenticated
+        if (!token && e2eEnabled && e2eRole) {
+          // Fall through to RBAC checks using cookie role
+        } else if (!token) {
+          // require auth elsewhere
+          return false;
+        }
 
+        // Compute groups from real token or demo cookie role
         const userGroups: string[] =
-          (token as AuthToken).dominoData?.groups ?? [];
+          e2eEnabled && e2eRole
+            ? [e2eRole]
+            : ((token as AuthToken).dominoData?.groups ?? []);
 
         // Debug logging
         console.log('Middleware debug:', {
           pathname,
           userGroups,
-          token: JSON.stringify(token, null, 2),
+          token: JSON.stringify(token, null, 2)
         });
 
         // RBAC
@@ -82,14 +93,14 @@ export default withAuth(
 
         // default: any authenticated user
         return true;
-      },
-    },
+      }
+    }
   }
 );
 
 export const config = {
   matcher: [
     // don't run on API or static assets
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ],
+    '/((?!api|_next/static|_next/image|favicon.ico).*)'
+  ]
 };
