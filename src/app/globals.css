@@ -24,3 +24,14 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Ensure links show the pointer cursor consistently */
+a[href] {
+  cursor: pointer;
+}
+
+/* Disable pointer events from Next.js dev overlay to not block e2e clicks */
+nextjs-portal,
+[data-nextjs-dev-overlay] {
+  pointer-events: none !important;
+}
