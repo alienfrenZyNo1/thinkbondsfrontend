@@ -15,7 +15,8 @@ const PUBLIC_EXACT = new Set<string>([
   '/broker/register',
   '/accept',
   // Treat dashboard as public in demo to avoid SSR/client mismatch
-  '/dashboard'
+  '/dashboard',
+  '/sign-in'
 ]);
 
 function isPublicRoute(pathname: string): boolean {

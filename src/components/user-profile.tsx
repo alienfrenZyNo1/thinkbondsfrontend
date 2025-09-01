@@ -5,6 +5,12 @@ import { Button } from '@/components/ui/button';
 
 export function UserProfile() {
   const { user, groups, isAuthenticated, isLoading } = useAuthData();
+  type SafeUser = {
+    image?: string | null;
+    name?: string | null;
+    email?: string | null;
+  } | null;
+  const u = (user as SafeUser) ?? null;
 
   if (isLoading) {
     return (
@@ -23,7 +29,11 @@ export function UserProfile() {
       <div className="flex items-center space-x-2">
         <Button
           variant="outline"
-          onClick={() => (window.location.href = '/api/auth/signin')}
+          onClick={() => {
+            const cb =
+              typeof window !== 'undefined' ? window.location.href : '/';
+            window.location.href = `/sign-in?callbackUrl=${encodeURIComponent(cb)}`;
+          }}
         >
           Sign In
         </Button>
@@ -34,22 +44,22 @@ export function UserProfile() {
   return (
     <div className="flex items-center space-x-3">
       <div className="relative">
-        {user?.image ? (
+        {u?.image ? (
           <img
-            src={user.image}
-            alt={user.name || 'User'}
+            src={u.image || ''}
+            alt={u.name || 'User'}
             className="rounded-full h-10 w-10 object-cover"
           />
         ) : (
           <div className="bg-gray-200 border-2 border-dashed rounded-xl w-10 h-10 flex items-center justify-center">
             <span className="text-gray-500 text-sm font-medium">
-              {user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'}
+              {u?.name?.charAt(0) || u?.email?.charAt(0) || 'U'}
             </span>
           </div>
         )}
       </div>
       <div className="hidden md:block">
-        <p className="text-sm font-medium">{user?.name || user?.email}</p>
+        <p className="text-sm font-medium">{u?.name || u?.email}</p>
         <p className="text-xs text-gray-500">
           {groups.length > 0 ? groups.join(', ') : 'No groups'}
         </p>
