@@ -38,15 +38,13 @@ export default withAuth(
     callbacks: {
       authorized: ({ token, req }) => {
         const pathname = req.nextUrl.pathname;
-        const e2eEnabled =
-          (process.env.NEXT_PUBLIC_E2E ?? '').toLowerCase() === 'true';
         const e2eRole = req.cookies.get('e2e-role')?.value;
 
         // public pages are always allowed
         if (isPublicRoute(pathname)) return true;
 
-        // In demo mode, treat presence of e2e-role cookie as authenticated
-        if (!token && e2eEnabled && e2eRole) {
+        // Treat presence of e2e-role cookie as authenticated (demo cookie)
+        if (!token && e2eRole) {
           // Fall through to RBAC checks using cookie role
         } else if (!token) {
           // require auth elsewhere
@@ -54,10 +52,9 @@ export default withAuth(
         }
 
         // Compute groups from real token or demo cookie role
-        const userGroups: string[] =
-          e2eEnabled && e2eRole
-            ? [e2eRole]
-            : ((token as AuthToken).dominoData?.groups ?? []);
+        const userGroups: string[] = e2eRole
+          ? [e2eRole]
+          : ((token as AuthToken).dominoData?.groups ?? []);
 
         // Debug logging
         console.log('Middleware debug:', {
