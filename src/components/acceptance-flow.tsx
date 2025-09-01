@@ -43,13 +43,13 @@ export function AcceptanceFlow({ token }: AcceptanceFlowProps) {
   const { isAuthenticated } = useAuthData();
 
   // Mock function to fetch offer details
-  const fetchOfferDetails = async (token: string) => {
+  const fetchOfferDetails = async (token: string, skipTokenCheck = false) => {
     // In a real implementation, this would call an API
     await new Promise(resolve => setTimeout(resolve, 500));
 
     // Verify the token unless running e2e
     const isE2E = (process.env.NEXT_PUBLIC_E2E ?? '').toLowerCase() === 'true';
-    if (!isE2E) {
+    if (!isE2E && !skipTokenCheck) {
       const tokenData = verifyTimeLimitedToken(token);
       if (!tokenData) {
         throw new Error('Invalid or expired token');
@@ -89,7 +89,7 @@ export function AcceptanceFlow({ token }: AcceptanceFlowProps) {
       // In development, accept the hardcoded code "123456"
       if (process.env.NODE_ENV === 'development' && code === '123456') {
         // Fetch offer details
-        const data = await fetchOfferDetails(token);
+        const data = await fetchOfferDetails(token, true);
         setOffer(data.offer);
         setPolicyholder(data.policyholder);
         setBeneficiary(data.beneficiary);
@@ -109,7 +109,7 @@ export function AcceptanceFlow({ token }: AcceptanceFlowProps) {
       if (!response.ok) {
         // Fallback for demos: if using the known demo code, proceed
         if (code === '123456') {
-          const data = await fetchOfferDetails(token);
+          const data = await fetchOfferDetails(token, true);
           setOffer(data.offer);
           setPolicyholder(data.policyholder);
           setBeneficiary(data.beneficiary);
