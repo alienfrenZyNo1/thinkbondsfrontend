@@ -6,7 +6,7 @@ import { UserRole } from '@/lib/roles';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 interface Offer {
   id: string;
@@ -105,12 +105,10 @@ async function fetchEditHistory(id: string): Promise<EditHistoryEntry[]> {
   return await response.json();
 }
 
-export default function OfferDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default function OfferDetailPage() {
   const router = useRouter();
+  const params = useParams<{ id: string }>();
+  const id = params?.id ?? '';
   const { groups } = useAuthData();
   const [activeTab, setActiveTab] = useState<'details' | 'history'>('details');
 
@@ -135,72 +133,72 @@ export default function OfferDetailPage({
     data: offer,
     isLoading: isOfferLoading,
     error: offerError,
-    refetch: refetchOffer,
+    refetch: refetchOffer
   } = useQuery<Offer>({
-    queryKey: ['offer', params.id],
-    queryFn: () => fetchOffer(params.id),
-    enabled: canViewOffer,
+    queryKey: ['offer', id],
+    queryFn: () => fetchOffer(id),
+    enabled: canViewOffer && Boolean(id)
   });
 
   // Fetch proposal data
   const {
     data: proposal,
     isLoading: isProposalLoading,
-    error: proposalError,
+    error: proposalError
   } = useQuery<Proposal>({
     queryKey: ['proposal', offer?.proposalId],
     queryFn: () =>
       offer?.proposalId
         ? fetchProposal(offer.proposalId)
         : Promise.reject('No proposal ID'),
-    enabled: !!offer?.proposalId && canViewOffer,
+    enabled: !!offer?.proposalId && canViewOffer
   });
 
   // Fetch policyholder data
   const {
     data: policyholder,
     isLoading: isPolicyholderLoading,
-    error: policyholderError,
+    error: policyholderError
   } = useQuery<Policyholder>({
     queryKey: ['policyholder', proposal?.policyholderId],
     queryFn: () =>
       proposal?.policyholderId
         ? fetchPolicyholder(proposal.policyholderId)
         : Promise.reject('No policyholder ID'),
-    enabled: !!proposal?.policyholderId && canViewOffer,
+    enabled: !!proposal?.policyholderId && canViewOffer
   });
 
   // Fetch broker data
   const {
     data: broker,
     isLoading: isBrokerLoading,
-    error: brokerError,
+    error: brokerError
   } = useQuery<Broker>({
     queryKey: ['broker', proposal?.brokerId],
     queryFn: () =>
       proposal?.brokerId
         ? fetchBroker(proposal.brokerId)
         : Promise.reject('No broker ID'),
-    enabled: !!proposal?.brokerId && canViewOffer,
+    enabled: !!proposal?.brokerId && canViewOffer
   });
 
   // Fetch edit history
   const {
     data: editHistory,
     isLoading: isHistoryLoading,
-    error: historyError,
+    error: historyError
   } = useQuery<EditHistoryEntry[]>({
-    queryKey: ['editHistory', params.id],
-    queryFn: () => fetchEditHistory(params.id),
-    enabled: canViewOffer && activeTab === 'history',
+    queryKey: ['editHistory', id],
+    queryFn: () => fetchEditHistory(id),
+    enabled: canViewOffer && Boolean(id) && activeTab === 'history'
   });
 
   const handleSoftDelete = async () => {
     if (!canEditOffer) return;
 
     try {
-      const response = await fetch(`/api/offers/${params.id}`, {
-        method: 'DELETE',
+      const response = await fetch(`/api/offers/${id}`, {
+        method: 'DELETE'
       });
 
       if (!response.ok) {
@@ -218,8 +216,8 @@ export default function OfferDetailPage({
     if (!canRestoreOffer) return;
 
     try {
-      const response = await fetch(`/api/offers/${params.id}/restore`, {
-        method: 'PUT',
+      const response = await fetch(`/api/offers/${id}/restore`, {
+        method: 'PUT'
       });
 
       if (!response.ok) {
