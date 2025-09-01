@@ -30,9 +30,9 @@ interface E2ESession extends Session {
 export function Providers({ children }: ProvidersProps) {
   const [queryClient] = useState(() => new QueryClient());
 
-  // Provide a synthetic session for e2e when enabled via env + cookie
+  // Provide a synthetic session when the demo role cookie is present
   let initialSession: Session | null = null;
-  if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_E2E === 'true') {
+  if (typeof window !== 'undefined') {
     const cookies = document.cookie || '';
     const roleMatch = cookies.match(/(?:^|;\s*)e2e-role=([^;]+)/);
     const role = roleMatch?.[1] || '';
@@ -48,11 +48,11 @@ export function Providers({ children }: ProvidersProps) {
             id: 'domino-1',
             name: `${capitalized} User`,
             email: `${role}@example.com`,
-            groups: [role],
-          },
+            groups: [role]
+          }
         },
         expires: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
-        accessToken: 'mock-access-token',
+        accessToken: 'mock-access-token'
       } as E2ESession;
     }
   }

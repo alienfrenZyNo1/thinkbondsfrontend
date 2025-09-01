@@ -64,14 +64,14 @@ async function refreshAccessToken(token: JWT): Promise<JWT> {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: new URLSearchParams({
         client_id: process.env.KEYCLOAK_CLIENT_ID!,
         client_secret: process.env.KEYCLOAK_CLIENT_SECRET!,
         grant_type: 'refresh_token',
-        refresh_token: token.refreshToken!,
-      }),
+        refresh_token: token.refreshToken!
+      })
     });
 
     const refreshedTokens = await response.json();
@@ -84,13 +84,13 @@ async function refreshAccessToken(token: JWT): Promise<JWT> {
       ...token,
       accessToken: refreshedTokens.access_token,
       expiresAt: Math.floor(Date.now() / 1000 + refreshedTokens.expires_in),
-      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken,
+      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken
     };
   } catch (error) {
     console.error('Error refreshing access token', error);
     return {
       ...token,
-      error: 'RefreshAccessTokenError',
+      error: 'RefreshAccessTokenError'
     };
   }
 }
@@ -116,9 +116,9 @@ async function fetchDominoUserData(
         id: 'mock-user-id',
         name: 'Mock User',
         email: 'mock@example.com',
-        groups: ['broker', 'user'],
+        groups: ['broker', 'user']
       },
-      groups: ['broker', 'user'],
+      groups: ['broker', 'user']
     };
   } catch (error) {
     console.error('Error fetching Domino user data', error);
@@ -127,6 +127,9 @@ async function fetchDominoUserData(
 }
 
 export const authOptions: NextAuthOptions = {
+  pages: {
+    signIn: '/access/request'
+  },
   providers: [
     /* ... */
   ],
@@ -148,7 +151,7 @@ export const authOptions: NextAuthOptions = {
           refreshToken: account.refresh_token,
           expiresAt: exp,
           user,
-          dominoData,
+          dominoData
         } as JWT;
       }
 
@@ -173,12 +176,12 @@ export const authOptions: NextAuthOptions = {
         ...session.user,
         ...(token.user as AuthUser),
         groups: token.dominoData?.groups || token.user?.groups || [],
-        dominoData: token.dominoData?.user || null,
+        dominoData: token.dominoData?.user || null
       };
       session.accessToken = token.accessToken as string | undefined;
       return session;
-    },
+    }
   },
   secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NODE_ENV === 'development',
+  debug: process.env.NODE_ENV === 'development'
 };
