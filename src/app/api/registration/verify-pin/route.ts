@@ -1,9 +1,7 @@
 import { NextResponse } from 'next/server';
 import { pinVerificationSchema } from '@/lib/zod-schemas';
 import { ZodError } from 'zod';
-
-// In-memory storage for mock data (in a real app, this would be in a database)
-const mockAccessCodes: { email: string; pin6: string }[] = [];
+import { getAccessCode, removeAccessCode } from '@/lib/mock-store';
 
 export async function POST(request: Request) {
   try {
@@ -18,8 +16,8 @@ export async function POST(request: Request) {
     const useMock = process.env.USE_MOCK === 'true';
 
     if (useMock) {
-      // Check if the PIN matches for the email
-      const accessCode = mockAccessCodes.find(code => code.email === email);
+      // Check if the PIN matches for the email via shared mock store
+      const accessCode = getAccessCode(email);
 
       if (!accessCode) {
         return NextResponse.json(
@@ -36,10 +34,7 @@ export async function POST(request: Request) {
       }
 
       // PIN is valid, remove it from storage (one-time use)
-      const index = mockAccessCodes.findIndex(code => code.email === email);
-      if (index !== -1) {
-        mockAccessCodes.splice(index, 1);
-      }
+      removeAccessCode(email);
 
       return NextResponse.json({ success: true });
     } else {

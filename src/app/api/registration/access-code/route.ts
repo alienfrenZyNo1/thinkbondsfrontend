@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import { accessRequestSchema } from '@/lib/zod-schemas';
+import { addAccessCode } from '@/lib/mock-store';
 import { ZodError } from 'zod';
 
-// In-memory storage for mock data
-const mockAccessCodes: { email: string; pin6: string; country: string }[] = [];
+// In-memory storage for mock data (legacy; replaced by shared mock-store)
+// const mockAccessCodes: { email: string; pin6: string; country: string }[] = [];
 
 // Generate a random 6-digit PIN
 function generatePin(): string {
@@ -24,8 +25,8 @@ export async function POST(request: Request) {
     const useMock = process.env.USE_MOCK === 'true';
 
     if (useMock) {
-      // Store in memory for mock implementation
-      mockAccessCodes.push({ email, pin6, country });
+      // Store in shared mock store so other routes (verify-pin) can read it
+      addAccessCode({ email, pin6, country });
 
       // In a real implementation, we would:
       // 1. Store the access code in a database
@@ -34,7 +35,7 @@ export async function POST(request: Request) {
       return NextResponse.json({
         email,
         pin6,
-        link: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/broker/register?email=${encodeURIComponent(email)}`,
+        link: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/broker/register?email=${encodeURIComponent(email)}`
       });
     } else {
       // Real implementation would:
@@ -46,7 +47,7 @@ export async function POST(request: Request) {
       return NextResponse.json({
         email,
         pin6,
-        link: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/broker/register?email=${encodeURIComponent(email)}`,
+        link: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/broker/register?email=${encodeURIComponent(email)}`
       });
     }
   } catch (error) {
