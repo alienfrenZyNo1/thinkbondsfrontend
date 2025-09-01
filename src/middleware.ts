@@ -84,7 +84,11 @@ export default withAuth(
           return userGroups.includes('admin');
         }
         if (pathname.startsWith('/proposals')) {
-          return userGroups.includes('admin') || userGroups.includes('broker');
+          return (
+            userGroups.includes('admin') ||
+            userGroups.includes('broker') ||
+            userGroups.includes('wholesale')
+          );
         }
         if (pathname.startsWith('/offers')) {
           return (
