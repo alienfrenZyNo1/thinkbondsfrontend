@@ -111,6 +111,16 @@ export function BrokerRegistrationForm({
                   <FormControl>
                     <CompanySearch
                       onCompanySelect={handleCompanySelect}
+                      onInputChange={value => {
+                        form.setValue('companyName', value, {
+                          shouldDirty: true,
+                          shouldTouch: true,
+                          shouldValidate: true
+                        });
+                        if (value && value.trim().length > 0) {
+                          form.clearErrors('companyName');
+                        }
+                      }}
                       placeholder="Search for a company..."
                     />
                   </FormControl>
@@ -129,7 +139,10 @@ export function BrokerRegistrationForm({
               <FormItem>
                 <FormLabel>Company Number</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter company number" {...field} />
+                  <Input
+                    placeholder="Enter company number (optional if selected above)"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

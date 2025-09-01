@@ -7,12 +7,14 @@ import type { CreditsafeCompany } from '@/lib/creditsafe';
 
 interface CompanySearchProps {
   onCompanySelect: (company: CreditsafeCompany) => void;
+  onInputChange?: (value: string) => void;
   placeholder?: string;
 }
 
 export function CompanySearch({
   onCompanySelect,
-  placeholder = 'Search for a company...',
+  onInputChange,
+  placeholder = 'Search for a company...'
 }: CompanySearchProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState<CreditsafeCompany[]>([]);
@@ -86,7 +88,11 @@ export function CompanySearch({
         type="text"
         placeholder={placeholder}
         value={searchTerm}
-        onChange={e => setSearchTerm(e.target.value)}
+        onChange={e => {
+          const v = e.target.value;
+          setSearchTerm(v);
+          onInputChange?.(v);
+        }}
         onFocus={() => searchTerm.length >= 2 && setShowResults(true)}
         className="w-full"
       />
