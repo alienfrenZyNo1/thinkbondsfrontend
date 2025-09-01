@@ -13,7 +13,9 @@ const PUBLIC_EXACT = new Set<string>([
   '/', // exact match only
   '/access/request',
   '/broker/register',
-  '/accept'
+  '/accept',
+  // Treat dashboard as public in demo to avoid SSR/client mismatch
+  '/dashboard'
 ]);
 
 function isPublicRoute(pathname: string): boolean {
