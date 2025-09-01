@@ -15,7 +15,10 @@ const roles = [
 function SignInInner() {
   const router = useRouter();
   const sp = useSearchParams();
-  const callbackUrl = sp?.get('callbackUrl') || '/dashboard';
+  const raw = sp?.get('callbackUrl') || '';
+  const origin = typeof window !== 'undefined' ? window.location.origin : '';
+  const invalid = !raw || raw === '/' || raw === origin || raw === `${origin}/`;
+  const callbackUrl = invalid ? '/dashboard' : raw;
   const [current, setCurrent] = useState<string>('');
 
   useEffect(() => {

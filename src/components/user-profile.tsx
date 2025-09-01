@@ -30,9 +30,7 @@ export function UserProfile() {
         <Button
           variant="outline"
           onClick={() => {
-            const cb =
-              typeof window !== 'undefined' ? window.location.href : '/';
-            window.location.href = `/sign-in?callbackUrl=${encodeURIComponent(cb)}`;
+            window.location.href = `/sign-in?callbackUrl=${encodeURIComponent('/dashboard')}`;
           }}
         >
           Sign In
