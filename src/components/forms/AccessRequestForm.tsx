@@ -12,7 +12,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { accessRequestSchema } from '@/lib/zod-schemas';
@@ -29,8 +29,8 @@ export function AccessRequestForm({ onSuccess }: AccessRequestFormProps) {
     resolver: zodResolver(accessRequestSchema),
     defaultValues: {
       email: '',
-      country: '',
-    },
+      country: ''
+    }
   });
 
   const handleSubmit = async (values: z.infer<typeof accessRequestSchema>) => {
@@ -40,9 +40,9 @@ export function AccessRequestForm({ onSuccess }: AccessRequestFormProps) {
       const response = await fetch('/api/registration/access-code', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(values)
       });
 
       const data = await response.json();
@@ -87,7 +87,7 @@ export function AccessRequestForm({ onSuccess }: AccessRequestFormProps) {
             <FormItem>
               <FormLabel>Broker Email</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your email" {...field} />
+                <Input type="email" placeholder="Enter your email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -101,7 +101,11 @@ export function AccessRequestForm({ onSuccess }: AccessRequestFormProps) {
             <FormItem>
               <FormLabel>Country</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your country" {...field} />
+                <Input
+                  type="text"
+                  placeholder="Enter your country"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
