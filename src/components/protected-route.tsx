@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useAuthData, useHasRole, useHasPermission } from '@/lib/auth-hooks';
 import { UserRole } from '@/lib/roles';
@@ -18,8 +19,12 @@ export function ProtectedRoute({
 }: ProtectedRouteProps) {
   const { status } = useSession();
   const { isAuthenticated, isLoading } = useAuthData();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const e2eAuthed =
-    typeof window !== 'undefined' && document.cookie.includes('e2e-role=');
+    mounted &&
+    typeof document !== 'undefined' &&
+    document.cookie.includes('e2e-role=');
   const authed = isAuthenticated || e2eAuthed;
   const hasRequiredRole = requiredRole ? useHasRole(requiredRole) : true;
   const hasRequiredPermission = requiredPermission
@@ -27,7 +32,7 @@ export function ProtectedRoute({
     : true;
 
   // Show loading state while checking authentication
-  if (isLoading || status === 'loading') {
+  if (!mounted || isLoading || status === 'loading') {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="text-center">
