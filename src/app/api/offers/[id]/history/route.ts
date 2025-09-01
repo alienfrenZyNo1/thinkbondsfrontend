@@ -6,7 +6,7 @@ export async function GET(
 ) {
   try {
     const useMock = process.env.USE_MOCK === 'true';
-    if (useMock) {
+    if (useMock || process.env.NODE_ENV !== 'production') {
       const { id } = await params;
       const history = [
         {

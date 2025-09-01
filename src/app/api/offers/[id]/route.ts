@@ -7,8 +7,7 @@ export async function GET(
   try {
     const { id } = await params;
     const useMock = process.env.USE_MOCK === 'true';
-
-    if (useMock) {
+    if (useMock || process.env.NODE_ENV !== 'production') {
       // Minimal mock offers by id
       const base = {
         id,

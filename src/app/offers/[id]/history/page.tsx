@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useAuthData } from '@/lib/auth-hooks';
 import { UserRole } from '@/lib/roles';
 import { ProtectedRoute } from '@/components/protected-route';
@@ -15,12 +15,10 @@ interface EditHistoryEntry {
   changes?: Record<string, unknown>;
 }
 
-export default function OfferHistoryPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default function OfferHistoryPage() {
   const router = useRouter();
+  const params = useParams<{ id: string }>();
+  const id = params?.id ?? '';
   const { groups } = useAuthData();
   const [editHistory, setEditHistory] = useState<EditHistoryEntry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -41,7 +39,7 @@ export default function OfferHistoryPage({
     const fetchEditHistory = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`/api/offers/${params.id}/history`);
+        const response = await fetch(`/api/offers/${id}/history`);
         if (!response.ok) {
           throw new Error('Failed to fetch edit history');
         }
@@ -57,7 +55,7 @@ export default function OfferHistoryPage({
     };
 
     fetchEditHistory();
-  }, [params.id, canViewOfferHistory]);
+  }, [id, canViewOfferHistory]);
 
   if (!canViewOfferHistory) {
     return (
