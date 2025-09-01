@@ -6,7 +6,7 @@ import {
   createContext,
   useContext,
   useEffect,
-  useState,
+  useState
 } from 'react';
 
 interface AuthContextType {
@@ -20,7 +20,7 @@ const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   isLoading: true,
   user: null,
-  groups: [],
+  groups: []
 });
 
 export function useAuth() {
@@ -30,6 +30,15 @@ export function useAuth() {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const { data: session, status } = useSession();
   const [groups, setGroups] = useState<string[]>([]);
+  const [demoRole, setDemoRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const cookies = document.cookie || '';
+      const match = cookies.match(/(?:^|;\s*)e2e-role=([^;]+)/);
+      setDemoRole(match?.[1] || null);
+    }
+  }, []);
 
   useEffect(() => {
     if (session?.user?.groups) {
@@ -48,11 +57,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [session]);
 
+  const isAuthenticated = status === 'authenticated' || !!demoRole;
+  const user =
+    session?.user ||
+    (demoRole
+      ? {
+          id: '1',
+          name: `${demoRole.charAt(0).toUpperCase()}${demoRole.slice(1)} User`,
+          email: `${demoRole}@example.com`,
+          groups: [demoRole]
+        }
+      : null);
+
   const contextValue = {
-    isAuthenticated: status === 'authenticated',
+    isAuthenticated,
     isLoading: status === 'loading',
-    user: session?.user || null,
-    groups,
+    user,
+    groups: groups.length ? groups : demoRole ? [demoRole] : []
   };
 
   return (

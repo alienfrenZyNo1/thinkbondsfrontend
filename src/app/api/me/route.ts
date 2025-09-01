@@ -9,9 +9,9 @@ const mockDominoData = {
     email: 'mock@example.com',
     groups: ['broker', 'user'],
     department: 'Sales',
-    position: 'Broker',
+    position: 'Broker'
   },
-  groups: ['broker', 'user'],
+  groups: ['broker', 'user']
 };
 
 // Simple in-memory cache for development
@@ -34,20 +34,23 @@ const sessionCache: Record<
   }
 > = {};
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     // Get the session
     const session = await getServerSession(authOptions);
-
-    if (!session || !session.accessToken) {
+    const cookieHeader = request.headers.get('cookie') || '';
+    const demoMatch = cookieHeader.match(/(?:^|;\s*)e2e-role=([^;]+)/);
+    const demoRole = demoMatch?.[1] || null;
+    const hasSession = !!(session && session.accessToken);
+    if (!hasSession && !demoRole) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
         status: 401,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' }
       });
     }
 
     // Check if we have cached data for this session
-    const cacheKey = session.accessToken;
+    const cacheKey = session?.accessToken || `demo:${demoRole}`;
     const cached = sessionCache[cacheKey];
     const now = Date.now();
 
@@ -57,7 +60,7 @@ export async function GET() {
     if (cached && cached.expires > now) {
       return new Response(JSON.stringify(cached.data), {
         status: 200,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' }
       });
     }
 
@@ -77,18 +80,30 @@ export async function GET() {
     const dominoData = await response.json();
     */
 
-    // Use mock data for now
-    const dominoData = mockDominoData;
+    // Use mock data for now; adapt to demo role if present
+    const dominoData = demoRole
+      ? {
+          user: {
+            id: 'mock-user-id',
+            name: `${demoRole.charAt(0).toUpperCase()}${demoRole.slice(1)} User`,
+            email: `${demoRole}@example.com`,
+            groups: [demoRole, 'user'],
+            department: 'Demo',
+            position: 'Demo User'
+          },
+          groups: [demoRole, 'user']
+        }
+      : mockDominoData;
 
     // Cache the response
     sessionCache[cacheKey] = {
       data: dominoData,
-      expires: now + CACHE_TTL,
+      expires: now + CACHE_TTL
     };
 
     return new Response(JSON.stringify(dominoData), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' }
     });
   } catch (error) {
     console.error('Error fetching user data:', error);

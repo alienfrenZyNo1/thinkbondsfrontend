@@ -23,7 +23,7 @@ export function DominoUserData() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isAuthenticated || !accessToken) {
+    if (!isAuthenticated) {
       setLoading(false);
       return;
     }
@@ -33,11 +33,9 @@ export function DominoUserData() {
         setLoading(true);
         setError(null);
 
-        const response = await fetch('/api/me', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        const headers: Record<string, string> = {};
+        if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
+        const response = await fetch('/api/me', { headers });
 
         if (!response.ok) {
           throw new Error('Failed to fetch Domino user data');
