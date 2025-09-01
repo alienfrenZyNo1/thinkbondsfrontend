@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     logAuditEvent({
       action: 'BOND_CREATE_ATTEMPT',
       resourceType: 'bond',
-      details: { hasBody: !!body },
+      details: { hasBody: !!body }
     });
 
     // Check if we're using mock data
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
         userId: 'current_user_id', // In a real implementation, this would come from the session
         userName: 'Current User', // In a real implementation, this would come from the session
         action: 'Created',
-        changes: {},
+        changes: {}
       };
 
       // In development, return mock data or generate a mock PDF
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
       logAuditEvent({
         action: 'BOND_CREATE_SUCCESS',
         resourceType: 'bond',
-        details: { environment: 'mock' },
+        details: { environment: 'mock' }
       });
 
       return NextResponse.json({
@@ -45,8 +45,8 @@ export async function POST(request: Request) {
           id: `BOND-${Date.now()}`,
           createdAt: new Date().toISOString(),
           status: 'active',
-          editHistory: [editHistoryEntry],
-        },
+          editHistory: [editHistoryEntry]
+        }
       });
     } else {
       // In production, proxy to DRAPI/Swing addon to generate actual PDF
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
       logAuditEvent({
         action: 'BOND_CREATE_SUCCESS',
         resourceType: 'bond',
-        details: { environment: 'production' },
+        details: { environment: 'production' }
       });
 
       return NextResponse.json({
@@ -68,8 +68,8 @@ export async function POST(request: Request) {
         data: {
           ...body,
           id: `BOND-${Date.now()}`,
-          createdAt: new Date().toISOString(),
-        },
+          createdAt: new Date().toISOString()
+        }
       });
     }
   } catch (error) {
@@ -79,8 +79,8 @@ export async function POST(request: Request) {
       action: 'BOND_CREATE_ERROR',
       resourceType: 'bond',
       details: {
-        error: error instanceof Error ? error.message : 'Unknown error',
-      },
+        error: error instanceof Error ? error.message : 'Unknown error'
+      }
     });
 
     return NextResponse.json(
@@ -94,14 +94,70 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
-    const id = url.pathname.split('/').pop();
+    const segments = url.pathname.split('/').filter(Boolean);
+    const last = segments.pop();
+    const isList = !last || last === 'api' || last === 'bonds';
+
+    // If requesting the collection (/api/bonds), return a mock list in USE_MOCK
+    if (isList) {
+      const useMock = process.env.USE_MOCK === 'true';
+      if (useMock) {
+        const list = [
+          {
+            id: '1',
+            bondAmount: '1000.00',
+            premium: '50.00',
+            effectiveDate: '2025-09-01',
+            expiryDate: '2026-09-01',
+            policyholder: {
+              companyName: 'Tech Solutions Inc.',
+              contactName: 'John Smith',
+              email: 'john@techsolutions.com'
+            },
+            beneficiary: {
+              companyName: 'Global Manufacturing Co.',
+              contactName: 'Jane Doe',
+              email: 'jane@globalmanufacturing.com'
+            },
+            terms: 'Standard terms and conditions apply',
+            status: 'active',
+            editHistory: []
+          },
+          {
+            id: '2',
+            bondAmount: '2500.00',
+            premium: '125.00',
+            effectiveDate: '2025-09-15',
+            expiryDate: '2026-09-15',
+            policyholder: {
+              companyName: 'Acme Corp',
+              contactName: 'Alice Adams',
+              email: 'alice@acmecorp.com'
+            },
+            beneficiary: {
+              companyName: 'Beta Manufacturing',
+              contactName: 'Bob Brown',
+              email: 'bob@betamfg.com'
+            },
+            terms: 'Standard terms and conditions apply',
+            status: 'pending',
+            editHistory: []
+          }
+        ];
+        return NextResponse.json(list);
+      }
+      // Production: return empty list placeholder
+      return NextResponse.json([]);
+    }
+
+    const id = last;
 
     // Log the attempt
     logAuditEvent({
       action: 'BOND_FETCH_ATTEMPT',
       resourceType: 'bond',
       resourceId: id,
-      details: { hasId: !!id },
+      details: { hasId: !!id }
     });
 
     // Check if we're using mock data
@@ -113,7 +169,7 @@ export async function GET(request: Request) {
         action: 'BOND_FETCH_SUCCESS',
         resourceType: 'bond',
         resourceId: id,
-        details: { environment: 'mock' },
+        details: { environment: 'mock' }
       });
 
       return NextResponse.json({
@@ -125,12 +181,12 @@ export async function GET(request: Request) {
         policyholder: {
           companyName: 'Tech Solutions Inc.',
           contactName: 'John Smith',
-          email: 'john@techsolutions.com',
+          email: 'john@techsolutions.com'
         },
         beneficiary: {
           companyName: 'Global Manufacturing Co.',
           contactName: 'Jane Doe',
-          email: 'jane@globalmanufacturing.com',
+          email: 'jane@globalmanufacturing.com'
         },
         terms:
           'This bond is issued subject to the terms and conditions outlined in the agreement.',
@@ -143,9 +199,9 @@ export async function GET(request: Request) {
             userId: 'wholesaler1',
             userName: 'Wholesaler User',
             action: 'Created',
-            changes: {},
-          },
-        ],
+            changes: {}
+          }
+        ]
       });
     } else {
       // In production, fetch from DRAPI/Swing addon
@@ -155,7 +211,7 @@ export async function GET(request: Request) {
         action: 'BOND_FETCH_SUCCESS',
         resourceType: 'bond',
         resourceId: id,
-        details: { environment: 'production' },
+        details: { environment: 'production' }
       });
 
       return NextResponse.json({
@@ -167,17 +223,17 @@ export async function GET(request: Request) {
         policyholder: {
           companyName: 'Tech Solutions Inc.',
           contactName: 'John Smith',
-          email: 'john@techsolutions.com',
+          email: 'john@techsolutions.com'
         },
         beneficiary: {
           companyName: 'Global Manufacturing Co.',
           contactName: 'Jane Doe',
-          email: 'jane@globalmanufacturing.com',
+          email: 'jane@globalmanufacturing.com'
         },
         terms:
           'This bond is issued subject to the terms and conditions outlined in the agreement.',
         status: 'active',
-        createdAt: new Date().toISOString(),
+        createdAt: new Date().toISOString()
       });
     }
   } catch (error) {
@@ -187,8 +243,8 @@ export async function GET(request: Request) {
       action: 'BOND_FETCH_ERROR',
       resourceType: 'bond',
       details: {
-        error: error instanceof Error ? error.message : 'Unknown error',
-      },
+        error: error instanceof Error ? error.message : 'Unknown error'
+      }
     });
 
     return NextResponse.json(
@@ -209,7 +265,7 @@ export async function DELETE(request: Request) {
       action: 'BOND_SOFT_DELETE_ATTEMPT',
       resourceType: 'bond',
       resourceId: id,
-      details: { hasId: !!id },
+      details: { hasId: !!id }
     });
 
     // Check if we're using mock data
@@ -224,8 +280,8 @@ export async function DELETE(request: Request) {
         userName: 'Current User', // In a real implementation, this would come from the session
         action: 'Soft Deleted',
         changes: {
-          status: 'soft_deleted',
-        },
+          status: 'soft_deleted'
+        }
       };
 
       // In development, just return a success response
@@ -233,7 +289,7 @@ export async function DELETE(request: Request) {
         action: 'BOND_SOFT_DELETE_SUCCESS',
         resourceType: 'bond',
         resourceId: id,
-        details: { environment: 'mock' },
+        details: { environment: 'mock' }
       });
 
       return NextResponse.json({
@@ -241,8 +297,8 @@ export async function DELETE(request: Request) {
         data: {
           id,
           status: 'soft_deleted',
-          editHistory: [editHistoryEntry], // In a real implementation, this would append to existing history
-        },
+          editHistory: [editHistoryEntry] // In a real implementation, this would append to existing history
+        }
       });
     } else {
       // In production, soft delete the bond in DRAPI
@@ -253,11 +309,11 @@ export async function DELETE(request: Request) {
         action: 'BOND_SOFT_DELETE_SUCCESS',
         resourceType: 'bond',
         resourceId: id,
-        details: { environment: 'production' },
+        details: { environment: 'production' }
       });
 
       return NextResponse.json({
-        message: `Bond ${id} soft deleted successfully`,
+        message: `Bond ${id} soft deleted successfully`
       });
     }
   } catch (error) {
@@ -267,8 +323,8 @@ export async function DELETE(request: Request) {
       action: 'BOND_SOFT_DELETE_ERROR',
       resourceType: 'bond',
       details: {
-        error: error instanceof Error ? error.message : 'Unknown error',
-      },
+        error: error instanceof Error ? error.message : 'Unknown error'
+      }
     });
 
     return NextResponse.json(
@@ -289,7 +345,7 @@ export async function PUT_RESTORE(request: Request) {
       action: 'BOND_RESTORE_ATTEMPT',
       resourceType: 'bond',
       resourceId: id,
-      details: { hasId: !!id },
+      details: { hasId: !!id }
     });
 
     // Check if we're using mock data
@@ -304,8 +360,8 @@ export async function PUT_RESTORE(request: Request) {
         userName: 'Current User', // In a real implementation, this would come from the session
         action: 'Restored',
         changes: {
-          status: 'active', // or whatever the appropriate status should be
-        },
+          status: 'active' // or whatever the appropriate status should be
+        }
       };
 
       // In development, just return a success response
@@ -313,7 +369,7 @@ export async function PUT_RESTORE(request: Request) {
         action: 'BOND_RESTORE_SUCCESS',
         resourceType: 'bond',
         resourceId: id,
-        details: { environment: 'mock' },
+        details: { environment: 'mock' }
       });
 
       return NextResponse.json({
@@ -321,8 +377,8 @@ export async function PUT_RESTORE(request: Request) {
         data: {
           id,
           status: 'active',
-          editHistory: [editHistoryEntry], // In a real implementation, this would append to existing history
-        },
+          editHistory: [editHistoryEntry] // In a real implementation, this would append to existing history
+        }
       });
     } else {
       // In production, restore the bond in DRAPI
@@ -333,11 +389,11 @@ export async function PUT_RESTORE(request: Request) {
         action: 'BOND_RESTORE_SUCCESS',
         resourceType: 'bond',
         resourceId: id,
-        details: { environment: 'production' },
+        details: { environment: 'production' }
       });
 
       return NextResponse.json({
-        message: `Bond ${id} restored successfully`,
+        message: `Bond ${id} restored successfully`
       });
     }
   } catch (error) {
@@ -347,8 +403,8 @@ export async function PUT_RESTORE(request: Request) {
       action: 'BOND_RESTORE_ERROR',
       resourceType: 'bond',
       details: {
-        error: error instanceof Error ? error.message : 'Unknown error',
-      },
+        error: error instanceof Error ? error.message : 'Unknown error'
+      }
     });
 
     return NextResponse.json(
@@ -369,7 +425,7 @@ export async function GET_HISTORY(request: Request) {
       action: 'BOND_HISTORY_ATTEMPT',
       resourceType: 'bond',
       resourceId: id,
-      details: { hasId: !!id },
+      details: { hasId: !!id }
     });
 
     // Check if we're using mock data
@@ -381,7 +437,7 @@ export async function GET_HISTORY(request: Request) {
         action: 'BOND_HISTORY_SUCCESS',
         resourceType: 'bond',
         resourceId: id,
-        details: { environment: 'mock' },
+        details: { environment: 'mock' }
       });
 
       // Return mock edit history data
@@ -392,8 +448,8 @@ export async function GET_HISTORY(request: Request) {
           userId: 'wholesaler1',
           userName: 'Wholesaler User',
           action: 'Created',
-          changes: {},
-        },
+          changes: {}
+        }
       ];
 
       return NextResponse.json(mockEditHistory);
@@ -405,7 +461,7 @@ export async function GET_HISTORY(request: Request) {
         action: 'BOND_HISTORY_SUCCESS',
         resourceType: 'bond',
         resourceId: id,
-        details: { environment: 'production' },
+        details: { environment: 'production' }
       });
 
       return NextResponse.json([]);
@@ -417,8 +473,8 @@ export async function GET_HISTORY(request: Request) {
       action: 'BOND_HISTORY_ERROR',
       resourceType: 'bond',
       details: {
-        error: error instanceof Error ? error.message : 'Unknown error',
-      },
+        error: error instanceof Error ? error.message : 'Unknown error'
+      }
     });
 
     return NextResponse.json(
