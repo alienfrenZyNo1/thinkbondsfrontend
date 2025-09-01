@@ -2,11 +2,12 @@
 
 import { useState } from 'react';
 import { UserProfile } from '@/components/user-profile';
+import { RoleSwitcher } from '@/components/role-switcher';
 import { Button } from '@/components/ui/button';
 import { Menu, Bell } from 'lucide-react';
 
 export default function Navbar({
-  onMenuToggle,
+  onMenuToggle
 }: {
   onMenuToggle?: () => void;
 }) {
@@ -37,6 +38,7 @@ export default function Navbar({
             <Bell className="h-5 w-5" />
             <span className="sr-only">Notifications</span>
           </Button>
+          <RoleSwitcher />
           <UserProfile />
         </div>
       </div>
