@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 
 export function HomeButtons() {
   const handleSignIn = () => {
-    window.location.href = '/api/auth/signin';
+    const cb = typeof window !== 'undefined' ? window.location.href : '/';
+    window.location.href = `/sign-in?callbackUrl=${encodeURIComponent(cb)}`;
   };
 
   const handleRequestAccess = () => {

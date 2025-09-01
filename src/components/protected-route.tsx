@@ -49,7 +49,13 @@ export function ProtectedRoute({
       <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-4">Authentication Required</h2>
         <p className="mb-4">You need to be signed in to access this content.</p>
-        <Button onClick={() => (window.location.href = '/api/auth/signin')}>
+        <Button
+          onClick={() => {
+            const cb =
+              typeof window !== 'undefined' ? window.location.href : '/';
+            window.location.href = `/sign-in?callbackUrl=${encodeURIComponent(cb)}`;
+          }}
+        >
           Sign In
         </Button>
       </div>
