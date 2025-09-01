@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { PinVerificationForm } from '@/components/forms/PinVerificationForm';
 import { BrokerRegistrationForm } from '@/components/forms/BrokerRegistrationForm';
 import { SuccessMessage } from '@/components/ui/success-message';
 
-export default function BrokerRegisterPage() {
+function RegisterPageInner() {
   const [step, setStep] = useState<'pin' | 'registration' | 'success'>('pin');
-  const [_email] = useState('');
+  const searchParams = useSearchParams();
+  const _email = searchParams?.get('email') ?? '';
 
   const handlePinSuccess = () => {
     setStep('registration');
@@ -43,5 +45,13 @@ export default function BrokerRegisterPage() {
         />
       )}
     </div>
+  );
+}
+
+export default function BrokerRegisterPage() {
+  return (
+    <Suspense fallback={<div className="p-6 text-center">Loading…</div>}>
+      <RegisterPageInner />
+    </Suspense>
   );
 }

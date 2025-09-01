@@ -12,7 +12,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { CompanySearch } from '@/components/ui/company-search';
@@ -26,7 +26,7 @@ interface BrokerRegistrationFormProps {
 
 export function BrokerRegistrationForm({
   onSuccess,
-  email,
+  email
 }: BrokerRegistrationFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
@@ -42,8 +42,8 @@ export function BrokerRegistrationForm({
       address: '',
       city: '',
       postcode: '',
-      country: '',
-    },
+      country: ''
+    }
   });
 
   const handleCompanySelect = (company: CreditsafeCompany) => {
@@ -62,9 +62,9 @@ export function BrokerRegistrationForm({
       const response = await fetch('/api/registration/submit', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(values)
       });
 
       const data = await response.json();
@@ -150,7 +150,7 @@ export function BrokerRegistrationForm({
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} disabled />
+                  <Input type="email" placeholder="Enter email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

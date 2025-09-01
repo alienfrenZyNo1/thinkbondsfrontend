@@ -12,7 +12,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { pinVerificationSchema } from '@/lib/zod-schemas';
@@ -24,7 +24,7 @@ interface PinVerificationFormProps {
 
 export function PinVerificationForm({
   onSuccess,
-  email,
+  email
 }: PinVerificationFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
@@ -33,8 +33,8 @@ export function PinVerificationForm({
     resolver: zodResolver(pinVerificationSchema),
     defaultValues: {
       email: email,
-      pin: '',
-    },
+      pin: ''
+    }
   });
 
   async function onSubmit(values: z.infer<typeof pinVerificationSchema>) {
@@ -44,9 +44,9 @@ export function PinVerificationForm({
       const response = await fetch('/api/registration/verify-pin', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(values)
       });
 
       const data = await response.json();
@@ -83,7 +83,7 @@ export function PinVerificationForm({
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} disabled />
+                <Input type="email" placeholder="Enter your email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
