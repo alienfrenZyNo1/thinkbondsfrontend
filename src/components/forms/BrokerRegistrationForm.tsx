@@ -47,12 +47,17 @@ export function BrokerRegistrationForm({
   });
 
   const handleCompanySelect = (company: CreditsafeCompany) => {
-    form.setValue('companyName', company.name);
-    form.setValue('companyNumber', company.number);
-    form.setValue('address', company.address);
-    form.setValue('city', company.city);
-    form.setValue('postcode', company.postcode);
-    form.setValue('country', company.country);
+    form.setValue('companyName', company.name, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true
+    });
+    form.clearErrors('companyName');
+    form.setValue('companyNumber', company.number, { shouldDirty: true });
+    form.setValue('address', company.address, { shouldDirty: true });
+    form.setValue('city', company.city, { shouldDirty: true });
+    form.setValue('postcode', company.postcode, { shouldDirty: true });
+    form.setValue('country', company.country, { shouldDirty: true });
   };
 
   async function onSubmit(values: z.infer<typeof brokerRegistrationSchema>) {
@@ -109,6 +114,8 @@ export function BrokerRegistrationForm({
                       placeholder="Search for a company..."
                     />
                   </FormControl>
+                  {/* Ensure RHF registers the value and validation clears visually */}
+                  <input type="hidden" {...form.register('companyName')} />
                   <FormMessage />
                 </FormItem>
               );
