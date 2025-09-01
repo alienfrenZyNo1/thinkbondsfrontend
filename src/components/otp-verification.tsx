@@ -14,7 +14,7 @@ interface OtpVerificationProps {
 export function OtpVerification({
   onVerify,
   isLoading,
-  error,
+  error
 }: OtpVerificationProps) {
   const [otp, setOtp] = useState('');
 
@@ -37,7 +37,11 @@ export function OtpVerification({
             id="otp"
             type="text"
             value={otp}
-            onChange={e => setOtp(e.target.value)}
+            onChange={e => {
+              // Keep only digits to avoid stray spaces or characters
+              const v = e.target.value.replace(/\D/g, '');
+              setOtp(v);
+            }}
             placeholder="Enter 6-digit code"
             maxLength={6}
             className="mt-1"
