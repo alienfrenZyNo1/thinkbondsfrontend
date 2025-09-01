@@ -87,7 +87,11 @@ export default withAuth(
           return userGroups.includes('admin') || userGroups.includes('broker');
         }
         if (pathname.startsWith('/offers')) {
-          return userGroups.includes('admin') || userGroups.includes('broker');
+          return (
+            userGroups.includes('admin') ||
+            userGroups.includes('broker') ||
+            userGroups.includes('wholesale')
+          );
         }
 
         // default: any authenticated user
